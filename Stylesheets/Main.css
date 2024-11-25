@@ -1,0 +1,3161 @@
+/*============================================================================================================
+ *  
+ *  -- Welcome to the Internet: Barbermonger Main Theme --
+ * Migrated to the Free Codes Base Skin
+ * Created By: Luna of Free Codes, https://freecodes.jcink.net
+ * License: GNU Affero General Public License v3.0, https://freecodes.jcink.net/index.php?showtopic=10
+ * ===========================================================================================================
+ * Version: 2.0.0
+ * Initial Release: 202#-##-##
+ * Last Updated: 202#-##-##
+ * ===========================================================================================================
+ * 	-- Design --
+ * Designed for viewports 320px and up. Fully mobile responsive. !!NO JCINK MOBILE MODE!! so make sure to
+ * turn that off. Font sizes will scale with screen size and the user preference in their browser. No 
+ * external javascript codes necessary. Designed for all major browsers (Chrome, Firefox, Safari, Edge, Opera).
+ *
+ * 	-- Credits --
+ * Various JS/JQuery Codes used from Lux @ JCC, Nicole @ Caution, Cory @ Jcodes, FizzyElf @ FizzyElf, 
+ * and base Jcink scripts. 
+ * All modifications and edits done by Luna. All scripts contain their credits in the comments.
+ * Icons from Font Awesome Free v6.6.0. Textures from Transparent Textures.
+ * Default avatar image is Cirque Américain in France, painted by Frederic Arthur Bridgman. Courtesy of Circopedia
+ * 
+ * 	-- Usage --
+ * This skin is licensed under the GNU AGPL v3.0. This means you are free to use, modify, and distribute as you 
+ * see fit. You may remove and replace this header with your own if desired, but make sure the license stays.
+ * 
+ * Notations and documentation have been provided throughout the CSS and HTML. Notations will always be on the
+ * line above the relevant code. You can use the Table of Contents below to navigate the CSS file. Feel free 
+ * to remove any notations you don't need.
+ *============================================================================================================ */
+
+/* --TABLE OF CONTENTS-- 
+ * CSS
+ * ├── Default Typography
+ * ├── Global Board Styles
+ * ├── Input Fields
+ * ├── Custom Navigation Bar
+ * ├── Default Jcink Styles & Pages
+ * ├── HTML Templates
+ * │   └── Search #TEMPLATES to quick jump to each section
+ * └── Media Queries
+       └── Search #MEDIA750 to quick jump to each section
+ */
+
+/* TODO: notes for me
+ 1.) the individual color set roots for each BM skin will be the only thing inside the actual stylesheets
+     otherwise thinking of making one webpage to hold the general styles in order to make updating things
+     across skins easier
+ 2.) change how the banner image loads to be background-image and controlled by variable instead of JS
+ 3.) stretch goal: rewrite Cory's tag system script */
+
+/*======================================================================
+ *  █▀▄ █▀▀ █▀▀ █▀█ █ █ █  ▀█▀  ▀█▀ █ █ █▀█ █▀█ █▀▀ █▀▄ █▀█ █▀█ █ █ █ █
+ *  █ █ █▀▀ █▀▀ █▀█ █ █ █   █    █   █  █▀▀ █ █ █ █ █▀▄ █▀█ █▀▀ █▀█  █ 
+ *  ▀▀  ▀▀▀ ▀   ▀ ▀ ▀▀▀ ▀▀▀ ▀    ▀   ▀  ▀   ▀▀▀ ▀▀▀ ▀ ▀ ▀ ▀ ▀   ▀ ▀  ▀ 
+ * --Default Typography--
+ *======================================================================*/
+
+:root {
+  /* Black & White colors */
+  --eerie-black: #222222;
+  --anti-flash-white: #efefef;
+
+  /* Light Mode - WTTI */
+  --wheat: #ebd1ae;
+  --peach-yellow: #eed8a1;
+  --midnight-green: #004649;
+
+  /* Dark Mode - WTTI */
+  --raisin-black: #121325;
+  --space-cadet: #1d1e38;
+  --dun: #d4be9f;
+  --cinnabar: #ec5d37;
+  --verdigris: #0da9b1;
+
+  /* Font List */
+  --arial: 'Arial', sans-serif;
+  --courier: 'Courier', monospace;
+
+  /* Font Sizes */
+  --size14px: 1.4rem;
+  --size16px: 1.6rem;
+  --size24px: 2.4rem;
+  --size35px: 3.5rem;
+}
+
+:root {
+  /* Font Families */
+  --font-family__title: var(--arial);
+  --font-family__subheading: var(--arial);
+  --font-family__body: var(--arial);
+  --font-family__accent: var(--courier);
+
+  /* Font Sizes */
+  --textsize__title: var(--size35px);
+  --textsize__subheading: var(--size24px);
+  --textsize-body__primary: var(--size16px);
+  --textsize-body__secondary: var(--size14px);
+
+  /* Dark Mode Images */
+  --theme__image__background-main: url('https://files.jcink.net/uploads/barbermonger/Textures/white_diamond.png');
+  --theme__image__logo: url('https://files.jcink.net/uploads/barbermonger/Logos/CircusLogoDark.png');
+
+  /* Dark Mode Colors */
+  --theme__background-main: var(--raisin-black);
+  --theme__background-contrast: var(--space-cadet);
+
+  --theme__color-primary: var(--cinnabar);
+  --theme__color-secondary: var(--verdigris);
+  --theme__color-accent: var(--dun);
+
+  --theme__text-main: var(--dun);
+  --theme__text-contrast: var(--dun);
+}
+
+[data-theme='light'] {
+  color-scheme: light;
+
+  /* Light Mode Images */
+  --theme__image__background-main: url('https://files.jcink.net/uploads/barbermonger/Textures/white_diamond_dark.png');
+  --theme__image__logo: url('https://files.jcink.net/uploads/barbermonger/Logos/CircusLogoLight.png');
+
+  /* Light Mode Colors */
+  --theme__background-main: var(--wheat);
+  --theme__background-contrast: var(--peach-yellow);
+
+  --theme__color-primary: var(--verdigris);
+  --theme__color-secondary: var(--cinnabar);
+  --theme__color-accent: var(--dun);
+
+  --theme__text-main: var(--midnight-green);
+  --theme__text-contrast: var(--midnight-green);
+}
+
+/*=====================================================
+   *  █▀▀ █   █▀█ █▀▄ █▀█ █    █▀▀ ▀█▀ █ █ █   █▀▀ █▀▀
+   *  █ █ █   █ █ █▀▄ █▀█ █    ▀▀█  █   █  █   █▀▀ ▀▀█
+   *  ▀▀▀ ▀▀▀ ▀▀▀ ▀▀  ▀ ▀ ▀▀▀  ▀▀▀  ▀   ▀  ▀▀▀ ▀▀▀ ▀▀▀
+   *  --Global Board Styles-- 
+   *=====================================================*/
+
+html {
+  overflow-x: auto;
+  /* sets the default font-size down to 10px on the root on all devices, 
+     * this makes the math for font-sizes easy, 
+     * ex. 16px = 1.6rem, 30px = 3.0rem */
+  font-size: 62.5%;
+}
+
+form {
+  display: inline;
+}
+
+body {
+  /* box model */
+  margin: 0px;
+  padding: 0px;
+
+  /* background */
+  background: var(--theme__background-main);
+  background-image: var(--theme__image__background-main);
+
+  /* type */
+  font-family: var(--font-family__body);
+  font-size: var(--textsize-body__primary);
+  text-align: center;
+  color: var(--theme__text-main);
+}
+
+#wrapper {
+  /* box model */
+  max-width: 1200px;
+  margin: 0px auto 30px;
+  padding-bottom: 5px;
+
+  /* type */
+  text-align: left;
+}
+
+#header,
+#innerwrapper,
+#footer {
+  padding: 0 10px;
+}
+
+/* this sets the background color across most of the site, 
+  change it here and it will change in all these places. 
+  Tread carefully. */
+.tableborder,
+.category,
+#subforum-list,
+#boardstats,
+.main-profile,
+.memberlist,
+#copyright {
+  /* box model */
+  border: 1px solid var(--theme__color-primary);
+
+  /* background */
+  background: var(--theme__background-contrast);
+}
+
+/*------------------------------------*
+    LOGO
+  *-------------------------------------*/
+#logo {
+  /* box model */
+  margin-top: 5px;
+  padding: 20px 0px 35%;
+  width: 100%;
+  max-width: 1200px;
+
+  /* layout */
+  display: block;
+
+  /* background */
+  background-image: var(--theme__image__logo);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+#logo a,
+#logo a:hover {
+  /* box model */
+  margin-left: 10px; /* Adjust spacing between image and text */
+
+  /* type */
+  font-family: var(--font-family__title);
+  font-size: var(--textsize__title);
+  font-weight: bold;
+}
+
+/*------------------------------------*
+      Links
+  *-------------------------------------*/
+
+a:link,
+a:visited,
+a:active {
+  font-family: var(--font-family__subheading);
+  text-decoration: none;
+  color: var(--theme__color-primary);
+}
+
+a:hover {
+  color: var(--theme__color-secondary);
+}
+
+/* this is for accessibility purposes when there is no title or content */
+a:not([name]):empty {
+  display: none;
+}
+
+/*------------------------------------*
+      Main Title
+  *-------------------------------------*/
+.maintitle {
+  /* box model */
+  padding: 8px;
+
+  /* background */
+  background: var(--theme__color-primary);
+
+  /* type */
+  font-family: var(--font-family__title);
+  font-size: var(--textsize__subheading);
+  font-weight: bold;
+  color: var(--theme__text-contrast);
+}
+
+.maintitle a:link,
+.maintitle a:visited,
+.maintitle a:active {
+  color: var(--theme__text-contrast);
+}
+
+.maintitle a:hover {
+  text-decoration: underline;
+}
+
+.titlemedium {
+  /* box model */
+  margin: 0px;
+  padding: 2px 6px;
+
+  /* type */
+  font-weight: bold;
+}
+
+/****************************************
+    QUOTE and CODE BBCode boxes
+   ****************************************/
+
+#QUOTE,
+#CODE {
+  /* box model */
+  margin-top: 2px;
+  padding: 2px;
+  border: 1px solid var(--theme__color-secondary);
+
+  /* background */
+  background: var(--theme__background-main);
+
+  /* type */
+  font-family: var(--font-family__body);
+  font-size: var(--textsize-body__primary);
+  color: var(--theme__text-main);
+
+  /* other */
+  white-space: normal;
+}
+
+#CODE {
+  font-family: var(--font-family__accent);
+}
+
+/* for use with custom clipboard script, if you're not using that script you can remove this */
+.button-small.copy-button {
+  /* box model */
+  max-width: 100px;
+  padding: 0px 7px;
+
+  /* background */
+  background: var(--theme__color-secondary);
+
+  /* other */
+  box-shadow: none;
+}
+
+/**********************************************
+    Input buttons, e.g. submit, text input, etc
+   **********************************************/
+
+.button-large,
+.button-large.closed,
+.button-small {
+  /* box model */
+  border-radius: 3px;
+
+  /* type */
+  font-weight: bold;
+  color: var(--theme__text-contrast);
+}
+
+.button-large,
+.button-large.closed {
+  /* box model */
+  min-width: 75px;
+  margin: 0px 5px 0px 5px;
+  padding: 5px 12px;
+
+  /* layout */
+  display: inline-block;
+
+  /* type */
+  text-align: center;
+}
+
+.button-large,
+.button-small {
+  /* background */
+  background: var(--theme__color-primary);
+
+  /* other */
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+}
+
+.button-large.closed {
+  /* box model */
+  border: 1px solid var(--theme__color-secondary);
+
+  /* background */
+  background: var(--theme__color-secondary);
+}
+
+.button-small {
+  /* box model */
+  min-width: 50px;
+  max-width: 80px;
+  margin: 3px;
+  padding: 4px 7px;
+
+  /* type */
+  font-size: var(--textsize-body__secondary);
+  text-decoration: none;
+}
+
+.post-buttons-top {
+  margin-top: 3px;
+}
+
+.forminput,
+.codebuttons,
+.textinput,
+.radiobutton,
+.checkbox {
+  /* box model */
+  padding: 2px;
+  border: 1px solid var(--theme__color-secondary);
+  border-radius: 2px;
+  vertical-align: middle;
+
+  /* background */
+  background: var(--theme__background-contrast);
+
+  /* type */
+  font-size: var(--textsize-body__secondary);
+  color: var(--theme__color-secondary);
+
+  /* other */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4) inset;
+}
+
+/*******************************
+    Pagination e.g. [1],2,3 ...
+   *******************************/
+
+.pagination .pagination_current,
+.pagination a {
+  padding: 2px 5px;
+}
+
+.pagination .pagination_current,
+.pagination a:link,
+.pagination a:visited,
+.pagination a:active {
+  /* box model */
+  padding: 0 6px;
+  border: 1px solid var(--theme__color-primary);
+  border-radius: 3px;
+
+  /* background */
+  background: var(--theme__color-primary);
+
+  /* type */
+  color: var(--theme__text-contrast);
+}
+
+.pagination a:hover {
+  background: var(--theme__color-secondary);
+}
+
+.pagination a:link,
+.pagination a:visited,
+.pagination a:active,
+.pagination a:hover {
+  /* type */
+  text-decoration: none;
+  color: var(--theme__text-contrast);
+
+  /* other */
+  box-shadow: 0pt 2px 3px rgba(0, 0, 0, 0.4);
+}
+
+.pagination_pagetxt {
+  display: none;
+}
+
+/*==================================================================================================
+   *  ▀█▀ █▀█ █▀█ █ █ ▀█▀  █▀▀ ▀█▀ █▀▀ █   █▀▄ █▀▀
+   *   █  █ █ █▀▀ █ █  █   █▀▀  █  █▀▀ █   █ █ ▀▀█
+   *  ▀▀▀ ▀ ▀ ▀   ▀▀▀  ▀   ▀   ▀▀▀ ▀▀▀ ▀▀▀ ▀▀  ▀▀▀
+   *  --Input Fields-- 
+   * The input fields are almost wholly responsible for how bad a mobile view of desktop is on Jcink
+   * Fixing these solves a good 75% of the design problems when trying to style pages that aren't
+   * included on our HTML Templates list. Because there are so many, rather than keeping them with
+   * their individual pages, I have combined them all together here in this section with notes of
+   * what page they came from. A change to the CSS properties here will change them everywhere as a
+   * result. Tread carefully.
+   *==================================================================================================*/
+
+/*------------------------------------*
+    GLOBAL - these apply for all devices
+  *-------------------------------------*/
+
+input[type='submit'],
+input[type='button'],
+input[type='reset'] {
+  /* box model */
+  margin: 3px;
+  padding: 2px 6px;
+  border: none;
+  border-radius: 3px;
+
+  /* background */
+  background: var(--theme__color-primary);
+
+  /* type */
+  font-size: var(--textsize-body__secondary);
+  font-weight: bold;
+  text-decoration: none;
+  color: var(--theme__text-contrast);
+
+  /* other */
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+}
+
+/* used on login and registration */
+#registration-form input[name='UserName'],
+  #Login input[name='UserName'],
+  #Login input[name='PassWord'],
+  #registration-form select[name='time_offset'],
+  /* form fields on posting pages */
+  input[name='TopicTitle'],
+  input[name='TopicDesc'],
+  /* used for posting pages but used for signature & create message boxes also */
+  textarea[name='Post'],
+  input[type='file'],
+  /* New Poll specific styling */
+  input[name='pollq'],
+  textarea[name='PollAnswers'] {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+input[type='file'] {
+  /* to keep the attachments field from filling the whole row on desktop */
+  max-width: 264px;
+}
+
+/* this one breaks it SO BAD, this is the Guided Prompt textbox */
+input[name='helpbox'] {
+  display: none;
+  /* if you do want it displayed, this cuts off the text but it prevents the overflow on mobile 
+    width: 100% !important;
+    max-width: 80%;
+    box-sizing: border-box;
+    */
+}
+
+#registration-form input[name='UserName'],
+#Login input[name='UserName'],
+#Login input[name='PassWord'],
+#registration-form select[name='time_offset'] {
+  max-width: 80%;
+}
+
+/*------------------------------------*
+    #MEDIA750 - Input Fields 
+    MOBILE - mobile devices ONLY
+  *-------------------------------------*/
+
+@media only screen and (max-width: 750px) {
+  /* UserCP */
+  #UserCP input[type='text'],
+    #UserCP textarea.forminput,
+    /* front page notes box */
+    textarea[name='notes'],
+    /* signature */
+    #UserCP textarea[name='Post'],
+    /* Subaccounts */ 
+    #UserCP input[type='password'],
+    /* Board Settings */
+    select[name='u_timezone'],
+    /* Messenger */
+    input[name='entered_name'],
+    textarea[name='carbon_copy'],
+    input[name='msg_title'],
+    /* Search */
+    input[name='keywords'],
+    input[name='namesearch'],
+    /* ModCP */
+    #modcp select[name='df'],
+    #modcp input[name='dateline'],
+    #modcp select[name='topic_type'],
+    #modcp input[name='posts'],
+    #modcp input[name='member'],
+    #modcp input[type='text'][name='name'],
+    /* Topic Row 'Jump to Forum' box */
+    select[name='f'],
+    /* Edit Poll */
+    input[name='poll_question'],
+    input[name='POLL_0'],
+    input[name='POLL_1'],
+    input[name='POLL_2'],
+    input[name='POLL_3'],
+    input[name='POLL_4'],
+    input[name='POLL_5'],
+    input[name='POLL_6'],
+    input[name='POLL_7'],
+    input[name='POLL_8'],
+    input[name='POLL_9'],
+    input[name='POLL_10'] {
+    width: 100%;
+    max-width: 80%;
+    box-sizing: border-box;
+  }
+
+  /* puts open tags on the same line */
+  #UserCP input[name='tagcount'] {
+    width: unset;
+  }
+
+  /* fixes width on ModCP */
+  #modcp select[name='topic_type'] {
+    max-width: unset;
+  }
+}
+
+/*------------------------------------*
+    #MEDIA750 - Input Fields
+    DESKTOP - over 750px screens ONLY
+  *-------------------------------------*/
+
+@media only screen and (min-width: 750px) {
+  /* form fields on posting pages */
+  input[name='TopicTitle'],
+    input[name='TopicDesc'],
+    /* New Poll specific styling */
+    input[name='pollq'],
+    textarea[name='PollAnswers'],
+    textarea[name='Post'] {
+    max-width: 80%;
+  }
+
+  .quick-edit textarea[name='Post'] {
+    max-width: 100%;
+  }
+}
+
+/*============================================================================================================
+   *  █▀▄ █▀▀ █▀▀ █▀█ █ █ █  ▀█▀  █▀█ █▀█ █▀▀ █▀▀ █▀▀
+   *  █ █ █▀▀ █▀▀ █▀█ █ █ █   █   █▀▀ █▀█ █ █ █▀▀ ▀▀█
+   *  ▀▀  ▀▀▀ ▀   ▀ ▀ ▀▀▀ ▀▀▀ ▀   ▀   ▀ ▀ ▀▀▀ ▀▀▀ ▀▀▀
+   * --Default Jcink Styles & Pages-- 
+   * These are primarily classes that are part of jcink pages that you can't edit without JavaScript/JQuery 
+   * and are used in places you don't expect, so styling the 'default' risks changing something on a 
+   * completely different page that you won't know about until you do it. Tried to keep the use of these 
+   * 'global' styles minimal for this skin, and instead style them on the pages where they're used.
+   *
+   * The pages are all Jcink pages that we do not have access to edit as part of our HTML Template set.
+   * They have all been made 100% mobile responsive based on existing jcink html structures. One script
+   * was used to style the Mod CP, but everything else is 100% pure vanilla jcink.
+   *============================================================================================================*/
+
+/****************************************
+    Default Header Area
+   ****************************************/
+
+/* most of the default header stuff we don't use in favor of the custom nav bar */
+#header > br,
+#logostrip,
+#submenu,
+#userlinks {
+  display: none;
+}
+
+/*------------------------------------*
+    #RECENT_TOPICS
+  *-------------------------------------*/
+
+#recent-topics tr {
+  /* box model */
+  padding: 5px;
+
+  /* layout */
+  display: flex;
+  flex-direction: column;
+}
+
+#recent-topics tr > td.recent-topics-info,
+#recent-topics tr > td.recent-topics-date {
+  /* box model */
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/****************************************
+      Default Footer Area
+   *****************************************/
+
+/* this can be hidden because these links are included in the HTML template for the board stats */
+#delcookiesrow {
+  display: none;
+}
+
+#mark-as-read-subto {
+  /* box model */
+  max-width: 350px;
+  padding: 3px;
+  border: 1px solid var(--theme__color-secondary);
+
+  /* background */
+  background: var(--theme__background-contrast);
+
+  /* type */
+  font-size: var(--textsize-body__secondary);
+}
+
+/****************************************
+     Viewing Online List
+   *****************************************/
+
+#Online table tr:first-child th.titlemedium {
+  background: var(--theme__background-main);
+}
+
+#Online table tr:first-child th.titlemedium:last-child,
+#Online table tr td.row1:last-child {
+  display: none;
+}
+
+/****************************************
+    Redirect Screen 
+    (for login, registration, search, etc)
+  *****************************************/
+
+#redirect-screen .tablefill {
+  border: 1px solid var(--theme__color-accent);
+  padding: 6px;
+}
+
+/*------------------------------------*
+    #UserCP - Global Styles
+    starts from
+    /index.php?act=UserCP&CODE=00
+  *-------------------------------------*/
+
+#ucpmenu,
+#ucpcontent {
+  /* box model */
+  border: 1px solid var(--theme__color-secondary);
+
+  /* background */
+  background: var(--theme__background-contrast);
+}
+
+/****************************************
+    Alerts Area
+    /index.php?act=UserCP&CODE=alerts
+    NOTE: the only thing that breaks the alert 
+    screen is the hardcoded 300px width style
+   *****************************************/
+
+#UserCP.code-alerts table.tableborder {
+  width: 100% !important;
+  max-width: 300px;
+}
+
+/*-----------------------------------------------------------------------------------------*
+    #ModCP - Global Styles
+    starts from /index.php?act=modcp
+  
+    NOTE: this styling can only be accomplished via a script because the modcp is a mess 
+    and there have been no updates to it to add targetable selectors. The script is included
+    as part of this skin and adds a span class of header-name to each item in the former 
+    table row and wraps the tables in a class called .modcp-table (which is needed because 
+    there are MANY nested tables in the modcp). 
+    
+    If you aren't using the script you can get rid of this whole section
+  *------------------------------------------------------------------------------------------*/
+
+/* we only want to show the new headers on mobile devices */
+#modcp span.header-name {
+  display: none;
+}
+
+/* end Mod CP */
+
+/*------------------------------------*
+     Table Classes
+  *-------------------------------------*/
+
+/* Topic Options dropdown on post view */
+#topic_open {
+  margin-top: 5px;
+}
+
+#topic_open > .tableborder > .maintitle {
+  font-size: var(--textsize-body__primary);
+}
+
+/* Fast Reply */
+#qr_open .tablepad {
+  margin-top: 5px;
+}
+
+/* on active topics table */
+.tablebasic {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+/* on Prune Posts Mod CP */
+.tablepad {
+  padding: 6px;
+}
+
+.row1,
+.row3,
+.row4,
+.row2 {
+  padding: 5px;
+}
+
+.darkrow1,
+.darkrow2,
+.darkrow3 {
+  background: var(--theme__background-main);
+}
+
+td.darkrow2 {
+  display: none;
+}
+
+.darkrow3 {
+  padding: 3px;
+}
+
+.dlight {
+  background: var(--theme__background-main);
+}
+
+/****************************************
+    Form table cell styles, left/right/top
+   ****************************************/
+
+.pformstrip {
+  /* box model */
+  margin-top: 1px;
+  padding: 2px 5px;
+
+  /* background */
+  background: var(--theme__background-main);
+
+  /* type */
+  font-weight: bold;
+}
+
+/* .pformleftw used in the Prune Posts Mod CP
+   * & login page */
+.pformleft,
+.pformright,
+.pformleftw {
+  margin-top: 1px;
+  padding: 6px;
+}
+
+/****************************************
+       Default Topic View styles
+   ****************************************/
+
+.postlinksbar {
+  /* box model */
+  margin-top: 1px;
+  padding: 5px 15px 5px;
+
+  /* background */
+  background: var(--theme__background-main);
+
+  /* type */
+  font-size: var(--textsize-body__secondary);
+  text-align: left;
+}
+
+.signature {
+  /* type */
+  font-size: var(--textsize-body__secondary);
+  line-height: 150%;
+  color: var(--theme__color-secondary);
+}
+
+.activeuserstrip {
+  /* box model */
+  padding: 6px;
+
+  /* background */
+  background: var(--theme__background-main);
+}
+
+/********************************
+    Miscellaneous
+    Note: this category is called Miscellaneous
+    by Jcink, I didn't change the name of the section
+   ********************************/
+
+/* image tag styles */
+img {
+  border: 0px;
+  vertical-align: middle;
+  max-width: 100%;
+}
+img.attach {
+  padding: 2px;
+  border: 2px outset var(--theme__color-accent);
+}
+
+/* for #Messenger, global style */
+#Msg .postdetails > img {
+  /* box model */
+  width: 31.25vw;
+  height: 31.25vw;
+  max-width: 250px;
+  max-height: 250px;
+  border: 1px solid var(--theme__color-primary);
+  border-radius: 3px;
+  vertical-align: baseline;
+
+  /* other */
+  object-fit: cover;
+}
+
+/* Forum Descriptions
+    * this is used in a lot more places that just the forum descriptions
+    * but I did not make a list because I didn't realize until it was
+    * too late */
+.desc,
+span.small {
+  font-size: var(--textsize-body__secondary);
+}
+
+/* Edited by text */
+.edit {
+  font-size: var(--textsize-body__secondary);
+}
+
+/* Skin selector dropdown */
+#skin_selector {
+  margin: 10px 0;
+}
+
+/* Highlighted text in search */
+.searchlite {
+  background: yellow;
+  font-weight: bold;
+  color: red;
+}
+
+/*========================================================
+   *  █▀▀ █ █ █▀▀ ▀█▀ █▀█ █▄█  █▀█ █▀█ █ █  █▀▄ █▀█ █▀▄
+   *  █   █ █ ▀▀█  █  █ █ █ █  █ █ █▀█ ▀▄▀  █▀▄ █▀█ █▀▄
+   *  ▀▀▀ ▀▀▀ ▀▀▀  ▀  ▀▀▀ ▀ ▀  ▀ ▀ ▀ ▀  ▀   ▀▀  ▀ ▀ ▀ ▀
+   * --Custom Navigation Bar-- 
+   * This is a 100% custom navigation bar to replace all 
+   * jcink defaults. If you aren't using the custom nav bar
+   * you can get rid of this whole section (make sure to
+   * get rid of the script in the Board Wrappers and the
+   * extra CSS in the desktop media query too)
+   *========================================================*/
+
+/*------------------------------------*
+     Wrapper
+  *-------------------------------------*/
+#navigation-wrapper {
+  /* box model */
+  width: 100%;
+  padding: 5px 0;
+  border-bottom: 1px solid var(--theme__color-primary);
+
+  /* background */
+  background-color: var(--theme__background-contrast);
+
+  /* layout */
+  position: sticky;
+  top: 0;
+  z-index: 9999;
+
+  /* other */
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+}
+
+#navigation {
+  /* box model */
+  margin: auto;
+  padding: 0 10px;
+
+  /* layout */
+  display: grid;
+  align-items: center;
+  justify-items: stretch;
+  grid-template-columns: 0.5fr 1fr 0.5fr;
+  grid-template-areas:
+    'nav-icons-left  mobile-menu  nav-icons-right'
+    'breadcrumbs     breadcrumbs  breadcrumbs';
+}
+
+/*------------------------------------*
+     Top Bar & Breadcrumbs
+  *-------------------------------------*/
+.nav__icons--left,
+.nav__icons--right {
+  /* layout */
+  display: flex;
+
+  /* type */
+  color: var(--theme__color-primary);
+  cursor: pointer;
+}
+
+.nav__icons--right {
+  /* layout */
+  align-items: flex-end;
+  justify-content: flex-end;
+}
+
+.nav__icons--left .icons,
+.nav__icons--right .icons {
+  /* box model */
+  width: 30px;
+
+  /* type */
+  font-size: var(--textsize__subheading);
+  text-align: center;
+}
+
+.nav__menu {
+  margin: auto;
+}
+
+.nav__menu button {
+  /* box model */
+  height: 30px;
+  padding-bottom: 2px;
+  border: none;
+
+  /* background */
+  background: transparent;
+
+  /* layout */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* type */
+  font-family: var(--font-family__subheading);
+  font-size: var(--textsize__subheading);
+  text-transform: uppercase;
+  color: var(--theme__color-primary);
+  cursor: pointer;
+}
+
+.nav__menu button > i {
+  margin-left: 5px;
+}
+
+.nav__menu button:hover {
+  color: var(--theme__color-secondary);
+}
+
+.button-action .rotate {
+  transition: all 0.5s linear;
+}
+
+.button-action .rotate.down {
+  transform: rotate(-180deg);
+}
+
+#navi {
+  padding-top: 5px;
+}
+
+#navi > br {
+  display: none;
+}
+
+#navstrip {
+  text-align: center;
+}
+
+/*------------------------------------*
+     Dropdown Menu
+  *-------------------------------------*/
+
+#nav__userlinks {
+  /* box model */
+  border-radius: 10px 10px 10px 10px;
+
+  /* background */
+  background: var(--theme__background-contrast);
+
+  /* layout */
+  display: grid;
+  justify-items: start;
+  grid-template-columns: 1.1fr 1fr;
+  grid-column-gap: 5px;
+  grid-row-gap: 15px;
+  grid-template-areas:
+    'quicklink-1     quicklink-2'
+    'quicklink-3     quicklink-4'
+    'quicklink-5     quicklink-6'
+    'user-info       user-info'
+    'admin-cp        mod-cp'
+    'view-profile    my-controls'
+    'topics          messages'
+    'view-new-posts  alerts';
+}
+
+/* This will hide your member/admin/mod stuff from guests */
+#nav__userlinks .mcp-0,
+#nav__userlinks .acp-0,
+#nav__userlinks .m-2 {
+  display: none;
+}
+
+/* this will show the guest stuff to ONLY guests */
+#nav__userlinks .g-2 {
+  display: block !important;
+}
+
+#nav__userlinks .g-2.logging {
+  margin-top: 5px;
+}
+
+#nav__userlinks .g-2.logging a:first-child {
+  margin-right: 55px;
+}
+
+#nav__userlinks i {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.nav__userlinks--users {
+  /* box model */
+  width: 100%;
+  /* layout */
+  display: inline-grid;
+  justify-items: center;
+  /* type */
+  word-break: break-word;
+}
+
+.nav__userlinks--users strong {
+  /* type */
+  font-family: var(--font-family__title);
+  font-size: var(--textsize__subheading);
+  letter-spacing: 1px;
+  text-align: center;
+  text-transform: uppercase;
+  color: var(--theme__color-secondary);
+}
+
+.account-switcher {
+  margin-top: 10px;
+}
+
+#nav__userlinks.dropdown-menu {
+  /* box model */
+  width: 85%;
+  max-height: 0;
+  margin: auto;
+  /* layout */
+  position: fixed;
+  top: 80px;
+  left: calc(100% - 94%);
+  /* other */
+  overflow-x: hidden;
+  overflow-y: hidden;
+  transition: max-height, 0.5s ease-in-out;
+}
+
+#nav__userlinks.dropdown-menu.display-menu {
+  /* box model */
+  max-height: 350px;
+  padding: 10px 5px 10px;
+  border: 1px solid var(--theme__color-primary);
+}
+
+/* just to make the menu look a little better on mobile
+TODO: move to media queries */
+@media only screen and (min-width: 375px) {
+  .view-profile,
+  .active-topics,
+  .view-new-posts,
+  .admin-cp,
+  .quicklinks-1,
+  .quicklinks-3,
+  .quicklinks-5 {
+    margin-left: clamp(15px, 20%, 115px);
+  }
+}
+
+/* Grid Set Up */
+/* Top level nav grid */
+.nav__icons--left {
+  grid-area: nav-icons-left;
+}
+
+.nav__icons--right {
+  grid-area: nav-icons-right;
+}
+
+.nav__menu {
+  grid-area: mobile-menu;
+}
+
+#navi {
+  grid-area: breadcrumbs;
+}
+
+.nav__userlinks--users {
+  grid-area: user-info;
+}
+
+/* menu grid */
+.admin-cp {
+  grid-area: admin-cp;
+}
+
+.mod-cp {
+  grid-area: mod-cp;
+}
+
+.view-profile {
+  grid-area: view-profile;
+}
+
+.my-controls {
+  grid-area: my-controls;
+}
+
+.active-topics {
+  grid-area: topics;
+}
+
+.my-messages {
+  grid-area: messages;
+}
+
+.view-new-posts {
+  grid-area: view-new-posts;
+}
+
+.mu-alerts {
+  grid-area: alerts;
+}
+
+.quicklinks-1 {
+  grid-area: quicklink-1;
+}
+
+.quicklinks-2 {
+  grid-area: quicklink-2;
+}
+
+.quicklinks-3 {
+  grid-area: quicklink-3;
+}
+
+.quicklinks-4 {
+  grid-area: quicklink-4;
+}
+
+.quicklinks-5 {
+  grid-area: quicklink-5;
+}
+
+.quicklinks-6 {
+  grid-area: quicklink-6;
+}
+
+/* end custom nav */
+
+/*========================================================*
+   *  █ █ ▀█▀ █▄█ █    ▀█▀ █▀▀ █▄█ █▀█ █   █▀█ ▀█▀ █▀▀ █▀▀
+   *  █▀█  █  █ █ █     █  █▀▀ █ █ █▀▀ █   █▀█  █  █▀▀ ▀▀█
+   *  ▀ ▀  ▀  ▀ ▀ ▀▀▀   ▀  ▀▀▀ ▀ ▀ ▀   ▀▀▀ ▀ ▀  ▀  ▀▀▀ ▀▀▀
+   * --Jcink HTML Templates-- 
+   * All of the Jcink HTML Templates we currently have.
+   * They are listed in the same order as in the HTML
+   * Templates List, which is alphabetical.
+  *========================================================*/
+
+/*------------------------------------*
+    #TEMPLATES - BOARD_STATS
+  *-------------------------------------*/
+
+#board-stats__grid {
+  /* box model */
+  padding: 5px;
+
+  /* layout */
+  display: grid;
+  align-items: center;
+  grid-template-areas:
+    'links'
+    'online-now'
+    'stats'
+    'birthdays'
+    'online-today';
+}
+
+.boardstats__online-now > .maintitle,
+.boardstats__links > .maintitle,
+.boardstats__birthdays > .maintitle,
+.boardstats__stats > .maintitle,
+.boardstats__online-today > .maintitle {
+  /* box model */
+  margin: 5px 0;
+
+  /* type */
+  font-size: var(--textsize-body__primary);
+}
+
+.online-now__grid,
+.links__grid,
+.birthdays__grid,
+.stats__grid,
+.online-today__grid {
+  /* layout */
+  display: grid;
+  align-items: center;
+  gap: 5px;
+  grid-template-columns: 0.1fr 1fr;
+}
+
+.links__grid {
+  /* box model */
+  margin-left: 5px;
+
+  /* layout */
+  grid-template-columns: 1fr 1fr;
+  row-gap: 10px;
+}
+
+.boardstats--macro {
+  text-align: center;
+}
+
+.boardstats--macro > .users-macro > i {
+  line-height: 140%;
+}
+
+/* Online users list row */
+.online-now--thin {
+  /* box model */
+  min-height: 20px;
+  margin: 2px 0px 2px 0px;
+  padding: 6px 0px 6px 0px;
+  border-top: 1px solid var(--theme__color-secondary);
+  border-bottom: 1px solid var(--theme__color-secondary);
+  /* type */
+  line-height: 140%;
+}
+
+/* Grid Set Up */
+.boardstats__online-now {
+  grid-area: online-now;
+}
+
+.boardstats__links {
+  grid-area: links;
+}
+
+.boardstats__birthdays {
+  grid-area: birthdays;
+}
+
+.boardstats__stats {
+  grid-area: stats;
+}
+
+.boardstats__online-today {
+  grid-area: online-today;
+}
+
+/*------------------------------------*
+    #TEMPLATES - CATEGORY_HEADERS
+  *-------------------------------------*/
+.category > .maintitle {
+  /* layout */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/*------------------------------------*
+    #TEMPLATES - FORUM_ROWS
+  *-------------------------------------*/
+
+.forum__row {
+  /* box model */
+  padding: 5px;
+  border: 1px solid var(--theme__background-main);
+
+  /* layout */
+  display: grid;
+  align-items: center;
+  row-gap: 5px;
+  grid-template-areas:
+    'info       info       info'
+    'subforums  subforums  subforums'
+    'macro      topics     replies'
+    'lastpost   lastpost   lastpost';
+}
+
+.forum__row--macro,
+.forum__row--topics,
+.forum__row--replies {
+  text-align: center;
+}
+
+span.subforums > br {
+  display: none;
+}
+
+span.subforums > a {
+  text-decoration: underline;
+}
+
+/* Grid Set Up */
+.forum__row--macro {
+  grid-area: macro;
+}
+
+.forum__row--info {
+  grid-area: info;
+}
+
+.forum__row--subforums {
+  grid-area: subforums;
+}
+
+.forum__row--topics {
+  grid-area: topics;
+}
+
+.forum__row--replies {
+  grid-area: replies;
+}
+
+.forum__row--last-post-info {
+  grid-area: lastpost;
+}
+
+/* jcink macro class */
+.no-topics-row {
+  /* box model */
+  margin: 5px;
+  padding: 10px 0;
+
+  /* type */
+  font-weight: bold;
+  text-align: center;
+}
+
+/*------------------------------------*
+    #TEMPLATES - MAIN_PROFILE
+  *-------------------------------------*/
+
+.mainprofile__row.header > .maintitle {
+  /* box model */
+  padding-left: 20px;
+
+  /* type */
+  font-size: var(--textsize__title);
+
+  /* other */
+  overflow-wrap: anywhere;
+}
+
+.mainprofile__row.header .header--account-info {
+  /* layout */
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  column-gap: 10px;
+
+  /* type */
+  font-size: var(--textsize-body__secondary);
+  font-weight: normal;
+}
+
+.header--account-info > span.title {
+  /* box model */
+  padding: 5px 0;
+
+  /* type */
+  font-family: var(--font-family__accent), system-ui;
+  font-style: italic;
+  text-align: center;
+}
+
+.main-profile.wrapper {
+  /* box model */
+  padding: 9px;
+
+  /* layout */
+  display: grid;
+  grid-template-columns: min-content 1fr;
+  gap: 10px;
+  grid-template-areas:
+    'avatar       icons'
+    'fields       fields'
+    'stats        stats'
+    'subaccounts  subaccounts'
+    'awards       awards'
+    'about-me     about-me'
+    'signature    signature'
+    'go-back      go-back';
+}
+
+.mainprofile__row.icons {
+  /* layout */
+  display: grid;
+  align-items: center;
+  justify-content: start;
+  grid-template-columns: 1fr;
+
+  /* type */
+  text-transform: uppercase;
+}
+
+.mainprofile__row.avatar {
+  margin: auto;
+}
+
+.mainprofile__row.avatar > img {
+  /* box model */
+  width: 31.25vw;
+  height: 31.25vw;
+  max-width: 250px;
+  max-height: 250px;
+  border: 1px solid var(--theme__color-primary);
+  border-radius: 3px;
+
+  /* other */
+  object-fit: cover;
+}
+
+.mainprofile__row.fields,
+.mainprofile__row.stats,
+.mainprofile__row.subaccounts,
+.mainprofile__row.awards {
+  /* box model */
+  padding: 5px 7px;
+  border-radius: 5px;
+
+  /* background */
+  background: var(--theme__background-main);
+}
+
+.mainprofile__row.fields,
+.mainprofile__row.stats {
+  /* layout */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.mainprofile__row.fields > div {
+  overflow-wrap: anywhere;
+}
+
+.mainprofile__row.subaccounts {
+  /* layout */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.mainprofile__row.awards {
+  text-align: center;
+}
+
+.mainprofile__row.awards > .awards-box {
+  /* box model */
+  height: 70px;
+  margin: 5px auto;
+
+  /* layout */
+  display: block;
+
+  /* other */
+  overflow: auto;
+}
+
+.mainprofile__row.awards > .awards-box img {
+  /* box model */
+  width: 25px;
+  margin: 4px;
+}
+
+.mainprofile__row.about-me {
+  /* box model */
+  padding-top: 10px;
+  border-top: 2px solid var(--theme__background-main);
+}
+
+.mainprofile__row.go-back {
+  /* box model */
+  max-width: 70px;
+  padding: 5px 7px;
+  border-radius: 5px;
+
+  /* background */
+  background: var(--theme__color-secondary);
+
+  /* type */
+  text-align: center;
+  color: var(--theme__text-contrast);
+}
+
+.mainprofile__row.go-back > a {
+  color: var(--theme__text-contrast);
+}
+
+/* Grid Set Up */
+.mainprofile__row.avatar {
+  grid-area: avatar;
+}
+
+.mainprofile__row.icons {
+  grid-area: icons;
+}
+
+.mainprofile__row.fields {
+  grid-area: fields;
+}
+
+.mainprofile__row.about-me {
+  grid-area: about-me;
+}
+
+.mainprofile__row.stats {
+  grid-area: stats;
+}
+
+.mainprofile__row.awards {
+  grid-area: awards;
+}
+
+.mainprofile__row.subaccounts {
+  grid-area: subaccounts;
+}
+
+.mainprofile__row.signature {
+  grid-area: signature;
+}
+
+.mainprofile__row.go-back {
+  grid-area: go-back;
+}
+
+/*------------------------------------*
+    #TEMPLATES - MEMBER_LIST_HEADERS
+  *-------------------------------------*/
+
+.memberlist__search-inputs {
+  /* box model */
+  padding: 5px;
+  border-bottom: 1px solid var(--theme__color-secondary);
+
+  /* background */
+  background: var(--theme__background-main);
+
+  /* layout */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+
+  /* type */
+  line-height: 160%;
+  font-weight: bold;
+  text-align: center;
+}
+
+/*------------------------------------*
+    #TEMPLATES - MEMBER_LIST_ROW
+  *-------------------------------------*/
+
+.memberlist__row {
+  /* box model */
+  margin: 0px 5px;
+  padding: 5px;
+  border-bottom: 2px solid var(--theme__color-secondary);
+
+  /* layout */
+  display: grid;
+  align-items: center;
+  grid-template-columns: 1fr 1fr;
+  row-gap: 5px;
+  grid-template-areas:
+    'name            name'
+    'group           group'
+    'avatar          posts'
+    'avatar          topics'
+    'joined          joined'
+    'last-seen       last-seen'
+    'last-post-date  last-post-date';
+}
+
+/* stop last row from having a bottom border since the table
+   * already has one */
+.memberlist__row:last-child {
+  border-bottom: none;
+}
+
+.memberlist__row--avatar {
+  justify-self: center;
+}
+
+.memberlist__row--avatar > img {
+  /* box model */
+  width: 100px;
+  height: 100px;
+  border: 1px solid var(--theme__color-primary);
+  border-radius: 3px;
+
+  /* other */
+  object-fit: cover;
+}
+
+.memberlist__row--name {
+  /* type */
+  font-size: var(--textsize__subheading);
+
+  /* other */
+  overflow-wrap: anywhere;
+}
+
+.memberlist__row--name,
+.memberlist__row--group {
+  justify-self: center;
+}
+
+/* Grid Set Up */
+.memberlist__row--avatar {
+  grid-area: avatar;
+}
+
+.memberlist__row--name {
+  grid-area: name;
+}
+
+.memberlist__row--group {
+  grid-area: group;
+}
+
+.memberlist__row--joined {
+  grid-area: joined;
+}
+
+.memberlist__row--posts {
+  grid-area: posts;
+}
+
+.memberlist__row--topics {
+  grid-area: topics;
+}
+
+.memberlist__row--last-seen {
+  grid-area: last-seen;
+}
+
+.memberlist__row--last-post-date {
+  grid-area: last-post-date;
+}
+
+/*------------------------------------*
+    #TEMPLATES - MINI_PROFILE
+  *-------------------------------------*/
+
+.miniprofile__row--wrapper {
+  /* box model */
+  padding: 9px;
+
+  /* layout */
+  display: grid;
+  align-content: center;
+  grid-template-columns: 0.2fr 1fr;
+  gap: 5px;
+  grid-template-areas:
+    'postnum  postnum'
+    'avatar   name'
+    'title    title'
+    'fields   fields'
+    'awards   awards';
+}
+
+.miniprofile__row.postnum {
+  /* box model */
+  padding: 5px 7px;
+  border-radius: 5px;
+
+  /* background */
+  background: var(--theme__color-secondary);
+
+  /* layout */
+  display: flex;
+  justify-content: space-between;
+
+  /* type */
+  color: var(--theme__text-contrast);
+}
+
+.miniprofile__row.avatar > img {
+  /* box model */
+  width: 31.25vw;
+  height: 31.25vw;
+  max-width: 250px;
+  max-height: 250px;
+  border: 1px solid var(--theme__color-primary);
+  border-radius: 3px;
+  vertical-align: baseline;
+
+  /* other */
+  object-fit: cover;
+}
+
+.miniprofile__row.title {
+  /* box model */
+  padding: 5px 0;
+
+  /* type */
+  font-family: var(--font-family__accent), system-ui;
+  font-style: italic;
+  text-align: center;
+}
+
+.miniprofile__row.name {
+  /* box model */
+  padding: 5px;
+
+  /* background */
+  background: var(--theme__background-main);
+
+  /* layout */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  /* type */
+  font-size: var(--textsize-body__secondary);
+  text-align: center;
+}
+
+.miniprofile__row.name > .span {
+  /* box model */
+  margin-bottom: 10px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid var(--theme__color-secondary);
+
+  /* type */
+  font-size: var(--textsize__subheading);
+
+  /* other */
+  overflow-wrap: anywhere;
+}
+
+.mini-profile__row.fields {
+  /* box model */
+  padding: 5px 7px;
+  border-radius: 5px;
+
+  /* background */
+  background: var(--theme__color-secondary);
+
+  /* type */
+  text-align: center;
+  color: var(--theme__text-contrast);
+}
+
+.mini-profile__row.fields > span {
+  /* other */
+  overflow-wrap: anywhere;
+}
+
+.miniprofile__row.awards {
+  /* box model */
+  padding: 5px;
+  border-radius: 3px;
+
+  /* background */
+  background: var(--theme__background-main);
+}
+
+.miniprofile__row.awards > img {
+  /* box model */
+  width: 25px;
+  margin: 4px;
+}
+
+/* Grid Set Up */
+.miniprofile__row.avatar {
+  grid-area: avatar;
+}
+
+.miniprofile__row.name {
+  grid-area: name;
+}
+
+.miniprofile__row.postnum {
+  grid-area: postnum;
+}
+
+.miniprofile__row.awards {
+  grid-area: awards;
+}
+
+.miniprofile__row.title {
+  grid-area: title;
+}
+
+.mini-profile__row.fields {
+  grid-area: fields;
+}
+
+/*------------------------------------*
+    #TEMPLATES - POST_ROW
+  *-------------------------------------*/
+
+/* maintitle above the post row */
+.topic-title {
+  font-size: var(--textsize__title);
+}
+
+.topic-desc {
+  /* box model */
+  padding-left: 10px;
+
+  /* layout */
+  display: block;
+
+  /* type */
+  font-size: var(--textsize__subheading);
+}
+
+.post__row {
+  /* box model */
+  padding: 5px;
+  border-top: 1px solid var(--theme__background-main);
+
+  /* layout */
+  display: grid;
+  grid-template-areas:
+    'post-details'
+    'miniprofile'
+    'post-content'
+    'bottom-bar';
+}
+
+.post__row--post-details.maintitle,
+.post__row--bottombar.maintitle {
+  /* box model */
+  padding: 8px 15px;
+
+  /* type */
+  font-size: var(--textsize-body__secondary);
+}
+
+.post__row--miniprofile {
+  border-bottom: 2px solid var(--theme__color-primary);
+}
+
+.post__row--post-details {
+  /* layout */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  row-gap: 8px;
+}
+
+span.quote-macro,
+span.delete-macro,
+span.edit-macro,
+span.report-macro {
+  /* box model */
+  padding: 5px 7px;
+  border-radius: 5px;
+
+  /* background */
+  background: var(--theme__color-secondary);
+
+  /* type */
+  text-align: center;
+}
+
+.post-details--post-date {
+  /* box model */
+  padding: 5px 7px;
+  border-radius: 5px;
+
+  /* background */
+  background: var(--theme__color-secondary);
+
+  /* type */
+  font-weight: normal;
+}
+
+.post__row--post-content {
+  padding: 9px;
+  overflow-wrap: anywhere;
+}
+
+.post__row--bottombar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  column-gap: 5px;
+}
+
+.post__row--bottombar b > span.desc {
+  /* box model */
+  padding: 5px 7px;
+  border-radius: 5px;
+
+  /* background */
+  background: var(--theme__color-secondary);
+
+  /* type */
+  font-size: unset;
+}
+
+/* Grid Set Up */
+.post__row--post-details {
+  grid-area: post-details;
+}
+
+.post__row--miniprofile {
+  grid-area: miniprofile;
+}
+
+.post__row--post-content {
+  grid-area: post-content;
+}
+
+.post__row--bottombar {
+  grid-area: bottom-bar;
+}
+
+/* Target the add reply etc buttons to 
+  ** tile them with spacing on mobile
+  ** on both top and bottom of post row */
+#SF table > tbody > tr > td[align='right'],
+#ST table > tbody > tr > td[align='right'] {
+  /* box model */
+  width: 100%;
+
+  /* layout */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  row-gap: 5px;
+}
+
+/*------------------------------------*
+    #TEMPLATES - REDIRECT_ROWS
+  *-------------------------------------*/
+
+.redirect__row {
+  /* box model */
+  padding: 5px;
+  border: 1px solid var(--theme__background-main);
+
+  /* layout */
+  display: grid;
+  align-items: center;
+  row-gap: 5px;
+  grid-template-areas:
+    'info   info'
+    'macro  hits';
+}
+
+/* Grid Set Up */
+.redirect__row--macro {
+  grid-area: macro;
+  text-align: center;
+}
+
+.redirect__row--info {
+  grid-area: info;
+}
+
+.redirect__row--subforums {
+  grid-area: subforums;
+}
+
+.redirect__row--hits {
+  grid-area: hits;
+}
+
+/*------------------------------------*
+    #TEMPLATES - SUBFORUM_HEADERS
+    Note: the only specific style for this is
+    the #subforum-list id, which you can find in
+    the global styles section
+  *-------------------------------------*/
+
+/*------------------------------------*
+    #TEMPLATES - TOPIC_LIST_HEADERS
+  *-------------------------------------*/
+
+#topic-list {
+  /* box model */
+  border: 1px solid var(--theme__color-primary);
+
+  /* background */
+  background: var(--theme__background-contrast);
+}
+
+.topic-row.maintitle {
+  /* box model */
+  margin: 5px;
+  /* type */
+  font-size: var(--textsize-body__primary);
+}
+
+.topic__row {
+  /* box model */
+  margin: 5px;
+  padding: 5px 0;
+  border-top: 2px solid var(--theme__background-main);
+  /* layout */
+  display: grid;
+  align-items: center;
+  row-gap: 5px;
+  grid-template-areas:
+    'info      info      info      info      info'
+    'macro     posticon  replies   views     mod-checkbox'
+    'lastpost  lastpost  lastpost  lastpost  lastpost';
+}
+
+/* this makes it so there is only a border 
+  between topic rows and nothing else */
+.topic__row:first-child,
+.maintitle + .topic__row {
+  border-top: none;
+}
+
+.topic__row--macro,
+.topic__row--posticon,
+.topic__row--replies,
+.topic__row--views,
+.topic__row--mod-checkbox {
+  text-align: center;
+}
+
+.topic__row--macro,
+.topic__row--posticon {
+  color: var(--theme__color-secondary);
+}
+
+.topic__row--info > a {
+  font-weight: bold;
+}
+
+span.info--starter,
+span.lastpost--desc {
+  overflow-wrap: anywhere;
+}
+
+.forum-active {
+  border-top: 1px solid var(--theme__color-primary);
+}
+
+/* Topic Macros */
+
+.wrapmini {
+  margin: auto;
+}
+
+.new-post-macro {
+  color: var(--theme__color-primary);
+}
+
+/* Grid Set Up */
+.topic__row--macro {
+  grid-area: macro;
+}
+
+.topic__row--posticon {
+  grid-area: posticon;
+}
+
+.topic__row--info {
+  grid-area: info;
+}
+
+.topic__row--replies {
+  grid-area: replies;
+}
+
+.topic__row--views {
+  grid-area: views;
+}
+
+.topic__row--lastpost {
+  grid-area: lastpost;
+}
+
+.topic__row--mod-checkbox {
+  grid-area: mod-checkbox;
+}
+
+/*============================================================================================================
+   *  █▄█ █▀▀ █▀▄ ▀█▀ █▀█  ▄▀▄ █ █ █▀▀ █▀▄ ▀█▀ █▀▀ █▀▀
+   *  █ █ █▀▀ █ █  █  █▀█  ██ █ █ █▀▀ █▀▄  █  █▀▀ ▀▀█
+   *  ▀ ▀ ▀▀▀ ▀▀  ▀▀▀ ▀ ▀   ▀ ▀▀▀ ▀▀▀ ▀ ▀ ▀▀▀ ▀▀▀ ▀▀▀
+   * --Media Queries-- 
+   * On the pages we have HTML access to, the CSS is written in a mobile-first approach, so the media query is
+   * for desktop (set to START at 750px). This is the opposite for pages we don't have HTML access to - the
+   * desktop view of these is fine, so the media query is set to be for mobile only and to END at 750px.
+   * If you want to adjust the breakpoint for the media query, make sure to CTRL+F or otherwise search for both
+   * "max-width: 750px;" and "min-width: 750px;" to ensure you're changing both.
+   * There is also one extra media query for the custom navigation bar for 1440px screens and up, which starts
+   * at 1025px.
+   *============================================================================================================*/
+
+/*------------------------------------*
+    #MEDIA750 - MOBILE - END at 750px
+  *-------------------------------------*/
+@media only screen and (max-width: 750px) {
+  /*------------------------------------*
+      Mod Team Link
+      /index.php?act=Stats&CODE=leaders
+    *-------------------------------------*/
+
+  /* have to scope it to the top level table because there are nested tables; 
+     * removes the table headings, the 'moderates in' column, the location column, and the
+     * post count column */
+  #moderating-team table[cellspacing='1'] > tbody > tr:nth-child(1),
+  #moderating-team table[cellspacing='1'] td:nth-child(3),
+  #moderating-team table[cellspacing='1'] td:nth-child(4),
+  #moderating-team table[cellspacing='1'] td:nth-child(5) {
+    display: none;
+  }
+
+  /*------------------------------------*
+      #POST - Mobile Styles
+      aka: New Topic, Add Reply, etc
+    *-------------------------------------*/
+
+  /* needed to space the post icons correctly */
+  table#posting-form tr#post-icon-options > td.pformleft {
+    width: 25%;
+  }
+  /* needed to space the post icons correctly */
+  table#posting-form tr#post-icon-options > td.pformright {
+    width: 75%;
+  }
+
+  table#posting-form > tbody,
+    /* Edit Poll specific styling */
+    #Mod.code-20 table > tbody {
+    display: block;
+  }
+
+  /* turn all of the input fields to be columns */
+  table#posting-form tr#topic-title,
+    table#posting-form tr#topic-desc,
+    table#posting-form tr#code-buttons,
+    table#posting-form tr#enter-your-post,
+    table#posting-form tr#upload-files,
+    table#posting-form tr#pform-poll-question,
+    /* Edit Poll specific styling */
+    #Mod.code-20 table > tbody > tr {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* put all of the table trs on a flexbox */
+  table#posting-form > tbody > tr:first-child,
+    table#posting-form tr#topic-settings-header,
+    table#posting-form tr#code-buttons-header,
+    table#posting-form tr#enter-your-post-header,
+    table#posting-form tr#post-options,
+    table#posting-form tr#post-icon-options,
+    table#posting-form tr#upload-files-header,
+    table#posting-form tr:nth-child(13),
+    table#posting-form tr:nth-child(15),
+    /* New Poll specific styling */
+    #Post.code-10 table#posting-form tr:nth-child(5),
+    /* Add Reply specific styling */
+    #Post.code-02 table#posting-form tr:nth-child(10),
+    #Post.code-02 table#posting-form tr:nth-child(12) {
+    display: flex;
+  }
+
+  /* make all the headers take up the full width of the posting box */
+  table#posting-form > tbody > tr:first-child > td.maintitle,
+    table#posting-form tr#topic-settings-header > td.pformstrip,
+    table#posting-form tr#code-buttons-header > td.pformstrip,
+    table#posting-form tr#enter-your-post-header > td.pformstrip,
+    table#posting-form tr#upload-files-header > td.pformstrip,
+    table#posting-form tr:nth-child(13) > td.pformstrip,
+    table#posting-form tr:nth-child(15) > td.pformstrip,
+    /* New Poll specific styling */
+    #Post.code-10 table#posting-form tr:nth-child(5) > td.pformstrip,
+    /* Add Reply specific styling */
+    #Post.code-02 table#posting-form tr:nth-child(10) > td.pformstrip,
+    #Post.code-02 table#posting-form tr:nth-child(12) > td.pformstrip {
+    width: 100%;
+  }
+
+  /* hide the smilies on mobile to conserve space */
+  table#smilies-table > tbody > tr[align='center'] {
+    display: none;
+  }
+
+  /* remove the line break between the emoji table and links on mobile */
+  table#posting-form > tbody > tr#enter-your-post > td.pformleft > br {
+    display: none;
+  }
+
+  /* center attachments as the mobile screen gets wider */
+  table#posting-form tr#upload-files > td.pformright {
+    text-align: center;
+  }
+
+  /* poll specific overflow */
+  table#poll-data {
+    overflow-wrap: anywhere;
+  }
+
+  /* Last 10 Posts in reverse order on Add Reply screen
+     * Not necessary but makes it look better on mobile */
+  #topic-summary table > tbody {
+    display: block;
+  }
+
+  #topic-summary table > tbody > tr:nth-child(odd),
+  #topic-summary table > tbody > tr:nth-child(even) {
+    display: flex;
+  }
+
+  #topic-summary table > tbody > tr:nth-child(odd) {
+    flex-direction: column;
+  }
+
+  #topic-summary table > tbody > tr:nth-child(even) > td[width='20%'] {
+    display: none;
+  }
+
+  #topic-summary table > tbody > tr:nth-child(even) > td[width='80%'] {
+    width: 100%;
+    border-bottom: 1px solid var(--theme__color-primary);
+  }
+
+  /*------------------------------------*
+      #REGISTRATION - Mobile Styles
+    *-------------------------------------*/
+  #registration-form table {
+    display: block;
+  }
+
+  #registration-form .tablepad > table > tbody {
+    display: flex;
+    flex-direction: column;
+  }
+
+  #registration-form tbody > tr {
+    display: contents;
+  }
+
+  #registration-form tbody > tr > td {
+    width: 100%;
+  }
+
+  /* registration form is a nightmare of nested tables, this is to target
+     * just the fieldsets */
+  #registration-form fieldset > table > tbody {
+    display: grid;
+  }
+
+  /* position the password and email input fields correctly */
+  #registration-form fieldset:nth-of-type(2) > table > tbody td[width='100%'],
+  #registration-form fieldset:nth-of-type(3) > table > tbody td[width='100%'] {
+    grid-row: 3;
+  }
+
+  /* recaptcha overflows on smallest screen size of 320px, this is the best
+     * that I can do to make the overflow be not so noticeable */
+  #registration-form fieldset:nth-of-type(4) {
+    padding: 0;
+  }
+
+  /*------------------------------------*
+      #LOGIN - Mobile Styles
+    *-------------------------------------*/
+
+  #Login form[name='LOGIN'] tbody {
+    display: flex;
+    flex-direction: column;
+  }
+
+  #Login form[name='LOGIN'] tbody > tr {
+    display: contents;
+  }
+
+  /*------------------------------------*
+      #SEARCH - Mobile Styles
+      /index.php?act=Search
+      NOTE: have to scope the body ID to the .code-00 body class because
+      things like active topic, search results, etc all share the same ID
+    *-------------------------------------*/
+  #Search.code-00 table > tbody {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  #Search.code-00 table > tbody > tr {
+    display: contents;
+  }
+
+  /* set all the headings to the right width */
+  #Search.code-00 table > tbody > tr > td.pformstrip:nth-child(1),
+    #Search.code-00 table > tbody > tr > td.pformstrip:nth-child(2),
+    #Search.code-00 table > tbody > tr > td.pformstrip[colspan='2'],
+    /* resize the 'search topics by this member only' checkbox */
+    #Search.code-00 table > tbody > tr > td.row1:nth-child(2) td[width='40%'] {
+    /* box model */
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* the search td elements do not have unique ids, so we have to do the grid
+     * the old school way */
+
+  /* Search Keywords & Search Options Main Title */
+  #Search.code-00 table > tbody > tr > td.maintitle {
+    grid-row: 1;
+  }
+
+  /* Search by Keywords heading & Search Where heading */
+  #Search.code-00 table > tbody > tr > td.pformstrip:nth-child(1) {
+    grid-row: 2;
+  }
+
+  /* Search by Keyword & Search Where row */
+  #Search.code-00 table > tbody > tr > td.row1:nth-child(1) {
+    grid-row: 3;
+  }
+
+  /* Filter by Member Name & Refine Search heading */
+  #Search.code-00 table > tbody > tr > td.pformstrip:nth-child(2) {
+    grid-row: 4;
+  }
+
+  /* Filter by Member Name & Refine Search row */
+  #Search.code-00 table > tbody > tr > td.row1:nth-child(2) {
+    grid-row: 5;
+  }
+
+  /* Perform Search button */
+  #Search.code-00 table > tbody > tr > td.pformstrip[colspan='2'] {
+    grid-row: 6;
+  }
+
+  /*------------------------------------------------*
+      #SEARCH RESULTS - View All Posts - Mobile Styles
+      /index.php?act=Search&CODE=show&result_type=posts
+      NOTE: this HAS to come first in the CSS because the search results all share the same
+      code-show -- but the "View All Topics" has a search-topics id wrapped around it
+      so if this one comes first, we can override as needed with a more specific selector for the
+      "View All Topics" results
+    *------------------------------------------------*/
+
+  #Search.code-show .tableborder > table.tablebasic > tbody {
+    display: flex;
+    flex-direction: column;
+  }
+
+  #Search.code-show .tableborder > table.tablebasic > tbody > tr {
+    display: contents;
+  }
+
+  #Search.code-show .tableborder > table.tablebasic td.post1:first-child > img,
+  #Search.code-show .tableborder > table.tablebasic td.post1:first-child > br,
+  #Search.code-show .tableborder > table.tablebasic td.post1 span.postdetails > br {
+    display: none;
+  }
+
+  #Search.code-show .tableborder > table.tablebasic td.post1 span.postdetails {
+    /* box model */
+    padding-bottom: 10px;
+    border-bottom: 5px solid var(--theme__background-main);
+
+    /* layout */
+    display: flex;
+    justify-content: space-around;
+  }
+
+  /*--------------------------------------------------*
+      #SEARCH RESULTS - View All Topics - Mobile Styles
+      /index.php?act=Search&CODE=show&result_type=topics
+    *--------------------------------------------------*/
+  #Search.code-show #search-topics table.tablebasic > tbody > tr {
+    /* layout */
+    display: grid;
+    align-items: center;
+    grid-template-columns: 0.5fr min-content 1fr 1fr 1fr;
+  }
+
+  #Search.code-show #search-topics table.tablebasic > tbody > tr:first-child {
+    display: none;
+  }
+
+  /* if there are no results to display */
+  #Search.code-show #search-topics table.tablebasic > tbody > tr > td.row1 {
+    grid-column: span 5;
+  }
+
+  /* put a border between all topics except the last one, that doesn't need a bottom border */
+  #Search.code-show #search-topics table.tablebasic > tbody > tr:not(:last-child) {
+    border-bottom: 2px solid var(--theme__background-main);
+  }
+
+  /* Topic Title & topic description */
+  #Search.code-show #search-topics table.tablebasic > tbody > tr > td:nth-child(3) {
+    grid-column: span 3;
+  }
+
+  /* Forum Name & Link */
+  #Search.code-show #search-topics table.tablebasic > tbody > tr > td:nth-child(4) {
+    /* box model */
+    width: 100%;
+
+    /* layout */
+    grid-row: 2;
+    grid-column: 2 / 4;
+    display: flex;
+    flex-direction: column;
+  }
+
+  #Search.code-show #search-topics table.tablebasic > tbody > tr > td:nth-child(4)::before {
+    content: 'In Forum:';
+  }
+
+  /* Started By Posted & Link */
+  #Search.code-show #search-topics table.tablebasic > tbody > tr > td:nth-child(5) {
+    /* layout */
+    grid-row: 2;
+    grid-column: 4 / 6;
+    display: flex;
+    flex-direction: column;
+
+    /* other */
+    overflow-wrap: anywhere;
+  }
+
+  #Search.code-show #search-topics table.tablebasic > tbody > tr > td:nth-child(5)::before {
+    content: 'Started By:';
+  }
+
+  /* Replies */
+  #Search.code-show #search-topics table.tablebasic > tbody > tr > td:nth-child(6) {
+    grid-row: 3;
+    grid-column: 1 / 1;
+  }
+
+  #Search.code-show #search-topics table.tablebasic > tbody > tr > td:nth-child(6)::after {
+    content: ' replies';
+  }
+
+  /* Views */
+  #Search.code-show #search-topics table.tablebasic > tbody > tr > td:nth-child(7) {
+    grid-row: 2;
+    grid-column: 1 / 1;
+  }
+
+  #Search.code-show #search-topics table.tablebasic > tbody > tr > td:nth-child(7)::after {
+    content: ' views';
+  }
+
+  /* Last Post by date & links */
+  #Search.code-show #search-topics table.tablebasic > tbody > tr > td:nth-child(8) {
+    grid-row: 3;
+    grid-column: span 4;
+  }
+
+  /*------------------------------------*
+      #SEARCH - Active Topics Page
+      /index.php?act=Search&CODE=getactive
+    *-------------------------------------*/
+  #Search.code-getactive form[name='dateline'] > div[align='right'] {
+    width: unset !important;
+  }
+
+  #active-topics table.tablebasic {
+    width: 100%;
+  }
+
+  /* there is a nested table so we have to scope it to the top-level tablebasic class */
+  #active-topics table.tablebasic > tbody > tr:first-child {
+    display: none;
+  }
+
+  #active-topics table.tablebasic > tbody > tr {
+    /* layout */
+    display: grid;
+    align-items: center;
+    grid-template-columns: 0.5fr min-content 1fr 1fr 1fr;
+  }
+
+  /* if there are no results to display */
+  #active-topics table.tablebasic > tbody > tr > td.row1 {
+    grid-column: span 5;
+  }
+
+  /* put a border between all topics except the last one, that doesn't need a bottom border */
+  #active-topics table.tablebasic > tbody > tr:not(:last-child) {
+    border-bottom: 2px solid var(--theme__background-main);
+  }
+
+  /* Topic Title & topic description */
+  #active-topics table.tablebasic > tbody > tr > td:nth-child(3) {
+    grid-column: span 3;
+  }
+
+  /* Forum Name & Link */
+  #active-topics table.tablebasic > tbody > tr > td:nth-child(4) {
+    /* box model */
+    width: 100%;
+
+    /* layout */
+    grid-row: 2;
+    grid-column: 2 / 4;
+    display: flex;
+    flex-direction: column;
+  }
+
+  #active-topics table.tablebasic > tbody > tr > td:nth-child(4)::before {
+    content: 'In Forum:';
+  }
+
+  /* Started By Posted & Link */
+  #active-topics table.tablebasic > tbody > tr > td:nth-child(5) {
+    /* layout */
+    grid-row: 2;
+    grid-column: 4 / 6;
+    display: flex;
+    flex-direction: column;
+
+    /* other */
+    overflow-wrap: anywhere;
+  }
+
+  #active-topics table.tablebasic > tbody > tr > td:nth-child(5)::before {
+    content: 'Started By:';
+  }
+
+  /* Replies */
+  #active-topics table.tablebasic > tbody > tr > td:nth-child(6) {
+    grid-row: 3;
+    grid-column: 1 / 1;
+  }
+
+  #active-topics table.tablebasic > tbody > tr > td:nth-child(6)::after {
+    content: ' replies';
+  }
+
+  /* Views */
+  #active-topics table.tablebasic > tbody > tr > td:nth-child(7) {
+    grid-row: 2;
+    grid-column: 1 / 1;
+  }
+
+  #active-topics table.tablebasic > tbody > tr > td:nth-child(7)::after {
+    content: ' views';
+  }
+
+  /* Last Post by date & links */
+  #active-topics table.tablebasic > tbody > tr > td:nth-child(8) {
+    grid-row: 3;
+    grid-column: span 4;
+  }
+
+  /* Show Results */
+  #search-topics .titlemedium,
+  #active-topics .titlemedium {
+    /* background */
+    background: var(--theme__background-main);
+
+    /* type */
+    text-align: center;
+  }
+
+  /*------------------------------------*
+      #UserCP - Mobile Styles
+      starts from /index.php?act=UserCP&CODE=00
+    *-------------------------------------*/
+  /* target just the top level tables and not any of the nested tables */
+  #UserCP #innerwrapper > table > tbody > tr:first-child {
+    /* layout */
+    display: flex;
+    flex-direction: column;
+  }
+
+  #ucpmenu p {
+    margin: 5px;
+  }
+
+  td#ucpcontent > table > tbody > tr,
+  td#ucpcontent form > table > tbody > tr {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  td#ucpcontent > table > tbody > tr > td,
+  td#ucpcontent form > table > tbody > tr > td {
+    width: 100%;
+    text-align: center;
+  }
+
+  #ucpcontent p {
+    margin: 0;
+    padding: 10px;
+  }
+
+  /* this causes the rest of the overflow on the ucp index */
+  td#ucpcontent table tr:first-child td[width='60%'],
+    /* Your Forum Subscriptions & Your Topic Subscriptions */
+    #UserCP.code-50 td#ucpcontent td.row1[align='left'],
+    #UserCP.code-26 td#ucpcontent td.row3[align='left'] {
+    overflow-wrap: anywhere;
+  }
+
+  /*------------------------------------*
+      #MESSENGER
+      starts from /index.php?act=Msg&CODE=01
+      NOTE: the 'create' and 'reply' codes of the messenger use the same PHP template as the create new thread/add reply codes
+      so unless you scope it, if you style one you style all of them. We've already styled so this is cleanup just for Messenger
+      on Mobile
+    *-------------------------------------*/
+  /* target just the top level tables and not any of the nested tables */
+  #Msg #innerwrapper > table > tbody > tr:first-child {
+    display: flex;
+    flex-direction: column;
+  }
+
+  #Msg .post-buttons-top > a {
+    color: var(--theme__text-contrast);
+  }
+
+  #Msg span.msg-normal tbody {
+    display: grid;
+  }
+
+  #Msg span.msg-normal tbody > tr {
+    display: contents;
+  }
+
+  #Msg span.msg-normal tbody > tr:last-of-type {
+    display: none;
+  }
+
+  /* make sure the username doesn't break anything */
+  #Msg span.msg-normal td.row4[valign='middle'] {
+    /* type */
+    font-size: var(--textsize__subheading);
+    text-align: center;
+
+    /* other */
+    overflow-wrap: anywhere;
+  }
+
+  #Msg span.msg-normal td.row4[valign='top'] {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-evenly;
+  }
+
+  #Msg span.msg-normal td.miniprofile > .postdetails {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+  }
+
+  /* remove the terrible spacing between the miniprofile info */
+  #Msg span.msg-normal td.miniprofile > .postdetails > br:nth-of-type(1),
+  #Msg span.msg-normal td.miniprofile > .postdetails > br:nth-of-type(2),
+  #Msg span.msg-normal td.miniprofile > .postdetails > br:nth-of-type(3) {
+    display: none;
+  }
+
+  #Msg span.msg-normal td.post1[width='100%'] {
+    /* box model */
+    padding: 15px 5px;
+    border-top: 5px solid var(--theme__background-main);
+    box-sizing: border-box;
+  }
+
+  /* color and space the jump to folder */
+  #Msg.code-03 td#ucpcontent div:nth-of-type(5) {
+    width: 100% !important;
+    box-sizing: border-box;
+  }
+
+  #Msg.code-03 td#ucpcontent div:nth-of-type(6) {
+    background: var(--theme__background-main);
+  }
+
+  /*------------------------------------*
+      #ModCP - Mobile Styles
+      starts from /index.php?act=modcp
+      NOTE: this styling can only be accomplished via a script because the modcp is a mess of tables and HTML
+      and there have been no updates to it to add targetable selectors. The script is included
+      as part of this skin and adds a span class of header-name to each item in the former table row
+      and wraps the top level tables in a class called .modcp-table (which is needed because there are MANY
+      nested tables in the modcp). 
+      
+      If you aren't using the script you can get rid of this whole section
+    *-------------------------------------*/
+  /* target just the top level table and not any of the nested tables */
+  #modcp #innerwrapper > table > tbody > tr {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* still just targeting the top level table, override the inline style
+    ** of the mod cp menu (you have to do this manually because unlike the ucp, the modcp
+    ** class is actually on the table nested INSIDE and not on the td itself) */
+  #modcp #innerwrapper > table > tbody > tr > td:first-child {
+    width: 100% !important;
+    /* max-width: 211px; */
+  }
+
+  /* add a border to separate all but the last row of each table */
+  #modcp table.modcp-table > tbody > tr:not(:last-child) {
+    display: block;
+    border-bottom: 4px solid var(--theme__background-main);
+  }
+
+  /* we're getting rid of the first 2 trs of each nested table */
+  #modcp table.modcp-table > tbody > tr:nth-child(1),
+  #modcp table.modcp-table > tbody > tr:nth-child(2) {
+    display: none;
+  }
+
+  /* then we need to set all tds on a flex */
+  #modcp table.modcp-table td {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    text-align: center;
+  }
+
+  /* and show the header names */
+  #modcp span.header-name {
+    display: block;
+    font-weight: bold;
+  }
+
+  /* Prune Posts */
+  #modcp form[name='ibform'] > table > tbody > tr > td {
+    width: 100%;
+  }
+
+  #modcp form[name='ibform'] > table > tbody > tr {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  #modcp form[name='ibform'] > table > tbody > tr > td {
+    width: 100%;
+    text-align: center;
+  }
+
+  /*------------------------------------*
+    #TEMPLATES - POST_ROW - Mobile ONLY Styles
+    *-------------------------------------*/
+
+  /* makes sure the go to last post link wraps to the next line */
+  #SF span.goto-firstunread,
+  #ST span.goto-firstunread {
+    display: flex;
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  /* same with the bottom set of pagination */
+  #SF table:nth-of-type(2) td[nowrap='nowrap'],
+  #ST table:nth-of-type(2) td[nowrap='nowrap'] {
+    display: flex;
+    flex-direction: column-reverse;
+    margin-bottom: 10px;
+  }
+
+  #SF span.pagination,
+  #ST span.pagination {
+    margin-bottom: 10px;
+  }
+}
+
+/*------------------------------------*
+    #MEDIA750 - DESKTOP - START at 750px
+  *-------------------------------------*/
+@media only screen and (min-width: 750px) {
+  /*------------------------------------*
+      --Custom Navigation Bar--
+      Dropdown Menu
+    *-------------------------------------*/
+  #nav__userlinks {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-areas:
+      'user-info       user-info    user-info    user-info'
+      'view-profile    my-controls  quicklink-1  quicklink-2'
+      'topics          messages     quicklink-3  quicklink-4'
+      'view-new-posts  alerts       quicklink-5  quicklink-6'
+      'admin-cp        mod-cp       .            .';
+  }
+
+  /*------------------------------------*
+      UserCP - Desktop Styles
+    *-------------------------------------*/
+  #ucpmenu p {
+    margin: 0px;
+    padding: 2px 5px 6px 9px;
+  }
+
+  /*------------------------------------*
+    #POST Styling - Desktop Styles
+    aka: New Topic, Add Reply, etc
+  *-------------------------------------*/
+  .pformleft {
+    width: 25%;
+  }
+
+  /*------------------------------------*
+      RECENT TOPICS - Desktop Styles
+    *-------------------------------------*/
+  #recent-topics tr {
+    flex-direction: row;
+  }
+
+  #recent-topics tr > td.recent-topics-date {
+    text-align: right;
+  }
+
+  /*------------------------------------*
+    #TEMPLATES - BOARD_STATS - Desktop Styles
+    *-------------------------------------*/
+  #board-stats__grid {
+    /* box model */
+    padding: 5px;
+
+    /* layout */
+    display: grid;
+    align-items: start;
+    grid-template-columns: 1.5fr 1fr;
+    grid-column-gap: 15px;
+    grid-template-areas:
+      'online-now    links'
+      'birthdays     stats'
+      'online-today  stats';
+  }
+
+  .stats__grid > .boardstats--info {
+    /* box model */
+    min-height: 150px;
+
+    /* layout */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+  }
+
+  .links__grid {
+    margin-left: 50px;
+  }
+
+  /*------------------------------------*
+    #TEMPLATES - FORUM_ROWS - Desktop Styles
+    *-------------------------------------*/
+  .forum__row {
+    /* layout */
+    grid-template-columns: 28px 55% 7% 7% 27%;
+    grid-column-gap: 5px;
+    grid-template-areas:
+      'macro  info       topics     replies    lastpost'
+      'macro  subforums  subforums  subforums  subforums';
+  }
+
+  /*----------------------------------------*
+    #TEMPLATES - MAIN_PROFILE - Desktop Styles
+    *-----------------------------------------*/
+  .main-profile.wrapper {
+    /* box model */
+    padding: 10px 20px 10px 15px;
+
+    /* layout */
+    grid-template-columns: 275px 1fr 1fr;
+    grid-template-rows: min-content 1fr 1fr 1fr min-content min-content;
+    grid-template-areas:
+      'avatar     icons        icons'
+      'avatar     fields       stats'
+      'avatar     subaccounts  awards'
+      'about-me   about-me     about-me'
+      'signature  signature    signature'
+      'go-back    go-back      go-back';
+  }
+
+  .mainprofile__row.avatar > img {
+    /* box model */
+    width: 250px;
+    height: 250px;
+  }
+
+  .mainprofile__row.icons {
+    /* box model */
+    margin-top: 10px;
+
+    /* layout */
+    justify-items: center;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+
+  .mainprofile__row.about-me,
+  .mainprofile__row.signature,
+  .mainprofile__row.go-back {
+    margin-left: 10px;
+  }
+
+  /*-------------------------------------------*
+    #TEMPLATES - MEMBER_LIST_ROW - Desktop Styles
+    *--------------------------------------------*/
+  .memberlist__row {
+    /* layout */
+    justify-items: start;
+    grid-template-columns: auto auto auto auto auto auto;
+    grid-template-areas:
+      'avatar  name   name   name    name    last-seen'
+      'avatar  group  posts  topics  joined  last-post-date';
+  }
+
+  .memberlist__row--name,
+  .memberlist__row--group {
+    justify-self: start;
+  }
+
+  /*------------------------------------*
+    #TEMPLATES - MINI_PROFILE - Desktop Styles
+    *-------------------------------------*/
+  .miniprofile__row--wrapper {
+    /* box model */
+    padding: 10px 10px 10px 15px;
+
+    /* layout */
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      'postnum'
+      'title'
+      'avatar'
+      'name'
+      'fields'
+      'awards';
+  }
+
+  .miniprofile__row.avatar > img {
+    width: 250px;
+    height: 250px;
+  }
+
+  .miniprofile__row.name {
+    margin-top: -9px;
+  }
+
+  /*------------------------------------*
+    #TEMPLATES - POST_ROW - Desktop Styles
+    *-------------------------------------*/
+  .post__row {
+    grid-template-columns: 275px 1fr;
+    grid-column-gap: 4px;
+    grid-template-areas:
+      'post-details  post-details'
+      'miniprofile   post-content'
+      'bottom-bar    bottom-bar';
+  }
+
+  .post__row--post-details {
+    flex-direction: row;
+  }
+
+  .post__row--miniprofile {
+    border-bottom: unset;
+  }
+
+  .post__row--post-content {
+    padding: 20px 50px 10px;
+  }
+
+  /*------------------------------------*
+    #TEMPLATES - REDIRECT_ROWS - Desktop Styles
+    *-------------------------------------*/
+  .redirect__row {
+    grid-template-columns: 28px 55% 7% 7% 27%;
+    grid-column-gap: 5px;
+    grid-template-areas:
+      'macro  info       info       info       hits'
+      'macro  subforums  subforums  subforums  subforums';
+  }
+
+  /*------------------------------------*
+    #TEMPLATES - TOPIC_ROW - Desktop Styles
+    *-------------------------------------*/
+  .topic__row {
+    grid-template-columns: 2% 2% 51% 7% 7% 27% 2%;
+    grid-column-gap: 4px;
+    grid-template-areas: 'macro posticon info replies views lastpost mod-checkbox';
+  }
+
+  /* default jcink style */
+  .wrapmini {
+    float: left;
+  }
+}
+
+@media only screen and (min-width: 1025px) {
+  /*------------------------------------*
+      --Custom Navigation Bar--
+      Dropdown Menu
+    *-------------------------------------*/
+  #nav__userlinks {
+    grid-template-columns: 3fr 1fr 1fr 1fr 1fr;
+    grid-template-areas:
+      'user-info   view-profile    my-controls  quicklink-1  quicklink-2'
+      'user-info   topics          messages     quicklink-3  quicklink-4'
+      'user-info   view-new-posts  alerts       quicklink-5  quicklink-6'
+      'user-info   admin-cp        mod-cp       .            .';
+  }
+
+  #nav__userlinks.dropdown-menu {
+    /* box model */
+    width: 98%;
+
+    /* layout */
+    position: absolute;
+    left: 50%;
+
+    /* other */
+    transform: translateX(-50%);
+  }
+
+  /*------------------------------------*
+      #TEMPLATES - POST_ROW - 1440px screen
+    *-------------------------------------*/
+  .post__row--post-content {
+    padding: 20px 75px 10px;
+  }
+}
+
+/***************************************
+   * Copyright: Removal is against Terms
+   ***************************************/
+
+#copyright {
+  /* type */
+  font-size: var(--textsize-body__secondary);
+  text-align: center;
+}
+
+#copyright .tableborder {
+  border: none;
+}
+
+#copyright a {
+  text-decoration: underline;
+}
