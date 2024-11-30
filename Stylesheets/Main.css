@@ -44,11 +44,12 @@
  */
 
 /* TODO: notes for me
- 1.) the individual color set roots for each BM skin will be the only thing inside the actual stylesheets
+  1.) the individual color set roots for each BM skin will be the only thing inside the actual stylesheets
      otherwise thinking of making one webpage to hold the general styles in order to make updating things
      across skins easier
- 2.) change how the banner image loads to be background-image and controlled by variable instead of JS
- 3.) stretch goal: rewrite Cory's tag system script */
+✅2.) change how the banner image loads to be background-image and controlled by variable instead of JS
+  3.) stretch goal: rewrite Cory's tag system script
+  4.) stretch goal: notifs for alerts/messages */
 
 /*======================================================================
  *  █▀▄ █▀▀ █▀▀ █▀█ █ █ █  ▀█▀  ▀█▀ █ █ █▀█ █▀█ █▀▀ █▀▄ █▀█ █▀█ █ █ █ █
@@ -75,7 +76,14 @@
   --verdigris: #0da9b1;
 
   /* Font List */
-  --arial: 'Arial', sans-serif;
+  --rye: 'Rye', serif;
+  --tilt-neon: 'Tilt Neon', serif;
+  --righteous: 'Righteous', serif;
+  --comic-neue: 'Comic Neue', serif;
+
+  --livvic: 'Livvic', sans-serif;
+
+  --noto-sans: 'Noto Sans', serif;
   --courier: 'Courier', monospace;
 
   /* Font Sizes */
@@ -87,14 +95,14 @@
 
 :root {
   /* Font Families */
-  --font-family__title: var(--arial);
-  --font-family__subheading: var(--arial);
-  --font-family__body: var(--arial);
+  --font-family__title: var(--rye);
+  --font-family__subtitle: var(--livvic);
+  --font-family__body: var(--noto-sans);
   --font-family__accent: var(--courier);
 
   /* Font Sizes */
   --textsize__title: var(--size35px);
-  --textsize__subheading: var(--size24px);
+  --textsize__subtitle: var(--size24px);
   --textsize-body__primary: var(--size16px);
   --textsize-body__secondary: var(--size14px);
 
@@ -112,6 +120,9 @@
 
   --theme__text-main: var(--dun);
   --theme__text-contrast: var(--dun);
+
+  --theme__title-boxshadow: 0 -1px 0 #5f1a07, 0 1px 5px rgb(95 26 7), 0 2px 5px #5f1a07, 0 3px 5px #5f1a07, 0 4px 5px #5f1a07, 0 5px 0 #5f1a07,
+    0 6px 0 #5f1a07, 0 7px 0px #5f1a07, 0 22px 30px rgb(95 26 7 / 90%), 2px 2px 2px rgba(206, 89, 55, 0);
 }
 
 [data-theme='light'] {
@@ -130,7 +141,9 @@
   --theme__color-accent: var(--dun);
 
   --theme__text-main: var(--midnight-green);
-  --theme__text-contrast: var(--midnight-green);
+  --theme__text-contrast: var(--anti-flash-white);
+
+  --theme__title-boxshadow: 1px 1px 2px #000, -1px -1px 2px #000, -1px 1px 2px #000, 1px -1px 2px #000;
 }
 
 /*=====================================================
@@ -188,7 +201,6 @@ body {
   change it here and it will change in all these places. 
   Tread carefully. */
 .tableborder,
-.category,
 #subforum-list,
 #boardstats,
 .main-profile,
@@ -206,10 +218,10 @@ body {
   *-------------------------------------*/
 #logo {
   /* box model */
-  margin-top: 5px;
+  margin: 5px auto 0;
   padding: 20px 0px 35%;
   width: 100%;
-  max-width: 1200px;
+  max-width: 1020px;
 
   /* layout */
   display: block;
@@ -239,7 +251,7 @@ body {
 a:link,
 a:visited,
 a:active {
-  font-family: var(--font-family__subheading);
+  font-family: var(--font-family__subtitle);
   text-decoration: none;
   color: var(--theme__color-primary);
 }
@@ -261,23 +273,55 @@ a:not([name]):empty {
   padding: 8px;
 
   /* background */
-  background: var(--theme__color-primary);
+  background: var(--theme__background-main);
 
   /* type */
   font-family: var(--font-family__title);
-  font-size: var(--textsize__subheading);
-  font-weight: bold;
-  color: var(--theme__text-contrast);
+  font-size: var(--textsize__title);
+  text-transform: uppercase;
+  color: var(--theme__color-secondary);
 }
 
 .maintitle a:link,
 .maintitle a:visited,
 .maintitle a:active {
+  font-family: var(--font-family__title);
   color: var(--theme__text-contrast);
+  text-shadow: var(--theme__title-boxshadow);
 }
 
 .maintitle a:hover {
-  text-decoration: underline;
+  color: var(--theme__color-secondary);
+}
+
+.ribbon {
+  --s: 1.2em; /* the ribbon size */
+  --d: 0.3em; /* the depth */
+  --c: 0.8em; /* the cutout part */
+
+  padding: 0 calc(var(--s) + 0.5em) var(--d);
+  line-height: 1.8;
+  background: conic-gradient(at left var(--s) bottom var(--d), #0000 25%, #0008 0 37.5%, #0004 0) 0 /50% 100% no-repeat,
+    conic-gradient(at right var(--s) bottom var(--d), #0004 62.5%, #0008 0 75%, #0000 0) 100%/50% 100% no-repeat;
+  clip-path: polygon(
+    0 var(--d),
+    var(--s) var(--d),
+    var(--s) 0,
+    calc(100% - var(--s)) 0,
+    calc(100% - var(--s)) var(--d),
+    100% var(--d),
+    calc(100% - var(--c)) calc(50% + var(--d) / 2),
+    100% 100%,
+    calc(100% - var(--s) - var(--d)) 100%,
+    calc(100% - var(--s) - var(--d)) calc(100% - var(--d)),
+    calc(var(--s) + var(--d)) calc(100% - var(--d)),
+    calc(var(--s) + var(--d)) 100%,
+    0 100%,
+    var(--c) calc(50% + var(--d) / 2)
+  );
+  background-color: var(--theme__color-primary); /* the main color */
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .titlemedium {
@@ -637,13 +681,14 @@ input[name='helpbox'] {
 
 /****************************************
     Default Header Area
-   ****************************************/
+ ****************************************/
 
 /* most of the default header stuff we don't use in favor of the custom nav bar */
 #header > br,
 #logostrip,
 #submenu,
-#userlinks {
+#userlinks,
+.newstext {
   display: none;
 }
 
@@ -882,7 +927,7 @@ td.darkrow2 {
 /* image tag styles */
 img {
   border: 0px;
-  vertical-align: middle;
+  /* vertical-align: middle; */
   max-width: 100%;
 }
 img.attach {
@@ -911,7 +956,7 @@ img.attach {
     * too late */
 .desc,
 span.small {
-  font-size: var(--textsize-body__secondary);
+  font-size: var(--textsize-body__primary);
 }
 
 /* Edited by text */
@@ -950,7 +995,7 @@ span.small {
   /* box model */
   width: 100%;
   padding: 5px 0;
-  border-bottom: 1px solid var(--theme__color-primary);
+  border-bottom: 5px dotted var(--theme__color-primary);
 
   /* background */
   background-color: var(--theme__background-contrast);
@@ -966,6 +1011,7 @@ span.small {
 
 #navigation {
   /* box model */
+  max-width: 1080px;
   margin: auto;
   padding: 0 10px;
 
@@ -992,6 +1038,11 @@ span.small {
   cursor: pointer;
 }
 
+.nav__icons--left > a:last-of-type,
+.nav__icons--right > a:last-of-type {
+  margin-left: 10px;
+}
+
 .nav__icons--right {
   /* layout */
   align-items: flex-end;
@@ -1004,7 +1055,7 @@ span.small {
   width: 30px;
 
   /* type */
-  font-size: var(--textsize__subheading);
+  font-size: var(--textsize__subtitle);
   text-align: center;
 }
 
@@ -1027,8 +1078,8 @@ span.small {
   justify-content: center;
 
   /* type */
-  font-family: var(--font-family__subheading);
-  font-size: var(--textsize__subheading);
+  font-family: var(--font-family__subtitle);
+  font-size: var(--textsize__subtitle);
   text-transform: uppercase;
   color: var(--theme__color-primary);
   cursor: pointer;
@@ -1128,7 +1179,7 @@ span.small {
 .nav__userlinks--users strong {
   /* type */
   font-family: var(--font-family__title);
-  font-size: var(--textsize__subheading);
+  font-size: var(--textsize__subtitle);
   letter-spacing: 1px;
   text-align: center;
   text-transform: uppercase;
@@ -1142,6 +1193,7 @@ span.small {
 #nav__userlinks.dropdown-menu {
   /* box model */
   width: 85%;
+  max-width: 1200px;
   max-height: 0;
   margin: auto;
   /* layout */
@@ -1257,6 +1309,50 @@ TODO: move to media queries */
 /* end custom nav */
 
 /*========================================================*
+
+   * --Custom Welcome Box-- 
+   * based on the original BM welcome area
+  *========================================================*/
+
+#welcome-box {
+  text-align: left;
+  color: var(--theme__text-main);
+  position: relative;
+  max-width: 1100px;
+  margin: auto;
+}
+
+#welcome-innerwrapper {
+  border-radius: 10px;
+  border: 5px dotted var(--theme__color-primary);
+  background: var(--theme__background-main);
+  padding: 130px 15px 0px;
+}
+
+.ribbon-2 {
+  --r: 0.3em; /* control the ribbon shape (the radius) */
+
+  position: absolute;
+  top: 10px;
+  inset-inline: calc(-1 * var(--r));
+  text-align: center;
+  line-height: 1.8;
+  padding: 0 0.5em calc(2 * var(--r));
+  border-radius: var(--r);
+  --_g: 100% / var(--r) calc(2 * var(--r)) no-repeat;
+  background: radial-gradient(100% 50% at right, #0005 98%, #0000 101%) 0 var(--_g),
+    radial-gradient(100% 50% at left, #0005 98%, #0000 101%) 100% var(--_g),
+    conic-gradient(from 90deg at var(--r) calc(100% - 2 * var(--r)), #0000 25%, var(--theme__background-contrast) 0) 0 0 / calc(100% - var(--r)) 100%;
+}
+
+/* TODO: move to media query */
+@media only screen and (min-width: 601px) {
+  #welcome-innerwrapper {
+    padding-top: 70px;
+  }
+}
+
+/*========================================================*
    *  █ █ ▀█▀ █▄█ █    ▀█▀ █▀▀ █▄█ █▀█ █   █▀█ ▀█▀ █▀▀ █▀▀
    *  █▀█  █  █ █ █     █  █▀▀ █ █ █▀▀ █   █▀█  █  █▀▀ ▀▀█
    *  ▀ ▀  ▀  ▀ ▀ ▀▀▀   ▀  ▀▀▀ ▀ ▀ ▀   ▀▀▀ ▀ ▀  ▀  ▀▀▀ ▀▀▀
@@ -1366,7 +1462,15 @@ TODO: move to media queries */
   /* layout */
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+
+  /* type */
+  text-align: center;
+}
+
+.forum-container {
+  max-width: 1080px;
+  margin: auto;
 }
 
 /*------------------------------------*
@@ -1376,7 +1480,6 @@ TODO: move to media queries */
 .forum__row {
   /* box model */
   padding: 5px;
-  border: 1px solid var(--theme__background-main);
 
   /* layout */
   display: grid;
@@ -1393,6 +1496,12 @@ TODO: move to media queries */
 .forum__row--topics,
 .forum__row--replies {
   text-align: center;
+}
+
+.forum__row--info a:link,
+.forum__row--info a:visited,
+.forum__row--info a:active {
+  font-size: var(--textsize__subtitle);
 }
 
 span.subforums > br {
@@ -1711,7 +1820,7 @@ span.subforums > a {
 
 .memberlist__row--name {
   /* type */
-  font-size: var(--textsize__subheading);
+  font-size: var(--textsize__subtitle);
 
   /* other */
   overflow-wrap: anywhere;
@@ -1840,7 +1949,7 @@ span.subforums > a {
   border-bottom: 1px solid var(--theme__color-secondary);
 
   /* type */
-  font-size: var(--textsize__subheading);
+  font-size: var(--textsize__subtitle);
 
   /* other */
   overflow-wrap: anywhere;
@@ -1921,7 +2030,7 @@ span.subforums > a {
   display: block;
 
   /* type */
-  font-size: var(--textsize__subheading);
+  font-size: var(--textsize__subtitle);
 }
 
 .post__row {
@@ -2050,7 +2159,6 @@ span.report-macro {
 .redirect__row {
   /* box model */
   padding: 5px;
-  border: 1px solid var(--theme__background-main);
 
   /* layout */
   display: grid;
@@ -2059,6 +2167,12 @@ span.report-macro {
   grid-template-areas:
     'info   info'
     'macro  hits';
+}
+
+.redirect__row--info a:link,
+.redirect__row--info a:visited,
+.redirect__row--info a:active {
+  font-size: var(--textsize__subtitle);
 }
 
 /* Grid Set Up */
@@ -2748,7 +2862,7 @@ span.lastpost--desc {
   /* make sure the username doesn't break anything */
   #Msg span.msg-normal td.row4[valign='middle'] {
     /* type */
-    font-size: var(--textsize__subheading);
+    font-size: var(--textsize__subtitle);
     text-align: center;
 
     /* other */

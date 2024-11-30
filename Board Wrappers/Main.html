@@ -54,154 +54,170 @@
 
   <body id="<!-- |input_act| -->" class="code-<!-- |input_CODE| -->">
     <!-- start site wrapper -->
-    <div id="wrapper">
-      <!-- start navigation bar -->
-      <div id="navigation-wrapper">
-        <!-- start nav top bar -->
-        <div id="navigation">
-          <!-- home and theme toggle buttons -->
-          <div class="nav__icons--left">
-            <a href="/index.php" title="Home">
-              <i class="fas fa-home icons"></i>
-            </a>
-            <a href="#" title="Toggle Theme">
-              <i class="fas fa-lightbulb icons"></i>
-            </a>
-          </div>
-          <!-- end home and theme toggle buttons -->
 
-          <!-- menu toggle button -->
-          <div class="nav__menu">
-            <button class="button-action">
-              Menu
-              <i class="fa-solid fa-circle-chevron-down rotate" title="Toggle Menu"></i>
-            </button>
-          </div>
-          <!-- end menu toggle button -->
-
-          <!-- top and bottom buttons -->
-          <div class="nav__icons--right">
-            <a href="#" title="Back to Top">
-              <i id="click-up" class="fas fa-arrow-up icons"></i>
-            </a>
-            <a href="#" title="Down to Bottom">
-              <i id="click-down" class="fas fa-arrow-down icons"></i>
-            </a>
-          </div>
-          <!-- end top and bottom buttons -->
-
-          <!-- site breadcrumbs -->
-          <div id="navi"><% NAVIGATION %></div>
-          <!-- end site breadcrumbs -->
+    <!-- start navigation bar -->
+    <div id="navigation-wrapper">
+      <!-- start nav top bar -->
+      <div id="navigation">
+        <!-- home and theme toggle buttons -->
+        <div class="nav__icons--left">
+          <a href="/index.php" title="Go To Homepage">
+            <i class="fas fa-home icons"></i>
+          </a>
+          <a href="#" title="Toggle Theme">
+            <i class="fas fa-lightbulb icons"></i>
+          </a>
         </div>
-        <!-- end nav top bar -->
+        <!-- end home and theme toggle buttons -->
 
-        <!-- start dropdown menu -->
-        <div id="nav__userlinks" class="dropdown-menu">
-          <div class="nav__userlinks--users">
-            <!-- start guest info -->
-            <div class="g-<!-- |g_id| -->" style="display: none">
-              <strong> HI GUEST! </strong>
-            </div>
-            <div class="g-<!-- |g_id| --> logging" style="display: none">
-              <a href="/index.php?act=Login&CODE=00" title="Log In"> LOG IN <i class="fa-solid fa-arrow-right-to-bracket fa-lg"></i> </a>
-              <a href="/index.php?act=Reg&CODE=00" title="Register"> REGISTER <i class="fa-solid fa-image-portrait fa-lg"></i> </a>
-            </div>
-            <!-- end guest info -->
-
-            <!-- start logged in user info -->
-            <strong class="m-<!-- |g_id| -->">
-              <!-- |name| -->
-            </strong>
-            <a href="?act=Login&CODE=03" title="Log Out" id="log-out" class="m-<!-- |g_id| -->">
-              Log Out <i class="fa-solid fa-arrow-right-from-bracket fa-lg"></i>
-            </a>
-            <div class="m-<!-- |g_id| --> account-switcher">
-              <span id="change-skin-theme">
-                <input
-                  type="button"
-                  onclick="document.getElementById('change-skin-theme').innerHTML=document.getElementById('skin_selector').innerHTML;"
-                  value="Change Skin Theme" />
-              </span>
-            </div>
-          </div>
-
-          <div class="view-profile m-<!-- |g_id| -->">
-            <a href="?showuser=<!-- |id| -->" title="View Profile"> <i class="fa-solid fa-circle-user"></i> User Profile </a>
-          </div>
-          <div class="my-controls m-<!-- |g_id| -->">
-            <a href="?act=UserCP&CODE=00" title="User CP"> <i class="fa-solid fa-gear"></i> User CP </a>
-          </div>
-          <div class="active-topics m-<!-- |g_id| -->">
-            <a href="?act=Search&CODE=getactive" title="View Active Topics"> <i class="fa-solid fa-bullhorn"></i> Active Topics </a>
-          </div>
-          <div class="my-messages m-<!-- |g_id| -->">
-            <a href="?act=Msg&CODE=01" title="View Inbox">
-              <i class="fa-solid fa-inbox"></i>
-              <!-- |new_msg| -->
-              messages
-            </a>
-          </div>
-          <div class="view-new-posts m-<!-- |g_id| -->">
-            <a href="?act=Search&CODE=getnew" title="View New Posts"> <i class="fa-solid fa-envelope-open"></i> New Posts </a>
-          </div>
-          <div class="mu-alerts m-<!-- |g_id| -->">
-            <a href="?act=UserCP&CODE=alerts" title="View All Alerts">
-              <i class="fa-solid fa-bell"></i>
-              <!-- |new_alerts| -->
-              alerts
-            </a>
-          </div>
-          <div class="admin-cp m-<!-- |g_id| -->">
-            <a href="/admin.php" class="acp-<!-- |g_access_cp| -->" target="_blank" title="Admin CP">
-              <i class="fa-solid fa-screwdriver-wrench"></i> Admin CP
-            </a>
-          </div>
-          <div class="mod-cp m-<!-- |g_id| -->">
-            <a href="?act=modcp" class="mcp-<!-- |g_access_cp| -->" title="Mod CP">
-              <i class="fa-solid fa-hammer"></i>
-              <!-- |modcp_issues| -->
-              Mod CP
-            </a>
-          </div>
-          <!-- end logged in user info -->
-
-          <!-- start quick links area -->
-          <div class="quicklinks-1">
-            <a href="?showforum=36" title="View Site Rules"> <i class="fa-solid fa-scale-balanced"></i> Site Rules </a>
-          </div>
-
-          <div class="quicklinks-2">
-            <a href="?act=Search" title="Link to Jcink Search"> <i class="fa-solid fa-magnifying-glass"></i> Search </a>
-          </div>
-
-          <div class="quicklinks-3">
-            <a href="https://discord.gg/barbermonger" title="Link to Discord"> <i class="fab fa-discord"></i> Discord </a>
-          </div>
-
-          <div class="quicklinks-4">
-            <a href="?act=Members" title="Link to Member List"> <i class="fa-solid fa-address-book"></i> Member List </a>
-          </div>
-
-          <div class="quicklinks-5">
-            <a href="?showtopic=10943" title="Link to Donation Thread"> <i class="fa-solid fa-piggy-bank"></i> Donate </a>
-          </div>
-
-          <div class="quicklinks-6">
-            <a href="?c=511882" title="Link to RP Resources"> <i class="fa-solid fa-clipboard-user"></i> Resources </a>
-          </div>
-          <!-- end quick links area -->
+        <!-- menu toggle button -->
+        <div class="nav__menu">
+          <button class="button-action" title="Toggle Menu">
+            Menu
+            <i class="fa-solid fa-circle-chevron-down rotate"></i>
+          </button>
         </div>
-        <!-- end dropdown menu -->
+        <!-- end menu toggle button -->
+
+        <!-- top and bottom buttons -->
+        <div class="nav__icons--right">
+          <a href="#" title="Back to Top">
+            <i id="click-up" class="fas fa-arrow-up icons"></i>
+          </a>
+          <a href="#" title="Down to Bottom">
+            <i id="click-down" class="fas fa-arrow-down icons"></i>
+          </a>
+        </div>
+        <!-- end top and bottom buttons -->
+
+        <!-- site breadcrumbs -->
+        <div id="navi"><% NAVIGATION %></div>
+        <!-- end site breadcrumbs -->
       </div>
-      <!-- end navigation bar -->
+      <!-- end nav top bar -->
 
+      <!-- start dropdown menu -->
+      <div id="nav__userlinks" class="dropdown-menu">
+        <div class="nav__userlinks--users">
+          <!-- start guest info -->
+          <div class="g-<!-- |g_id| -->" style="display: none">
+            <strong> HI GUEST! </strong>
+          </div>
+          <div class="g-<!-- |g_id| --> logging" style="display: none">
+            <a href="/index.php?act=Login&CODE=00" title="Log In"> LOG IN <i class="fa-solid fa-arrow-right-to-bracket fa-lg"></i> </a>
+            <a href="/index.php?act=Reg&CODE=00" title="Register"> REGISTER <i class="fa-solid fa-image-portrait fa-lg"></i> </a>
+          </div>
+          <!-- end guest info -->
+
+          <!-- start logged in user info -->
+          <strong class="m-<!-- |g_id| -->">
+            <!-- |name| -->
+          </strong>
+          <a href="?act=Login&CODE=03" title="Log Out" id="log-out" class="m-<!-- |g_id| -->">
+            Log Out <i class="fa-solid fa-arrow-right-from-bracket fa-lg"></i>
+          </a>
+          <div class="m-<!-- |g_id| --> account-switcher">
+            <span id="change-skin-theme">
+              <input
+                type="button"
+                onclick="document.getElementById('change-skin-theme').innerHTML=document.getElementById('skin_selector').innerHTML;"
+                value="Change Skin Theme" />
+            </span>
+          </div>
+        </div>
+
+        <div class="view-profile m-<!-- |g_id| -->">
+          <a href="?showuser=<!-- |id| -->" title="View Profile"> <i class="fa-solid fa-circle-user"></i> User Profile </a>
+        </div>
+        <div class="my-controls m-<!-- |g_id| -->">
+          <a href="?act=UserCP&CODE=00" title="User CP"> <i class="fa-solid fa-gear"></i> User CP </a>
+        </div>
+        <div class="active-topics m-<!-- |g_id| -->">
+          <a href="?act=Search&CODE=getactive" title="View Active Topics"> <i class="fa-solid fa-bullhorn"></i> Active Topics </a>
+        </div>
+        <div class="my-messages m-<!-- |g_id| -->">
+          <a href="?act=Msg&CODE=01" title="View Inbox">
+            <i class="fa-solid fa-inbox"></i>
+            <!-- |new_msg| -->
+            messages
+          </a>
+        </div>
+        <div class="view-new-posts m-<!-- |g_id| -->">
+          <a href="?act=Search&CODE=getnew" title="View New Posts"> <i class="fa-solid fa-envelope-open"></i> New Posts </a>
+        </div>
+        <div class="mu-alerts m-<!-- |g_id| -->">
+          <a href="?act=UserCP&CODE=alerts" title="View All Alerts">
+            <i class="fa-solid fa-bell"></i>
+            <!-- |new_alerts| -->
+            alerts
+          </a>
+        </div>
+        <div class="admin-cp m-<!-- |g_id| -->">
+          <a href="/admin.php" class="acp-<!-- |g_access_cp| -->" target="_blank" title="Admin CP">
+            <i class="fa-solid fa-screwdriver-wrench"></i> Admin CP
+          </a>
+        </div>
+        <div class="mod-cp m-<!-- |g_id| -->">
+          <a href="?act=modcp" class="mcp-<!-- |g_access_cp| -->" title="Mod CP">
+            <i class="fa-solid fa-hammer"></i>
+            <!-- |modcp_issues| -->
+            Mod CP
+          </a>
+        </div>
+        <!-- end logged in user info -->
+
+        <!-- start quick links area -->
+        <div class="quicklinks-1">
+          <a href="?showforum=36" title="View Site Rules"> <i class="fa-solid fa-scale-balanced"></i> Site Rules </a>
+        </div>
+
+        <div class="quicklinks-2">
+          <a href="?act=Search" title="Link to Jcink Search"> <i class="fa-solid fa-magnifying-glass"></i> Search </a>
+        </div>
+
+        <div class="quicklinks-3">
+          <a href="https://discord.gg/barbermonger" title="Link to Discord"> <i class="fab fa-discord"></i> Discord </a>
+        </div>
+
+        <div class="quicklinks-4">
+          <a href="?act=Members" title="Link to Member List"> <i class="fa-solid fa-address-book"></i> Member List </a>
+        </div>
+
+        <div class="quicklinks-5">
+          <a href="?showtopic=10943" title="Link to Donation Thread"> <i class="fa-solid fa-piggy-bank"></i> Donate </a>
+        </div>
+
+        <div class="quicklinks-6">
+          <a href="?c=511882" title="Link to RP Resources"> <i class="fa-solid fa-clipboard-user"></i> Resources </a>
+        </div>
+        <!-- end quick links area -->
+      </div>
+      <!-- end dropdown menu -->
+    </div>
+    <!-- end navigation bar -->
+
+    <div id="wrapper">
       <!-- start header area -->
       <div id="header">
         <a id="logo" href="/index.php" title="homepage"></a>
         <% BOARD HEADER %>
       </div>
       <!-- end header area -->
+
+      <!-- start welcome box -->
+      <div id="welcome-box">
+        <div class="maintitle ribbon-2">Welcome to Barbermonger</div>
+        <div id="welcome-innerwrapper">
+          <p>
+            <b>BARBERMONGER</b> is a site designed to help roleplayers find other roleplayers, specifically one-on-one roleplayers, as opposed to
+            larger roleplay games. Functioning like a pinboard, <b>BARBERMONGER</b> allows users to create advertisements, bump advertisements, and
+            respond to other advertisements, without requiring them to register an account. However, registering an account will allow you to edit
+            your posts, find your own topics, and use the private messaging system.
+          </p>
+        </div>
+      </div>
+      <br class="cat-lb" />
+      <!-- end welcome box -->
 
       <!-- start forum -->
       <div id="innerwrapper"><% BOARD %></div>
