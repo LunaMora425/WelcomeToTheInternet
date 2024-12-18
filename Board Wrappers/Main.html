@@ -19,15 +19,15 @@
     <!-- font icons -->
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-      integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
       crossorigin="anonymous"
       referrerpolicy="no-referrer" />
     <!-- google fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Comic+Neue:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Livvic:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Righteous&family=Rye&family=Tilt+Neon&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&family=Comic+Neue:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Livvic:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Righteous&family=Rye&family=Tilt+Neon&display=swap"
       rel="stylesheet" />
     <% CSS %>
     <!-- end CSS -->
@@ -205,15 +205,88 @@
       <!-- end header area -->
 
       <!-- start welcome box -->
+      <div class="welcome maintitle ribbon">Welcome</div>
       <div id="welcome-box">
-        <div class="maintitle ribbon-2">Welcome to Barbermonger</div>
         <div id="welcome-innerwrapper">
-          <p>
-            <b>BARBERMONGER</b> is a site designed to help roleplayers find other roleplayers, specifically one-on-one roleplayers, as opposed to
-            larger roleplay games. Functioning like a pinboard, <b>BARBERMONGER</b> allows users to create advertisements, bump advertisements, and
-            respond to other advertisements, without requiring them to register an account. However, registering an account will allow you to edit
-            your posts, find your own topics, and use the private messaging system.
-          </p>
+          <div class="welcome-grid">
+            <div class="welcome-gridbox-1">
+              <h2 class="welcome-title">What is Barbermonger?</h2>
+              <p>
+                <b>BARBERMONGER</b> is a site designed to help roleplayers find other roleplayers, specifically one-on-one roleplayers, as opposed to
+                larger roleplay games.
+              </p>
+              <p>
+                Functioning like a pinboard, <b>BARBERMONGER</b> allows users to create advertisements, bump advertisements, and respond to other
+                advertisements, without requiring them to register an account.
+              </p>
+              <p>However, registering an account will allow you to edit your posts, find your own topics, and use the private messaging system.</p>
+            </div>
+            <div class="welcome-gridbox-2">
+              <div class="links-flex">
+                <button class="button-74" role="button">
+                  <a href="?showtopic=4398" title="Link to Site Rules"> <i class="fa-solid fa-scale-balanced"></i> Site Rules </a>
+                </button>
+                <button class="button-74" role="button">
+                  <a href="https://discord.gg/barbermonger" title="Link to Discord"> <i class="fa-brands fa-discord"></i> Discord </a>
+                </button>
+                <button class="button-74" role="button">
+                  <a href="?act=Members" title="Link to Member List"> <i class="fa-solid fa-address-book"></i> Member List</a>
+                </button>
+                <button class="button-74" role="button">
+                  <a href="?act=Search" title="Link to Jcink Search"> <i class="fa-solid fa-magnifying-glass"></i> Jcink Search </a>
+                </button>
+                <button class="button-74" role="button">
+                  <a href="https://www.google.com/search?q=site%3Abarbermonger.me+" title="Link to Google Search">
+                    <i class="fa-brands fa-google"></i> Search
+                  </a>
+                </button>
+                <button class="button-74" role="button">
+                  <a href="?showtopic=10943" title="Link to Donation Thread"> <i class="fa-solid fa-piggy-bank"></i> Donate </a>
+                </button>
+                <button class="button-74" role="button">
+                  <a href="https://bmteeshop.threadless.com/" title="Link to Merch Store"> <i class="fa-solid fa-hat-cowboy"></i> Merch </a>
+                </button>
+              </div>
+            </div>
+            <div class="welcome-gridbox-3">
+              <div id="cbox-heading">
+                <h2 class="welcome-title">The CBox (is not for ads)</h2>
+              </div>
+              <a id="cbox-toggle" class="ribbon4" title="Toggle Cbox" onclick="toggleCbox()"> Toggle CBox </a>
+              <!-- BEGIN CBOX - www.cbox.ws - v4.3 -->
+              <div id="cboxdiv" class="cboxcontainer">
+                <div
+                  style="position: relative; height: 245px; overflow: auto; overflow-y: auto; -webkit-overflow-scrolling: touch; border: 0px solid">
+                  <iframe
+                    src="https://www4.cbox.ws/box/?boxid=3903964&boxtag=rlwzhc&sec=main"
+                    marginheight="0"
+                    marginwidth="0"
+                    frameborder="0"
+                    width="100%"
+                    height="100%"
+                    scrolling="auto"
+                    allowtransparency="yes"
+                    name="cboxmain4-3903964"
+                    id="cboxmain4-3903964"></iframe>
+                </div>
+                <div style="position: relative; height: 75px; overflow: hidden; border: 0px solid; border-top: 0px">
+                  <iframe
+                    src="https://www4.cbox.ws/box/?boxid=3903964&boxtag=rlwzhc&sec=form"
+                    allow="autoplay"
+                    marginheight="0"
+                    marginwidth="0"
+                    frameborder="0"
+                    width="100%"
+                    height="100%"
+                    scrolling="no"
+                    allowtransparency="yes"
+                    name="cboxform4-3903964"
+                    id="cboxform4-3903964"></iframe>
+                </div>
+              </div>
+              <!-- END CBOX -->
+            </div>
+          </div>
         </div>
       </div>
       <br class="cat-lb" />
@@ -247,6 +320,13 @@
     <script src="https://files.jcink.net/uploads2/freecodes/shared/clipboard_copy_button.js"></script>
     <script src="https://files.jcink.net/uploads2/freecodes/shared/image_resizer.js"></script>
     <!-- end pre-installed scripts -->
+
+    <script>
+      /* Toggle CBox */
+      function toggleCbox() {
+        document.getElementById('cboxdiv').classList.toggle('display-cbox');
+      }
+    </script>
 
     <!-- DO NOT ADD TO OR EDIT ANYTHING BELOW THIS LINE -->
   </body>

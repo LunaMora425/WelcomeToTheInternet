@@ -65,6 +65,7 @@
 
   /* Light Mode - WTTI */
   --wheat: #ebd1ae;
+  --wheat2: #fbdfb9;
   --peach-yellow: #eed8a1;
   --midnight-green: #004649;
 
@@ -73,7 +74,9 @@
   --space-cadet: #1d1e38;
   --dun: #d4be9f;
   --cinnabar: #ec5d37;
+  --blood-red: #5f1a07;
   --verdigris: #0da9b1;
+  --prussian-blue: #04294a;
 
   /* Font List */
   --rye: 'Rye', serif;
@@ -84,6 +87,8 @@
   --livvic: 'Livvic', sans-serif;
 
   --noto-sans: 'Noto Sans', serif;
+  --atkinsons-hyperlegible: 'Atkinson Hyperlegible', serif;
+
   --courier: 'Courier', monospace;
 
   /* Font Sizes */
@@ -97,7 +102,7 @@
   /* Font Families */
   --font-family__title: var(--rye);
   --font-family__subtitle: var(--livvic);
-  --font-family__body: var(--noto-sans);
+  --font-family__body: var(--atkinsons-hyperlegible);
   --font-family__accent: var(--courier);
 
   /* Font Sizes */
@@ -116,6 +121,7 @@
 
   --theme__color-primary: var(--cinnabar);
   --theme__color-secondary: var(--verdigris);
+  --theme__color-secondary-shadow: var(--prussian-blue);
   --theme__color-accent: var(--dun);
 
   --theme__text-main: var(--dun);
@@ -133,11 +139,12 @@
   --theme__image__logo: url('https://files.jcink.net/uploads/barbermonger/Logos/CircusLogoLight.png');
 
   /* Light Mode Colors */
-  --theme__background-main: var(--wheat);
+  --theme__background-main: var(--wheat2);
   --theme__background-contrast: var(--peach-yellow);
 
   --theme__color-primary: var(--verdigris);
   --theme__color-secondary: var(--cinnabar);
+  --theme__color-secondary-shadow: var(--blood-red);
   --theme__color-accent: var(--dun);
 
   --theme__text-main: var(--midnight-green);
@@ -278,8 +285,10 @@ a:not([name]):empty {
   /* type */
   font-family: var(--font-family__title);
   font-size: var(--textsize__title);
+  text-align: center;
+  text-shadow: var(--theme__title-boxshadow);
   text-transform: uppercase;
-  color: var(--theme__color-secondary);
+  color: var(--theme__text-contrast);
 }
 
 .maintitle a:link,
@@ -1314,23 +1323,32 @@ TODO: move to media queries */
    * based on the original BM welcome area
   *========================================================*/
 
+.welcome.maintitle.ribbon {
+  overflow: hidden;
+  overflow-wrap: anywhere;
+}
+
 #welcome-box {
-  text-align: left;
   color: var(--theme__text-main);
-  position: relative;
-  max-width: 1100px;
+  max-width: 1080px;
   margin: auto;
+  box-sizing: border-box;
 }
 
 #welcome-innerwrapper {
   border-radius: 10px;
-  border: 5px dotted var(--theme__color-primary);
+  border: 5px dotted var(--theme__color-secondary);
   background: var(--theme__background-main);
-  padding: 130px 15px 0px;
+  padding: 0px 15px 15px;
 }
 
-.ribbon-2 {
-  --r: 0.3em; /* control the ribbon shape (the radius) */
+/* .maintitle.ribbon-2 {
+  overflow-wrap: anywhere;
+}
+
+.maintitle.ribbon-2 {
+  --r: 0.3em; 
+  --b: var(--theme__background-contrast); 
 
   position: absolute;
   top: 10px;
@@ -1342,14 +1360,227 @@ TODO: move to media queries */
   --_g: 100% / var(--r) calc(2 * var(--r)) no-repeat;
   background: radial-gradient(100% 50% at right, #0005 98%, #0000 101%) 0 var(--_g),
     radial-gradient(100% 50% at left, #0005 98%, #0000 101%) 100% var(--_g),
-    conic-gradient(from 90deg at var(--r) calc(100% - 2 * var(--r)), #0000 25%, var(--theme__background-contrast) 0) 0 0 / calc(100% - var(--r)) 100%;
+    conic-gradient(from 90deg at var(--r) calc(100% - 2 * var(--r)), #0000 25%, var(--b) 0) 0 0 / calc(100% - var(--r)) 100%;
+} */
+
+.welcome-grid {
+  display: grid;
+  grid-template-areas:
+    'info'
+    'links'
+    'cbox';
+}
+
+h2.welcome-title {
+  font-family: var(--font-family__subtitle);
+  text-align: center;
+}
+
+/* links styling */
+.links-flex {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+  align-content: space-around;
+  row-gap: 10px;
+}
+
+/* CSS */
+.button-74 {
+  background-color: var(--theme__color-secondary);
+  border: 2px solid var(--theme__color-secondary-shadow);
+  border-radius: 30px;
+  box-shadow: var(--theme__color-secondary-shadow) 4px 4px 0 0;
+  color: var(--theme__text-contrast);
+  text-shadow: 1px 1px 2px #000, -1px -1px 2px #000, 1px 2px 2px #000, 1px -1px 2px #000;
+  cursor: pointer;
+  display: inline-block;
+  font-weight: 600;
+  font-size: var(--textsize-body__primary);
+  padding: 0 18px;
+  line-height: 50px;
+  text-align: center;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.button-74 a:link,
+.button-74 a:visited,
+.button-74 a:active {
+  font-family: var(--font-family__body);
+  color: var(--theme__text-contrast);
+}
+
+.button-74 a:hover {
+  color: var(--theme__color-primary);
+}
+
+.button-74:active {
+  box-shadow: var(--theme__color-secondary-shadow) 2px 2px 0 0;
+  transform: translate(2px, 2px);
+}
+
+@media (min-width: 769px) {
+  .button-74 {
+    min-width: 120px;
+    padding: 0 25px;
+  }
+}
+
+/****************************************
+    Cbox Styling
+ *****************************************/
+
+#cbox-toggle {
+  display: block;
+  font-family: var(--font-family__body);
+  color: var(--theme__text-contrast);
+  text-shadow: 1px 1px 2px #000, -1px -1px 2px #000, 1px 2px 2px #000, 1px -1px 2px #000;
+  font-size: var(--textsize__subtitle);
+}
+
+#cbox-heading {
+  display: none;
+}
+
+#cboxdiv {
+  position: relative;
+  top: 5px;
+  margin: 0 auto;
+  max-width: 400px;
+  font-size: 0;
+  line-height: 0;
+}
+
+.cboxcontainer {
+  position: absolute;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  max-height: 0;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-transition: max-height, 0.5s ease-in-out;
+  transition: max-height, 0.5s ease-in-out;
+}
+
+.display-cbox {
+  max-height: 100%;
+}
+
+.cbox .button-box {
+  margin: 0px 0 0 -65px;
+  left: 50%;
+}
+
+.ribbon4 {
+  --c: var(--theme__color-secondary);
+  /* control the cutout part (adjust each variable to understand what it does) */
+  --r: 0.8em;
+  --a: 60deg; /* from 0 to 90deg */
+  --d: 0.5em;
+
+  padding-inline: 0.3em;
+  margin: 40px auto 0;
+  line-height: 1.75;
+  background: var(--c);
+  width: fit-content;
+  position: relative;
+  white-space: nowrap;
+}
+.ribbon4:before,
+.ribbon4:after {
+  content: '';
+  position: absolute;
+  width: calc(1lh + var(--d));
+  height: calc(1.5lh + var(--r));
+  bottom: 0;
+  border: solid var(--c);
+  box-sizing: border-box;
+}
+.ribbon4:before {
+  left: 99%;
+  border-width: 0 1lh 1lh 0;
+  border-radius: 0 0 999px 0;
+  clip-path: polygon(
+    calc(999px * cos(var(--a))) calc(100% - 1lh - var(--d) + 999px * sin(var(--a))),
+    999px 0,
+    100% 0,
+    calc(50% + var(--d) / 2) var(--r),
+    var(--d) 0,
+    0 0,
+    0 calc(100% - 1lh - var(--d))
+  );
+  transform-origin: 0 calc(100% - 1lh - var(--d));
+  rotate: calc(90deg - var(--a));
+}
+.ribbon4:after {
+  right: 99%;
+  border-width: 0 0 1lh 1lh;
+  border-radius: 0 0 0 999px;
+  clip-path: polygon(
+    calc(100% - 999px * cos(var(--a))) calc(100% - 1lh - var(--d) + 999px * sin(var(--a))),
+    -999px 0,
+    0 0,
+    calc(50% - var(--d) / 2) var(--r),
+    calc(100% - var(--d)) 0,
+    100% 0,
+    100% calc(100% - 1lh - var(--d))
+  );
+  transform-origin: 100% calc(100% - 1lh - var(--d));
+  rotate: calc(var(--a) - 90deg);
 }
 
 /* TODO: move to media query */
-@media only screen and (min-width: 601px) {
-  #welcome-innerwrapper {
-    padding-top: 70px;
+@media only screen and (min-width: 769px) {
+  .welcome-grid {
+    grid-template-columns: 1.5fr 1fr;
+    grid-template-rows: min-content 1fr;
+    grid-template-areas:
+      'info cbox'
+      'links cbox';
   }
+
+  /* cbox styling */
+  #cboxdiv {
+    position: relative;
+    top: 0;
+    margin: 0 auto;
+    max-width: 400px;
+    font-size: 0;
+    line-height: 0;
+  }
+
+  #cbox-toggle {
+    display: none;
+  }
+
+  #cbox-heading {
+    display: block;
+  }
+
+  .cboxcontainer {
+    position: unset;
+    overflow-x: unset;
+    overflow-y: unset;
+    max-height: 100%;
+  }
+}
+
+/* grid setup */
+
+.welcome-gridbox-1 {
+  grid-area: info;
+}
+
+.welcome-gridbox-2 {
+  grid-area: links;
+}
+
+.welcome-gridbox-3 {
+  grid-area: cbox;
 }
 
 /*========================================================*
