@@ -35,7 +35,6 @@
     <!-- start JavaScript files -->
 
     <!-- required by jcink DO NOT MOVE DO NOT TOUCH -->
-    <!-- NOTE: JQuery is backwards compatible, you only need the most recent version, don't install any others  -->
     <script src="https://files.jcink.net/html/jquery-3.7.1.min.js"></script>
     <script src="https://files.jcink.net/html/catcollapse.js" async></script>
     <!-- end required -->
@@ -45,7 +44,6 @@
       if (localStorage.theme) {
         document.documentElement.setAttribute('data-theme', localStorage.theme);
       } else {
-        // if you want to change the default from light to dark, change 'light' to 'dark'
         document.documentElement.setAttribute('data-theme', 'dark');
       }
     </script>
@@ -99,98 +97,106 @@
       <!-- start dropdown menu -->
       <div id="nav__userlinks" class="dropdown-menu">
         <div class="nav__userlinks--users">
-          <!-- start guest info -->
-          <div class="g-<!-- |g_id| -->" style="display: none">
-            <strong> HI GUEST! </strong>
+          <div class="users-header">
+            <div class="g-<!-- |g_id| --> account-name" style="display: none">HI GUEST!</div>
+            <div class="m-<!-- |g_id| --> account-name">Your Account</div>
           </div>
-          <div class="g-<!-- |g_id| --> logging" style="display: none">
-            <a href="/index.php?act=Login&CODE=00" title="Log In"> LOG IN <i class="fa-solid fa-arrow-right-to-bracket fa-lg"></i> </a>
-            <a href="/index.php?act=Reg&CODE=00" title="Register"> REGISTER <i class="fa-solid fa-image-portrait fa-lg"></i> </a>
-          </div>
-          <!-- end guest info -->
 
-          <!-- start logged in user info -->
-          <strong class="m-<!-- |g_id| -->">
-            <!-- |name| -->
-          </strong>
-          <a href="?act=Login&CODE=03" title="Log Out" id="log-out" class="m-<!-- |g_id| -->">
-            Log Out <i class="fa-solid fa-arrow-right-from-bracket fa-lg"></i>
+          <div class="users-container">
+            <div class="users-img">
+              <!-- |avatar| -->
+            </div>
+            <div class="access-links">
+              <a class="g-<!-- |g_id| -->" style="display: none" href="?act=Login&CODE=00" title="Log In">
+                <i class="fa-solid fa-arrow-right-to-bracket fa-lg"></i>
+                LOG IN
+              </a>
+              <a class="m-<!-- |g_id| -->" href="?showuser=<!-- |id| -->" title="View Profile">
+                <i class="fa-solid fa-circle-user fa-lg"></i> View Profile
+              </a>
+              <a class="g-<!-- |g_id| -->" style="display: none" href="?act=Reg&CODE=00" title="Register">
+                <i class="fa-solid fa-image-portrait fa-lg"></i>
+                REGISTER
+              </a>
+              <div class="m-<!-- |g_id| --> user-cp">
+                <a href="?act=UserCP&CODE=00" title="User CP"> <i class="fa-solid fa-gear fa-lg"></i> Settings </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div id="nav__userlinks--staff-area" class="m-<!-- |g_id| --> acp-<!-- |g_access_cp| --> mcp-<!-- |g_access_cp| -->">
+          <div class="admin-cp">
+            <a href="/admin.php" class="acp-<!-- |g_access_cp| -->" target="_blank" title="Admin CP">
+              <i class="fa-solid fa-screwdriver-wrench fa-lg"></i> Admin CP
+            </a>
+          </div>
+          <div class="mod-cp">
+            <a href="?act=modcp" class="mcp-<!-- |g_access_cp| -->" title="Mod CP">
+              <i class="fa-solid fa-hammer fa-lg"></i>
+              <!-- |modcp_issues| -->
+              Mod CP
+            </a>
+          </div>
+        </div>
+
+        <div id="nav__userlinks--notification-area" class="m-<!-- |g_id| -->">
+          <div class="users-header">
+            <div class="account-name">Notifications</div>
+          </div>
+
+          <div class="users-container">
+            <div class="users-img">
+              <img src="https://files.jcink.net/uploads/barbermonger/Site_Files/photoblob.png" />
+            </div>
+            <div class="access-links">
+              <a href="?act=Msg&CODE=01" title="View Inbox">
+                <i class="fa-solid fa-inbox fa-lg"></i>
+                <!-- |new_msg| -->
+                messages
+              </a>
+              <a href="?act=UserCP&CODE=alerts" title="View All Alerts">
+                <i class="fa-solid fa-bell fa-lg"></i>
+                <!-- |new_alerts| -->
+                alerts
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="nav__userlinks--newposts">
+          <div class="users-header">
+            <div class="account-name">What's New?</div>
+          </div>
+
+          <div class="users-container">
+            <div class="users-img">
+              <img src="https://files.jcink.net/uploads/barbermonger/Site_Files/clown_thinking.png" alt="Clown Thinking" />
+            </div>
+            <div class="access-links">
+              <a class="active-topics" href="?act=Search&CODE=getactive" title="View Active Topics">
+                <i class="fa-solid fa-bullhorn fa-lg"></i> View Active Topics
+              </a>
+              <a class="view-category" href="?c=511876" title="View Ad Search Area"> <i class="fa-solid fa-newspaper fa-lg"></i> View Ad Search </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="nav__userlinks--settings">
+          <a class="m-<!-- |g_id| -->" href="?act=Login&CODE=03" title="Log Out" id="log-out">
+            <i class="fa-solid fa-arrow-right-from-bracket fa-lg"></i> Log Out
           </a>
-          <div class="m-<!-- |g_id| --> account-switcher">
+
+          <div class="account-switcher">
             <span id="change-skin-theme">
               <input
                 type="button"
                 onclick="document.getElementById('change-skin-theme').innerHTML=document.getElementById('skin_selector').innerHTML;"
-                value="Change Skin Theme" />
+                value="Change Skin Theme"
+                class="button-54" />
             </span>
           </div>
         </div>
-
-        <div class="view-profile m-<!-- |g_id| -->">
-          <a href="?showuser=<!-- |id| -->" title="View Profile"> <i class="fa-solid fa-circle-user"></i> User Profile </a>
-        </div>
-        <div class="my-controls m-<!-- |g_id| -->">
-          <a href="?act=UserCP&CODE=00" title="User CP"> <i class="fa-solid fa-gear"></i> User CP </a>
-        </div>
-        <div class="active-topics m-<!-- |g_id| -->">
-          <a href="?act=Search&CODE=getactive" title="View Active Topics"> <i class="fa-solid fa-bullhorn"></i> Active Topics </a>
-        </div>
-        <div class="my-messages m-<!-- |g_id| -->">
-          <a href="?act=Msg&CODE=01" title="View Inbox">
-            <i class="fa-solid fa-inbox"></i>
-            <!-- |new_msg| -->
-            messages
-          </a>
-        </div>
-        <div class="view-new-posts m-<!-- |g_id| -->">
-          <a href="?act=Search&CODE=getnew" title="View New Posts"> <i class="fa-solid fa-envelope-open"></i> New Posts </a>
-        </div>
-        <div class="mu-alerts m-<!-- |g_id| -->">
-          <a href="?act=UserCP&CODE=alerts" title="View All Alerts">
-            <i class="fa-solid fa-bell"></i>
-            <!-- |new_alerts| -->
-            alerts
-          </a>
-        </div>
-        <div class="admin-cp m-<!-- |g_id| -->">
-          <a href="/admin.php" class="acp-<!-- |g_access_cp| -->" target="_blank" title="Admin CP">
-            <i class="fa-solid fa-screwdriver-wrench"></i> Admin CP
-          </a>
-        </div>
-        <div class="mod-cp m-<!-- |g_id| -->">
-          <a href="?act=modcp" class="mcp-<!-- |g_access_cp| -->" title="Mod CP">
-            <i class="fa-solid fa-hammer"></i>
-            <!-- |modcp_issues| -->
-            Mod CP
-          </a>
-        </div>
-        <!-- end logged in user info -->
-
-        <!-- start quick links area -->
-        <div class="quicklinks-1">
-          <a href="?showforum=36" title="View Site Rules"> <i class="fa-solid fa-scale-balanced"></i> Site Rules </a>
-        </div>
-
-        <div class="quicklinks-2">
-          <a href="?act=Search" title="Link to Jcink Search"> <i class="fa-solid fa-magnifying-glass"></i> Search </a>
-        </div>
-
-        <div class="quicklinks-3">
-          <a href="https://discord.gg/barbermonger" title="Link to Discord"> <i class="fab fa-discord"></i> Discord </a>
-        </div>
-
-        <div class="quicklinks-4">
-          <a href="?act=Members" title="Link to Member List"> <i class="fa-solid fa-address-book"></i> Member List </a>
-        </div>
-
-        <div class="quicklinks-5">
-          <a href="?showtopic=10943" title="Link to Donation Thread"> <i class="fa-solid fa-piggy-bank"></i> Donate </a>
-        </div>
-
-        <div class="quicklinks-6">
-          <a href="?c=511882" title="Link to RP Resources"> <i class="fa-solid fa-clipboard-user"></i> Resources </a>
-        </div>
-        <!-- end quick links area -->
       </div>
       <!-- end dropdown menu -->
     </div>

@@ -260,11 +260,11 @@ a:visited,
 a:active {
   font-family: var(--font-family__subtitle);
   text-decoration: none;
-  color: var(--theme__color-primary);
+  color: var(--theme__color-secondary);
 }
 
 a:hover {
-  color: var(--theme__color-secondary);
+  color: var(--theme__color-primary);
 }
 
 /* this is for accessibility purposes when there is no title or content */
@@ -538,7 +538,7 @@ input[type='reset'] {
   border-radius: 3px;
 
   /* background */
-  background: var(--theme__color-primary);
+  background: var(--theme__color-secondary);
 
   /* type */
   font-size: var(--textsize-body__secondary);
@@ -1135,19 +1135,16 @@ span.small {
 
   /* layout */
   display: grid;
-  justify-items: start;
-  grid-template-columns: 1.1fr 1fr;
+  justify-items: center;
+  grid-template-columns: 1fr;
   grid-column-gap: 5px;
   grid-row-gap: 15px;
   grid-template-areas:
-    'quicklink-1     quicklink-2'
-    'quicklink-3     quicklink-4'
-    'quicklink-5     quicklink-6'
-    'user-info       user-info'
-    'admin-cp        mod-cp'
-    'view-profile    my-controls'
-    'topics          messages'
-    'view-new-posts  alerts';
+    'notifs'
+    'newposts'
+    'user-info'
+    'settings'
+    'staff';
 }
 
 /* This will hide your member/admin/mod stuff from guests */
@@ -1162,37 +1159,67 @@ span.small {
   display: block !important;
 }
 
-#nav__userlinks .g-2.logging {
-  margin-top: 5px;
-}
-
-#nav__userlinks .g-2.logging a:first-child {
-  margin-right: 55px;
+#nav__userlinks a:link,
+#nav__userlinks a:active,
+#nav__userlinks a:visited {
+  font-size: var(--textsize__subtitle);
 }
 
 #nav__userlinks i {
-  margin-left: 5px;
   margin-right: 5px;
 }
 
-.nav__userlinks--users {
-  /* box model */
+.nav__userlinks--users,
+#nav__userlinks--notification-area,
+.nav__userlinks--newposts {
   width: 100%;
-  /* layout */
-  display: inline-grid;
-  justify-items: center;
-  /* type */
-  word-break: break-word;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 15px;
 }
 
-.nav__userlinks--users strong {
-  /* type */
-  font-family: var(--font-family__title);
-  font-size: var(--textsize__subtitle);
-  letter-spacing: 1px;
-  text-align: center;
-  text-transform: uppercase;
-  color: var(--theme__color-secondary);
+.users-container {
+  display: flex;
+  column-gap: 20px;
+  justify-content: flex-start;
+  overflow-wrap: anywhere;
+}
+
+.users-img {
+  width: 80px;
+  height: 80px;
+}
+
+.users-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.access-links {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-around;
+}
+
+.account-name {
+  font-size: var(--textsize__title);
+  overflow: hidden;
+}
+
+#nav__userlinks--staff-area {
+  display: flex;
+  width: 100%;
+  box-sizing: border-box;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.nav__userlinks--settings {
+  align-self: center;
 }
 
 .account-switcher {
@@ -1217,22 +1244,40 @@ span.small {
 
 #nav__userlinks.dropdown-menu.display-menu {
   /* box model */
-  max-height: 350px;
+  max-height: 750px;
   padding: 10px 5px 10px;
-  border: 1px solid var(--theme__color-primary);
+  border: 2px solid var(--theme__color-primary);
 }
 
-/* just to make the menu look a little better on mobile
-TODO: move to media queries */
-@media only screen and (min-width: 375px) {
-  .view-profile,
-  .active-topics,
-  .view-new-posts,
-  .admin-cp,
-  .quicklinks-1,
-  .quicklinks-3,
-  .quicklinks-5 {
-    margin-left: clamp(15px, 20%, 115px);
+/* CSS */
+input[type='button'].button-54 {
+  font-family: var(--font-family__body);
+  font-size: var(--textsize-body__primary);
+  text-shadow: 1px 1px 2px #000, -1px -1px 2px #000, 1px 2px 2px #000, 1px -1px 2px #000;
+  letter-spacing: 2px;
+  text-decoration: none;
+  text-transform: uppercase;
+  color: var(--theme__text-contrast);
+  cursor: pointer;
+  border: 3px solid var(--theme__color-secondary-shadow);
+  padding: 0.25em 0.5em;
+  box-shadow: var(--theme__color-secondary-shadow) 1px 1px 0px 0px, var(--theme__color-secondary-shadow) 2px 2px 0px 0px,
+    var(--theme__color-secondary-shadow) 3px 3px 0px 0px, var(--theme__color-secondary-shadow) 4px 4px 0px 0px;
+  position: relative;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+input[type='button'].button-54:active {
+  box-shadow: 0px 0px 0px 0px;
+  top: 5px;
+  left: 5px;
+}
+
+@media (min-width: 768px) {
+  input[type='button'].button-54 {
+    padding: 0.25em 0.75em;
   }
 }
 
@@ -1258,61 +1303,20 @@ TODO: move to media queries */
   grid-area: user-info;
 }
 
-/* menu grid */
-.admin-cp {
-  grid-area: admin-cp;
+#nav__userlinks--staff-area {
+  grid-area: staff;
 }
 
-.mod-cp {
-  grid-area: mod-cp;
+#nav__userlinks--notification-area {
+  grid-area: notifs;
 }
 
-.view-profile {
-  grid-area: view-profile;
+.nav__userlinks--newposts {
+  grid-area: newposts;
 }
 
-.my-controls {
-  grid-area: my-controls;
-}
-
-.active-topics {
-  grid-area: topics;
-}
-
-.my-messages {
-  grid-area: messages;
-}
-
-.view-new-posts {
-  grid-area: view-new-posts;
-}
-
-.mu-alerts {
-  grid-area: alerts;
-}
-
-.quicklinks-1 {
-  grid-area: quicklink-1;
-}
-
-.quicklinks-2 {
-  grid-area: quicklink-2;
-}
-
-.quicklinks-3 {
-  grid-area: quicklink-3;
-}
-
-.quicklinks-4 {
-  grid-area: quicklink-4;
-}
-
-.quicklinks-5 {
-  grid-area: quicklink-5;
-}
-
-.quicklinks-6 {
-  grid-area: quicklink-6;
+.nav__userlinks--settings {
+  grid-area: settings;
 }
 
 /* end custom nav */
@@ -3231,21 +3235,19 @@ span.lastpost--desc {
 }
 
 /*------------------------------------*
-    #MEDIA750 - DESKTOP - START at 750px
+    #MEDIA750 - DESKTOP - START at 769px
   *-------------------------------------*/
-@media only screen and (min-width: 750px) {
+@media only screen and (min-width: 769px) {
   /*------------------------------------*
       --Custom Navigation Bar--
       Dropdown Menu
     *-------------------------------------*/
   #nav__userlinks {
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
     grid-template-areas:
-      'user-info       user-info    user-info    user-info'
-      'view-profile    my-controls  quicklink-1  quicklink-2'
-      'topics          messages     quicklink-3  quicklink-4'
-      'view-new-posts  alerts       quicklink-5  quicklink-6'
-      'admin-cp        mod-cp       .            .';
+      'user-info newposts'
+      'settings notifs'
+      'staff staff';
   }
 
   /*------------------------------------*
@@ -3459,12 +3461,10 @@ span.lastpost--desc {
       Dropdown Menu
     *-------------------------------------*/
   #nav__userlinks {
-    grid-template-columns: 3fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: repeat(6, 1fr);
     grid-template-areas:
-      'user-info   view-profile    my-controls  quicklink-1  quicklink-2'
-      'user-info   topics          messages     quicklink-3  quicklink-4'
-      'user-info   view-new-posts  alerts       quicklink-5  quicklink-6'
-      'user-info   admin-cp        mod-cp       .            .';
+      'user-info user-info notifs notifs newposts newposts'
+      'settings settings staff staff staff staff';
   }
 
   #nav__userlinks.dropdown-menu {
