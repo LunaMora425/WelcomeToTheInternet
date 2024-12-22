@@ -189,11 +189,7 @@
 
           <div class="account-switcher">
             <span id="change-skin-theme">
-              <input
-                type="button"
-                onclick="document.getElementById('change-skin-theme').innerHTML=document.getElementById('skin_selector').innerHTML;"
-                value="Change Skin Theme"
-                class="button-54" />
+              <input type="button" onclick="moveSkinSelector()" value="Change Skin Theme" class="button-54" />
             </span>
           </div>
         </div>
@@ -375,6 +371,26 @@
           localStorage.removeItem('RTC' + cnum);
           button.text('Show Recent Topics');
         }
+      }
+    </script>
+    <script>
+      // Move the skin selector to the header so people who don't know jcink can easily find the skin selector and change their theme
+      function moveSkinSelector() {
+        const skinSelector = $('#skin_selector');
+        const changeSkinTheme = $('#change-skin-theme');
+        changeSkinTheme.html(skinSelector.html());
+
+        // Extract the auth code from the original onchange event handler
+        const originalSelect = skinSelector.find('select[name="selector"]');
+        const originalOnChange = originalSelect.attr('onchange');
+        const authCodeMatch = originalOnChange.match(/auth_key=([a-z0-9]+)/);
+        const authCode = authCodeMatch ? authCodeMatch[1] : '';
+
+        // Update the onchange event handler for the moved select element
+        const newSelect = changeSkinTheme.find('select[name="selector"]');
+        newSelect.on('change', function () {
+          window.location.href = 'https://freecodesdev.jcink.net/index.php?&auth_key=' + authCode + '&setskin=' + newSelect.val();
+        });
       }
     </script>
 
