@@ -298,6 +298,17 @@
       <br class="cat-lb" />
       <!-- end welcome box -->
 
+      <!-- Recent Topics -->
+      <div class="recent-topics-toggle collapsed">
+        <button id="maintitle_999" class="button-54" role="button" onclick="rtexpand(999);return false;" title="Toggle Recent Topics">
+          Show Recent Topics
+        </button>
+        <div id="rtc_999" style="display: none">
+          <div id="recent-topics-clip"></div>
+        </div>
+      </div>
+      <!-- end Recent Topics -->
+
       <!-- start forum -->
       <div id="innerwrapper"><% BOARD %></div>
       <!-- end forum -->
@@ -331,6 +342,39 @@
       /* Toggle CBox */
       function toggleCbox() {
         document.getElementById('cboxdiv').classList.toggle('display-cbox');
+      }
+    </script>
+    <script>
+      /* Recent Topics Clip, base Jcink code
+       * modified by Luna for BM use case */
+      $('#recent-topics').appendTo('#recent-topics-clip');
+
+      // Read the LocalStorage and expand the recent-topics-clip
+      if (localStorage.getItem('RTC999') === 'Expanded') {
+        const expanded = $('.recent-topics-toggle');
+        const recentTopicsContainer = $('#rtc_999');
+        const button = $('.button-54');
+        expanded.removeClass('collapsed');
+        recentTopicsContainer.show();
+        button.text('Hide Recent Topics');
+      }
+
+      // Expand recent-topics-clip and set the LocalStorage
+      function rtexpand(cnum) {
+        const recentTopicsContainer = $('#rtc_' + cnum);
+        const recentTopicsContainerMainTitle = $('#maintitle_' + cnum);
+        const button = $('.button-54');
+        if (recentTopicsContainer.is(':hidden')) {
+          recentTopicsContainer.slideToggle(300);
+          recentTopicsContainerMainTitle.closest('.recent-topics-toggle').removeClass('collapsed');
+          localStorage.setItem('RTC' + cnum, 'Expanded');
+          button.text('Hide Recent Topics');
+        } else {
+          recentTopicsContainer.slideToggle(400);
+          recentTopicsContainerMainTitle.closest('.recent-topics-toggle').addClass('collapsed');
+          localStorage.removeItem('RTC' + cnum);
+          button.text('Show Recent Topics');
+        }
       }
     </script>
 

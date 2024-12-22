@@ -76,7 +76,7 @@
   --cinnabar: #ec5d37;
   --blood-red: #5f1a07;
   --verdigris: #0da9b1;
-  --prussian-blue: #04294a;
+  --berkeley-blue: #053663;
 
   /* Font List */
   --rye: 'Rye', serif;
@@ -121,7 +121,7 @@
 
   --theme__color-primary: var(--cinnabar);
   --theme__color-secondary: var(--verdigris);
-  --theme__color-secondary-shadow: var(--prussian-blue);
+  --theme__color-secondary-shadow: var(--berkeley-blue);
   --theme__color-accent: var(--dun);
 
   --theme__text-main: var(--dun);
@@ -701,27 +701,6 @@ input[name='helpbox'] {
   display: none;
 }
 
-/*------------------------------------*
-    #RECENT_TOPICS
-  *-------------------------------------*/
-
-#recent-topics tr {
-  /* box model */
-  padding: 5px;
-
-  /* layout */
-  display: flex;
-  flex-direction: column;
-}
-
-#recent-topics tr > td.recent-topics-info,
-#recent-topics tr > td.recent-topics-date {
-  /* box model */
-  width: 100%;
-  margin: 0;
-  padding: 0;
-}
-
 /****************************************
       Default Footer Area
    *****************************************/
@@ -1087,7 +1066,7 @@ span.small {
   justify-content: center;
 
   /* type */
-  font-family: var(--font-family__subtitle);
+  font-family: var(--font-family__title);
   font-size: var(--textsize__subtitle);
   text-transform: uppercase;
   color: var(--theme__color-primary);
@@ -1111,7 +1090,7 @@ span.small {
 }
 
 #navi {
-  padding-top: 5px;
+  padding-top: 10px;
 }
 
 #navi > br {
@@ -1180,6 +1159,7 @@ span.small {
 }
 
 .users-container {
+  height: 80px;
   display: flex;
   column-gap: 20px;
   justify-content: flex-start;
@@ -1189,6 +1169,12 @@ span.small {
 .users-img {
   width: 80px;
   height: 80px;
+}
+
+/* FIXME: temporarily hiding other icons to see if i hate it less */
+#nav__userlinks--notification-area .users-img,
+.nav__userlinks--newposts .users-img {
+  display: none;
 }
 
 .users-img img {
@@ -1206,15 +1192,14 @@ span.small {
 }
 
 .account-name {
-  font-size: var(--textsize__title);
-  overflow: hidden;
+  font-size: var(--textsize__subtitle);
 }
 
 #nav__userlinks--staff-area {
   display: flex;
   width: 100%;
   box-sizing: border-box;
-  justify-content: space-evenly;
+  justify-content: space-around;
   align-items: center;
 }
 
@@ -1229,7 +1214,7 @@ span.small {
 #nav__userlinks.dropdown-menu {
   /* box model */
   width: 85%;
-  max-width: 1200px;
+  max-width: 925px;
   max-height: 0;
   margin: auto;
   /* layout */
@@ -1249,8 +1234,11 @@ span.small {
   border: 2px solid var(--theme__color-primary);
 }
 
-/* CSS */
-input[type='button'].button-54 {
+/* for the change skin theme button
+   TODO: decide if we use this style for the rest of the input buttons */
+input[type='button'].button-54,
+.button-54 {
+  background: var(--theme__color-secondary);
   font-family: var(--font-family__body);
   font-size: var(--textsize-body__primary);
   text-shadow: 1px 1px 2px #000, -1px -1px 2px #000, 1px 2px 2px #000, 1px -1px 2px #000;
@@ -1258,8 +1246,10 @@ input[type='button'].button-54 {
   text-decoration: none;
   text-transform: uppercase;
   color: var(--theme__text-contrast);
+  font-weight: bold;
   cursor: pointer;
   border: 3px solid var(--theme__color-secondary-shadow);
+  border-radius: 5px;
   padding: 0.25em 0.5em;
   box-shadow: var(--theme__color-secondary-shadow) 1px 1px 0px 0px, var(--theme__color-secondary-shadow) 2px 2px 0px 0px,
     var(--theme__color-secondary-shadow) 3px 3px 0px 0px, var(--theme__color-secondary-shadow) 4px 4px 0px 0px;
@@ -1267,16 +1257,19 @@ input[type='button'].button-54 {
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
+  margin: 0 auto 20px;
 }
 
-input[type='button'].button-54:active {
+input[type='button'].button-54:active,
+.button-54:active {
   box-shadow: 0px 0px 0px 0px;
   top: 5px;
   left: 5px;
 }
 
 @media (min-width: 768px) {
-  input[type='button'].button-54 {
+  input[type='button'].button-54,
+  .button-54 {
     padding: 0.25em 0.75em;
   }
 }
@@ -1325,7 +1318,7 @@ input[type='button'].button-54:active {
 
    * --Custom Welcome Box-- 
    * based on the original BM welcome area
-  *========================================================*/
+ *========================================================*/
 
 .welcome.maintitle.ribbon {
   overflow: hidden;
@@ -1390,7 +1383,7 @@ h2.welcome-title {
   row-gap: 10px;
 }
 
-/* CSS */
+/* button styling for links in welcome box */
 .button-74 {
   background-color: var(--theme__color-secondary);
   border: 2px solid var(--theme__color-secondary-shadow);
@@ -1436,7 +1429,7 @@ h2.welcome-title {
 
 /****************************************
     Cbox Styling
- *****************************************/
+*****************************************/
 
 #cbox-toggle {
   display: block;
@@ -1585,6 +1578,81 @@ h2.welcome-title {
 
 .welcome-gridbox-3 {
   grid-area: cbox;
+}
+
+/****************************************
+    Recent Topics Styling
+*****************************************/
+
+.recent-topics-toggle {
+  display: none;
+  max-width: 1080px;
+  margin: 0 auto 50px;
+  text-align: center;
+}
+
+#idx .recent-topics-toggle {
+  display: block;
+}
+
+.recent-topics-toggle button.button-54 {
+  font-size: var(--textsize__subtitle);
+}
+
+#recent-topics-clip .maintitle {
+  display: none;
+}
+
+/* TODO: this might be able to be got rid of later once more work is done to the table border */
+#recent-topics.tableborder {
+  border: unset;
+  background: unset;
+}
+
+#recent-topics table {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  align-content: center;
+  gap: 10px;
+  box-sizing: border-box;
+}
+
+#recent-topics tbody {
+  display: contents;
+}
+
+#recent-topics tr {
+  width: 300px;
+  height: 150px;
+  display: flex;
+  flex-direction: column;
+  padding: 0 10px;
+  border: 2px solid var(--theme__color-primary);
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  box-sizing: border-box;
+  background: var(--theme__background-contrast);
+}
+
+td.row4.recent-topics-info,
+td.row4.recent-topics-date {
+  width: unset;
+  text-align: center;
+}
+
+#recent-topics .row4 strong {
+  display: flex;
+  flex-direction: column-reverse;
+  font-size: 24px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  max-height: 85px;
+  overflow: hidden;
+  justify-content: flex-end;
 }
 
 /*========================================================*
@@ -3264,17 +3332,6 @@ span.lastpost--desc {
   *-------------------------------------*/
   .pformleft {
     width: 25%;
-  }
-
-  /*------------------------------------*
-      RECENT TOPICS - Desktop Styles
-    *-------------------------------------*/
-  #recent-topics tr {
-    flex-direction: row;
-  }
-
-  #recent-topics tr > td.recent-topics-date {
-    text-align: right;
   }
 
   /*------------------------------------*
