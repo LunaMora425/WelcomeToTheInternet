@@ -120,6 +120,7 @@
   --theme__background-contrast: var(--space-cadet);
 
   --theme__color-primary: var(--cinnabar);
+  --theme__color-primary-shadow: var(--blood-red);
   --theme__color-secondary: var(--verdigris);
   --theme__color-secondary-shadow: var(--berkeley-blue);
   --theme__color-accent: var(--dun);
@@ -129,6 +130,10 @@
 
   --theme__title-boxshadow: 0 -1px 0 #5f1a07, 0 1px 5px rgb(95 26 7), 0 2px 5px #5f1a07, 0 3px 5px #5f1a07, 0 4px 5px #5f1a07, 0 5px 0 #5f1a07,
     0 6px 0 #5f1a07, 0 7px 0px #5f1a07, 0 22px 30px rgb(95 26 7 / 90%), 2px 2px 2px rgba(206, 89, 55, 0);
+}
+
+[data-theme='dark'] {
+  color-scheme: dark;
 }
 
 [data-theme='light'] {
@@ -143,6 +148,7 @@
   --theme__background-contrast: var(--peach-yellow);
 
   --theme__color-primary: var(--verdigris);
+  --theme__color-primary-shadow: var(--berkeley-blue);
   --theme__color-secondary: var(--cinnabar);
   --theme__color-secondary-shadow: var(--blood-red);
   --theme__color-accent: var(--dun);
@@ -198,11 +204,11 @@ body {
   text-align: left;
 }
 
-#header,
+/* #header,
 #innerwrapper,
 #footer {
   padding: 0 10px;
-}
+} */
 
 /* this sets the background color across most of the site, 
   change it here and it will change in all these places. 
@@ -847,6 +853,7 @@ td.darkrow2 {
 
 .dlight {
   background: var(--theme__background-main);
+  overflow-wrap: anywhere;
 }
 
 /****************************************
@@ -1326,7 +1333,6 @@ input[type='button'].button-54:active,
 }
 
 #welcome-box {
-  color: var(--theme__text-main);
   max-width: 1080px;
   margin: auto;
   box-sizing: border-box;
@@ -1338,27 +1344,6 @@ input[type='button'].button-54:active,
   background: var(--theme__background-main);
   padding: 0px 15px 15px;
 }
-
-/* .maintitle.ribbon-2 {
-  overflow-wrap: anywhere;
-}
-
-.maintitle.ribbon-2 {
-  --r: 0.3em; 
-  --b: var(--theme__background-contrast); 
-
-  position: absolute;
-  top: 10px;
-  inset-inline: calc(-1 * var(--r));
-  text-align: center;
-  line-height: 1.8;
-  padding: 0 0.5em calc(2 * var(--r));
-  border-radius: var(--r);
-  --_g: 100% / var(--r) calc(2 * var(--r)) no-repeat;
-  background: radial-gradient(100% 50% at right, #0005 98%, #0000 101%) 0 var(--_g),
-    radial-gradient(100% 50% at left, #0005 98%, #0000 101%) 100% var(--_g),
-    conic-gradient(from 90deg at var(--r) calc(100% - 2 * var(--r)), #0000 25%, var(--b) 0) 0 0 / calc(100% - var(--r)) 100%;
-} */
 
 .welcome-grid {
   display: grid;
@@ -1625,7 +1610,8 @@ h2.welcome-title {
 }
 
 #recent-topics tr {
-  width: 300px;
+  width: 100%;
+  max-width: 530px;
   height: 150px;
   display: flex;
   flex-direction: column;
@@ -1774,6 +1760,11 @@ td.row4.recent-topics-date {
 .forum-container {
   max-width: 1080px;
   margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  align-content: stretch;
+  justify-content: space-around;
 }
 
 /*------------------------------------*
@@ -1781,63 +1772,112 @@ td.row4.recent-topics-date {
   *-------------------------------------*/
 
 .forum__row {
-  /* box model */
-  padding: 5px;
+  border-radius: 10px;
+  border: 1px solid var(--theme__color-primary);
+  background: var(--theme__background-main);
+  margin-bottom: 10px;
+  width: 100%;
+  max-width: 525px;
+}
 
-  /* layout */
+.forum__row:last-child {
+  max-width: 99%;
+}
+
+.forum__row name {
+  a:link,
+  a:visited,
+  a:active {
+    font-size: var(--textsize__title);
+  }
+}
+
+.forum__row > grid {
+  padding: 15px;
   display: grid;
-  align-items: center;
-  row-gap: 5px;
   grid-template-areas:
-    'info       info       info'
-    'subforums  subforums  subforums'
-    'macro      topics     replies'
-    'lastpost   lastpost   lastpost';
+    'new-post'
+    'name'
+    'desc'
+    'lastpost'
+    'lastposter'
+    'post-time';
+
+  & stats {
+    font-size: var(--textsize-body__secondary);
+  }
+
+  & desc {
+    text-align: center;
+    margin: 10px 0;
+  }
+
+  & new-post {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  & lastpost,
+  lastposter,
+  post-time {
+    text-align: right;
+    text-transform: capitalize;
+
+    a:link,
+    a:visited,
+    a:active {
+      font-size: var(--textsize__subtitle);
+    }
+  }
 }
 
-.forum__row--macro,
-.forum__row--topics,
-.forum__row--replies {
-  text-align: center;
+.forum__row subforums {
+  display: block;
+  padding: 10px 5px;
+  border-top: 4px dotted var(--theme__color-primary);
 }
 
-.forum__row--info a:link,
-.forum__row--info a:visited,
-.forum__row--info a:active {
-  font-size: var(--textsize__subtitle);
-}
-
-span.subforums > br {
+subforums:empty {
   display: none;
 }
 
-span.subforums > a {
-  text-decoration: underline;
+span.subforums {
+  display: flex;
+  gap: 5px;
+  align-items: center;
 }
 
 /* Grid Set Up */
-.forum__row--macro {
-  grid-area: macro;
-}
 
-.forum__row--info {
-  grid-area: info;
-}
+.forum__row > grid {
+  & name {
+    grid-area: name;
+  }
 
-.forum__row--subforums {
-  grid-area: subforums;
-}
+  & stats {
+    grid-area: stats;
+  }
 
-.forum__row--topics {
-  grid-area: topics;
-}
+  & desc {
+    grid-area: desc;
+  }
 
-.forum__row--replies {
-  grid-area: replies;
-}
+  & new-post {
+    grid-area: new-post;
+  }
 
-.forum__row--last-post-info {
-  grid-area: lastpost;
+  & lastpost {
+    grid-area: lastpost;
+  }
+
+  & lastposter {
+    grid-area: lastposter;
+  }
+
+  & post-time {
+    grid-area: post-time;
+  }
 }
 
 /* jcink macro class */
@@ -2462,6 +2502,10 @@ span.report-macro {
 .redirect__row {
   /* box model */
   padding: 5px;
+  border-radius: 10px;
+  border: 5px dotted var(--theme__color-secondary);
+  background: var(--theme__background-main);
+  margin-bottom: 10px;
 
   /* layout */
   display: grid;
@@ -2576,8 +2620,27 @@ span.lastpost--desc {
   margin: auto;
 }
 
+.no-new-post-macro,
 .new-post-macro {
-  color: var(--theme__color-primary);
+  color: var(--theme__text-contrast);
+  text-shadow: 1px 1px 2px #000, -1px -1px 2px #000, 1px 2px 2px #000, 1px -1px 2px #000;
+  display: inline-block;
+  font-weight: 600;
+  font-size: var(--textsize-body__primary);
+  padding: 0 10px;
+  line-height: 140%;
+  border-radius: 30px;
+}
+
+.no-new-post-macro {
+  background-color: var(--theme__background-contrast);
+  border: 2px dotted var(--theme__color-secondary-shadow);
+}
+
+.new-post-macro {
+  background-color: var(--theme__color-secondary);
+  border: 2px solid var(--theme__color-secondary-shadow);
+  box-shadow: var(--theme__color-secondary-shadow) 2px 2px 0 0;
 }
 
 /* Grid Set Up */
@@ -3364,18 +3427,6 @@ span.lastpost--desc {
 
   .links__grid {
     margin-left: 50px;
-  }
-
-  /*------------------------------------*
-    #TEMPLATES - FORUM_ROWS - Desktop Styles
-    *-------------------------------------*/
-  .forum__row {
-    /* layout */
-    grid-template-columns: 28px 55% 7% 7% 27%;
-    grid-column-gap: 5px;
-    grid-template-areas:
-      'macro  info       topics     replies    lastpost'
-      'macro  subforums  subforums  subforums  subforums';
   }
 
   /*----------------------------------------*

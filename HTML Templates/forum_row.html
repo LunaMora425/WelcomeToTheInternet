@@ -1,35 +1,32 @@
-<!--start forum_row <!-- |forum_id| -->-->
-<div class="forum__row" id="fr-<!-- |forum_id| -->">
-  <div class="forum__row--macro">
-    <!-- |img_new_post| -->
-  </div>
-  <div class="forum__row--info">
-    <a class="tooltip" tooltip="<!-- |description_clean| -->" href="?showforum=<!-- |forum_id| -->" title="<!-- |name_text| -->">
-      <!-- |name_text| -->
-    </a>
-    <br />
-    <span class="desc">
-      <span class="forum-desc"><!-- |description| --></span>
-    </span>
-  </div>
-  <div class="forum__row--subforums">
-    <!-- |subforums| -->
-  </div>
-  <div class="forum__row--topics">
-    Topics<br />
-    <!-- |topics| -->
-  </div>
-  <div class="forum__row--replies">
-    Replies<br />
-    <!-- |replies| -->
-  </div>
-  <div class="forum__row--last-post-info">
-    Last Post:
-    <!-- |last_topic| --><br />
-    By:
-    <!-- |last_poster| --><br />
-    On:
-    <!-- |last_post| -->
-  </div>
+<div id="fr-<!-- |forum_id| -->" class="forum__row">
+  <grid>
+    <new-post>
+      <stats>
+        <!-- |topics| -->
+        topics &
+        <!-- |replies| -->
+        posts
+      </stats>
+      <!-- |img_new_post| -->
+    </new-post>
+
+    <name>
+      <a class="tooltip" href="?showforum=<!-- |forum_id| -->" title="<!-- |name_text| -->" tooltip="<!-- |description_clean| -->">
+        <!-- |name_text| -->
+      </a>
+    </name>
+
+    <desc><!-- |description| --></desc>
+
+    <lastpost>
+      <!-- |last_topic| -->
+    </lastpost>
+    <lastposter>
+      By:
+      <!-- |last_poster| -->
+    </lastposter>
+    <post-time><!-- |last_post| --></post-time>
+  </grid>
+
+  <subforums><!-- |subforums| --></subforums>
 </div>
-<!--end forum_row <!-- |forum_id| -->-->
