@@ -311,7 +311,7 @@
 
       <!-- start footer -->
       <div id="footer">
-        <div id="skin_selector"><% SKIN_SELECTOR %></div>
+        <div id="skin_selector" style="display: none"><% SKIN_SELECTOR %></div>
         <% AFFS %>
         <div id="copyright">
           <% COPYRIGHT %>
@@ -389,7 +389,7 @@
         // Update the onchange event handler for the moved select element
         const newSelect = changeSkinTheme.find('select[name="selector"]');
         newSelect.on('change', function () {
-          window.location.href = 'https://freecodesdev.jcink.net/index.php?&auth_key=' + authCode + '&setskin=' + newSelect.val();
+          window.location.href = 'https://barbermonger.me/index.php?&auth_key=' + authCode + '&setskin=' + newSelect.val();
         });
       }
     </script>

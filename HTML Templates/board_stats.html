@@ -1,0 +1,108 @@
+<br class="cat-lb" />
+<div id="newcookiesrow">
+  <button class="button-54" role="button">
+    <a href="?act=Login&CODE=06" title="Delete All Cookies Set By This Site"> <i class="fa-solid fa-cookie-bite"></i> Delete Cookies </a>
+  </button>
+  <button class="button-54" role="button">
+    <a href="?act=Login&CODE=05" title="Mark All Posts As Read"> <i class="fa-solid fa-check-to-slot"></i> Mark All Read </a>
+  </button>
+</div>
+<!-- start board stats -->
+<div class="maintitle ribbon">Board Stats</div>
+<div id="boardstats">
+  <stats-grid>
+    <div class="online-now">
+      <h2 class="stats-title">Online Now</h2>
+      <div class="online-now-numbers">
+        <span><!-- |total_mems| --></span> members & <span><!-- |total_guests| --></span> guests & <span><!-- |total_anons| --></span> anons
+      </div>
+      <div class="online-now-links">
+        <a href="?act=Online&CODE=listall&sort_key=click" title="View Active Users by Last Click">
+          <i class="fa-solid fa-arrow-pointer"></i> Last Click
+        </a>
+        <a href="?act=Online&CODE=listall&sort_key=name&sort_order=asc&show_mem=reg" title="View Active Users by Member Name">
+          <i class="fa-solid fa-user-tag"></i> Member Name
+        </a>
+      </div>
+      <div class="online-now-users"><!-- |online_list| --></div>
+    </div>
+
+    <div class="stats-links">
+      <button class="button-74" role="button">
+        <a href="?act=Stats&CODE=leaders" title="View Mod Team List"> <i class="fa-solid fa-clipboard-user"></i> Mod Team </a>
+      </button>
+      <button class="button-74" role="button">
+        <a href="?act=Search&CODE=getactive" title="View Active Topics"> <i class="fa-solid fa-bullhorn"></i> Active Topics </a>
+      </button>
+      <button class="button-74" role="button">
+        <a href="?act=Members" title="View Member List"> <i class="fa-solid fa-address-book"></i> Member List </a>
+      </button>
+      <button class="button-74" role="button">
+        <a href="?act=Search" title="Link to Jcink Search"> <i class="fa-solid fa-magnifying-glass"></i> Search </a>
+      </button>
+    </div>
+
+    <div class="birthdays">
+      <script>
+        if (`<!-- |birthdays_list| -->` !== '') {
+          document.write(`
+                    <div class="birthdays-wrapper">
+                    <h2 class="stats-title"><i class="fa-solid fa-cake-candles"></i> Happy Birthday!</h2>
+                        <!-- |birthdays| --></b> members celebrate their birthday today: <br /> 
+                        <!-- |birthdays_list| -->
+                    </div>
+                `);
+        }
+      </script>
+    </div>
+
+    <div class="stats-area">
+      <h2 class="stats-title">Stats For Nerds</h2>
+
+      <div class="site-totals">
+        <div class="site-date">
+          site established on
+          <span>February 21st, 2011</span>
+        </div>
+        <div class="site-member">
+          newest member is
+          <span><!-- |newest_member| --></span>
+        </div>
+        <div class="site-total-values">
+          <div class="total-posts">
+            <span><!-- |total_posts| --></span>
+            total posts
+          </div>
+          <div class="total-members">
+            <span><!-- |total_mem_reg| --></span>
+            total members
+          </div>
+        </div>
+        <div class="site-most-users-ever">
+          Most users ever online
+          <date>
+            <span><!-- |most_online| --></span> on <span><!-- |most_online_date| --></span>
+          </date>
+        </div>
+        <div class="site-most-users-day">
+          Most users ever online in one day
+          <date>
+            <span><!-- |most_online_oneday| --></span> on <span><!-- |most_online_oneday_date| --></span>
+          </date>
+        </div>
+      </div>
+    </div>
+
+    <div class="online-today">
+      <h2 class="stats-title">
+        <!-- |online_today| -->
+        Online Today
+      </h2>
+      <span id="mot_explink" style="display: inline">[<a href="javascript:expand_mot()">Expand</a>]</span>
+      <span id="mot_collink" style="display: none">[<a href="javascript:collapse_mot()">Collapse</a>]</span>
+      <div id="mot" style="display: none">
+        <!-- |online_today_list| -->
+      </div>
+    </div>
+  </stats-grid>
+</div>

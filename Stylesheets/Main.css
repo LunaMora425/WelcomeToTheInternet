@@ -204,21 +204,13 @@ body {
   text-align: left;
 }
 
-/* #header,
-#innerwrapper,
-#footer {
-  padding: 0 10px;
-} */
-
 /* this sets the background color across most of the site, 
   change it here and it will change in all these places. 
   Tread carefully. */
 .tableborder,
 #subforum-list,
-#boardstats,
 .main-profile,
-.memberlist,
-#copyright {
+.memberlist {
   /* box model */
   border: 1px solid var(--theme__color-primary);
 
@@ -244,17 +236,6 @@ body {
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
-}
-
-#logo a,
-#logo a:hover {
-  /* box model */
-  margin-left: 10px; /* Adjust spacing between image and text */
-
-  /* type */
-  font-family: var(--font-family__title);
-  font-size: var(--textsize__title);
-  font-weight: bold;
 }
 
 /*------------------------------------*
@@ -709,7 +690,19 @@ input[name='helpbox'] {
 
 /****************************************
       Default Footer Area
-   *****************************************/
+*****************************************/
+
+#newcookiesrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  column-gap: 25px;
+}
+
+#newcookiesrow button.button-54 {
+  margin-bottom: 20px;
+}
 
 /* this can be hidden because these links are included in the HTML template for the board stats */
 #delcookiesrow {
@@ -1264,7 +1257,16 @@ input[type='button'].button-54,
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
-  margin: 0 auto 20px;
+}
+
+.button-54 a:link,
+.button-54 a:visited,
+.button-54 a:active {
+  color: var(--theme__text-contrast);
+}
+
+.button-54 a:hover {
+  color: var(--theme__color-primary);
 }
 
 input[type='button'].button-54:active,
@@ -1401,8 +1403,11 @@ h2.welcome-title {
   color: var(--theme__color-primary);
 }
 
+/* TODO: the button animation not working on Safari on iPad but works on the site i got the button from,
+try it on Mac to see if it's just iPad */
 .button-74:active {
   box-shadow: var(--theme__color-secondary-shadow) 2px 2px 0 0;
+  -webkit-transform: translate(2px, 2px);
   transform: translate(2px, 2px);
 }
 
@@ -1616,6 +1621,7 @@ h2.welcome-title {
 
 .recent-topics-toggle button.button-54 {
   font-size: var(--textsize__subtitle);
+  margin: 0 auto 20px;
 }
 
 #recent-topics-clip .maintitle {
@@ -1688,93 +1694,192 @@ td.row4.recent-topics-date {
     #TEMPLATES - BOARD_STATS
   *-------------------------------------*/
 
-#board-stats__grid {
-  /* box model */
-  padding: 5px;
+#boardstats {
+  width: 95%;
+  max-width: 1080px;
+  margin: auto;
+  box-sizing: border-box;
 
-  /* layout */
+  border-radius: 10px;
+  border: 5px dotted var(--theme__color-secondary);
+  background: var(--theme__background-main);
+  padding: 15px;
+}
+
+#boardstats stats-grid {
   display: grid;
-  align-items: center;
+  row-gap: 10px;
   grid-template-areas:
-    'links'
     'online-now'
-    'stats'
+    'stats-links'
     'birthdays'
+    'stats-area'
     'online-today';
 }
 
-.boardstats__online-now > .maintitle,
-.boardstats__links > .maintitle,
-.boardstats__birthdays > .maintitle,
-.boardstats__stats > .maintitle,
-.boardstats__online-today > .maintitle {
-  /* box model */
-  margin: 5px 0;
-
-  /* type */
-  font-size: var(--textsize-body__primary);
+h2.stats-title {
+  font-family: var(--font-family__subtitle);
+  margin: 0;
 }
 
-.online-now__grid,
-.links__grid,
-.birthdays__grid,
-.stats__grid,
-.online-today__grid {
-  /* layout */
-  display: grid;
-  align-items: center;
-  gap: 5px;
-  grid-template-columns: 0.1fr 1fr;
+.online-now h2.stats-title,
+.online-today h2.stats-title {
+  font-size: var(--textsize__title);
 }
 
-.links__grid {
-  /* box model */
-  margin-left: 5px;
-
-  /* layout */
-  grid-template-columns: 1fr 1fr;
-  row-gap: 10px;
+.online-now-numbers,
+.online-now-links {
+  font-size: var(--textsize-body__secondary);
 }
 
-.boardstats--macro {
+.online-now-numbers span {
+  color: var(--theme__color-secondary);
+}
+
+.online-now-links a {
+  margin-right: 9px;
+}
+
+.online-now-users {
+  margin-top: 10px;
+  min-height: 75px;
+
+  a:link,
+  a:visited,
+  a:active {
+    font-size: var(--textsize__subtitle);
+  }
+}
+
+.stats-links {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.stats-links button.button-74 {
+  line-height: 40px;
+  padding: 0 18px;
+}
+
+.birthdays {
   text-align: center;
 }
 
-.boardstats--macro > .users-macro > i {
-  line-height: 140%;
+.birthdays-wrapper {
+  margin-top: 5px;
+  padding: 10px 0;
 }
 
-/* Online users list row */
-.online-now--thin {
-  /* box model */
-  min-height: 20px;
-  margin: 2px 0px 2px 0px;
-  padding: 6px 0px 6px 0px;
-  border-top: 1px solid var(--theme__color-secondary);
-  border-bottom: 1px solid var(--theme__color-secondary);
-  /* type */
-  line-height: 140%;
+.stats-area {
+  background-color: var(--theme__background-contrast);
+  border: 2px dotted var(--theme__color-secondary-shadow);
+  border-radius: 30px;
+}
+
+.stats-area h2.stats-title {
+  text-align: center;
+  margin: 0.3em 0 0 0;
+}
+
+.stats-area span {
+  /* color: var(--theme__color-secondary); */
+  font-family: var(--font-family__subtitle);
+  font-weight: bold;
+  text-shadow: 1px 1px 2px #000, -1px -1px 2px #000, 1px 2px 2px #000, 1px -1px 2px #000;
+}
+
+.site-totals {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 5px;
+  margin-top: 10px;
+  text-transform: capitalize;
+}
+
+.site-date,
+.site-member,
+.site-most-users-ever,
+.site-most-users-day {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 10px;
+  width: 100%;
+}
+
+.site-member a {
+  font-size: var(--textsize__subtitle);
+  overflow-wrap: anywhere;
+  text-transform: uppercase;
+}
+
+.site-total-values {
+  display: flex;
+  width: 100%;
+  justify-content: space-evenly;
+  padding-bottom: 10px;
+}
+
+.site-total-values .total-posts,
+.site-total-values .total-members {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.online-today {
+  align-self: center;
+}
+
+.online-today h2.stats-title span {
+  color: var(--theme__color-secondary);
+  font-family: var(--font-family__subtitle);
 }
 
 /* Grid Set Up */
-.boardstats__online-now {
+.online-now {
   grid-area: online-now;
 }
 
-.boardstats__links {
-  grid-area: links;
+.stats-links {
+  grid-area: stats-links;
 }
 
-.boardstats__birthdays {
+.birthdays {
   grid-area: birthdays;
 }
 
-.boardstats__stats {
-  grid-area: stats;
+.stats-area {
+  grid-area: stats-area;
 }
 
-.boardstats__online-today {
+.online-today {
   grid-area: online-today;
+}
+
+/* TODO: combine media queries */
+@media only screen and (min-width: 769px) {
+  #boardstats stats-grid {
+    grid-template-columns: 1fr 0.5fr;
+    row-gap: 0;
+    grid-column-gap: 10px;
+    grid-template-areas:
+      'stats-links stats-area'
+      'online-now stats-area'
+      'online-now stats-area'
+      'online-today stats-area'
+      'online-today stats-area'
+      'online-today birthdays';
+  }
+
+  #mot {
+    max-height: 128px;
+    overflow: auto;
+  }
 }
 
 /*------------------------------------*
@@ -1827,6 +1932,7 @@ td.row4.recent-topics-date {
 
 .forum__row > grid {
   padding: 15px;
+  min-height: 220px;
   display: grid;
   grid-template-areas:
     'new-post'
@@ -1864,28 +1970,8 @@ td.row4.recent-topics-date {
       overflow-wrap: anywhere;
     }
   }
-}
 
-.forum__row subforums {
-  display: block;
-  padding: 10px 5px;
-  border-top: 4px dotted var(--theme__color-primary);
-}
-
-subforums:empty {
-  display: none;
-}
-
-span.subforums {
-  display: flex;
-  gap: 5px;
-  align-items: center;
-  flex-wrap: wrap;
-}
-
-/* Grid Set Up */
-
-.forum__row > grid {
+  /* Grid Setup */
   & name {
     grid-area: name;
   }
@@ -1913,6 +1999,59 @@ span.subforums {
   & post-time {
     grid-area: post-time;
   }
+}
+
+.forum__row subforums {
+  display: block;
+  box-sizing: border-box;
+  padding: 0px 15px 15px;
+  /* border-top: 4px dotted var(--theme__color-primary); */
+}
+
+subforums:empty,
+span.subforums br,
+span.subforums strong {
+  display: none;
+}
+
+span.subforums {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  flex-wrap: wrap;
+  font-size: 0;
+  justify-content: flex-end;
+}
+
+/* TODO: combine like properties with button-74? */
+span.subforums a {
+  background-color: var(--theme__color-secondary);
+  border: 2px solid var(--theme__color-secondary-shadow);
+  border-radius: 30px;
+  box-shadow: var(--theme__color-secondary-shadow) 4px 4px 0 0;
+  color: var(--theme__text-contrast);
+  text-shadow: 1px 1px 2px #000, -1px -1px 2px #000, 1px 2px 2px #000, 1px -1px 2px #000;
+  cursor: pointer;
+  display: inline-block;
+  font-weight: 600;
+  font-size: var(--textsize-body__primary);
+  padding: 0 10px;
+  line-height: 30px;
+  text-align: center;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  min-width: 100px;
+}
+
+span.subforums a:hover {
+  color: var(--theme__color-primary);
+}
+
+span.subforums a:active {
+  box-shadow: var(--theme__color-secondary-shadow) 2px 2px 0 0;
+  transform: translate(2px, 2px);
 }
 
 /* jcink macro class */
@@ -3680,6 +3819,7 @@ span.lastpost--desc {
 
 #copyright .tableborder {
   border: none;
+  background: none;
 }
 
 #copyright a {
