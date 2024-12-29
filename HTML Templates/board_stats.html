@@ -94,12 +94,14 @@
     </div>
 
     <div class="online-today">
-      <h2 class="stats-title">
-        <!-- |online_today| -->
-        Online Today
-      </h2>
-      <span id="mot_explink" style="display: inline">[<a href="javascript:expand_mot()">Expand</a>]</span>
-      <span id="mot_collink" style="display: none">[<a href="javascript:collapse_mot()">Collapse</a>]</span>
+      <span>
+        <h2 class="stats-title">
+          <!-- |online_today| -->
+          Online Today
+        </h2>
+        <button id="mot_explink" class="button-54" style="display: inline" role="button"><a href="javascript:expand_mot()">Expand</a></button>
+        <button id="mot_collink" class="button-54" style="display: none" role="button"><a href="javascript:collapse_mot()">Collapse</a></button>
+      </span>
       <div id="mot" style="display: none">
         <!-- |online_today_list| -->
       </div>

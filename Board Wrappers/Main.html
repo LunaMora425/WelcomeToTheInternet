@@ -349,7 +349,7 @@
       if (localStorage.getItem('RTC999') === 'Expanded') {
         const expanded = $('.recent-topics-toggle');
         const recentTopicsContainer = $('#rtc_999');
-        const button = $('.button-54');
+        const button = $('#maintitle_999');
         expanded.removeClass('collapsed');
         recentTopicsContainer.show();
         button.text('Hide Recent Topics');
@@ -359,7 +359,7 @@
       function rtexpand(cnum) {
         const recentTopicsContainer = $('#rtc_' + cnum);
         const recentTopicsContainerMainTitle = $('#maintitle_' + cnum);
-        const button = $('.button-54');
+        const button = $('#maintitle_999');
         if (recentTopicsContainer.is(':hidden')) {
           recentTopicsContainer.slideToggle(300);
           recentTopicsContainerMainTitle.closest('.recent-topics-toggle').removeClass('collapsed');

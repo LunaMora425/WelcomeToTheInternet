@@ -1743,6 +1743,7 @@ h2.stats-title {
 .online-now-users {
   margin-top: 10px;
   min-height: 75px;
+  font-size: var(--textsize__subtitle);
 
   a:link,
   a:visited,
@@ -1833,6 +1834,14 @@ h2.stats-title {
 
 .online-today {
   align-self: center;
+}
+
+.online-today > span {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+  column-gap: 15px;
 }
 
 .online-today h2.stats-title span {
@@ -2069,7 +2078,8 @@ span.subforums a:active {
 
 @media only screen and (min-width: 550px) and (max-width: 768px) {
   .forum-container,
-  .recent-topics-toggle {
+  .recent-topics-toggle,
+  #boardstats {
     width: 80%;
   }
 }
@@ -2083,14 +2093,16 @@ span.subforums a:active {
 
 @media only screen and (min-width: 769px) and (max-width: 1024px) {
   .forum-container,
-  .recent-topics-toggle {
+  .recent-topics-toggle,
+  #boardstats {
     width: 88%;
   }
 }
 
 @media only screen and (min-width: 1025px) {
   .forum-container,
-  .recent-topics-toggle {
+  .recent-topics-toggle,
+  #boardstats {
     width: 90%;
   }
 }
@@ -2713,11 +2725,13 @@ span.report-macro {
 
 .redirect__row {
   /* box model */
-  padding: 5px;
+  /* padding: 5px;
   border-radius: 10px;
   border: 5px dotted var(--theme__color-secondary);
   background: var(--theme__background-main);
-  margin-bottom: 10px;
+  margin-bottom: 10px; */
+
+  max-width: 300px;
 
   /* layout */
   display: grid;
@@ -2732,6 +2746,14 @@ span.report-macro {
 .redirect__row--info a:visited,
 .redirect__row--info a:active {
   font-size: var(--textsize__subtitle);
+}
+
+.redirect__row img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 1px solid var(--theme__color-primary);
 }
 
 /* Grid Set Up */
@@ -3609,38 +3631,6 @@ span.lastpost--desc {
     width: 25%;
   }
 
-  /*------------------------------------*
-    #TEMPLATES - BOARD_STATS - Desktop Styles
-    *-------------------------------------*/
-  #board-stats__grid {
-    /* box model */
-    padding: 5px;
-
-    /* layout */
-    display: grid;
-    align-items: start;
-    grid-template-columns: 1.5fr 1fr;
-    grid-column-gap: 15px;
-    grid-template-areas:
-      'online-now    links'
-      'birthdays     stats'
-      'online-today  stats';
-  }
-
-  .stats__grid > .boardstats--info {
-    /* box model */
-    min-height: 150px;
-
-    /* layout */
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-  }
-
-  .links__grid {
-    margin-left: 50px;
-  }
-
   /*----------------------------------------*
     #TEMPLATES - MAIN_PROFILE - Desktop Styles
     *-----------------------------------------*/
@@ -3752,13 +3742,6 @@ span.lastpost--desc {
   /*------------------------------------*
     #TEMPLATES - REDIRECT_ROWS - Desktop Styles
     *-------------------------------------*/
-  .redirect__row {
-    grid-template-columns: 28px 55% 7% 7% 27%;
-    grid-column-gap: 5px;
-    grid-template-areas:
-      'macro  info       info       info       hits'
-      'macro  subforums  subforums  subforums  subforums';
-  }
 
   /*------------------------------------*
     #TEMPLATES - TOPIC_ROW - Desktop Styles
