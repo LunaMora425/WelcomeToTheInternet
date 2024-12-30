@@ -311,8 +311,12 @@
 
       <!-- start footer -->
       <div id="footer">
+        <div id="affiliates-index">
+          <div class="maintitle ribbon">Affiliates</div>
+          <div class="affiliates-table"><% affiliates %></div>
+        </div>
+
         <div id="skin_selector" style="display: none"><% SKIN_SELECTOR %></div>
-        <% AFFS %>
         <div id="copyright">
           <% COPYRIGHT %>
           <div class="skin-info">
@@ -392,6 +396,48 @@
           window.location.href = 'https://barbermonger.me/index.php?&auth_key=' + authCode + '&setskin=' + newSelect.val();
         });
       }
+    </script>
+
+    <script>
+      // Replace the redirect rows in Roleplay Resources with images
+      $(document).ready(function () {
+        if ($('body').attr('id') === 'idx') {
+          const redirectRowsData = [
+            {
+              id: 'rr-42',
+              imgSrc: 'https://files.jcink.net/uploads/barbermonger/Logos/LiteraryRoleplayGuide.png',
+              altText: 'Link to A Guide to Literary Roleplay',
+            },
+            {
+              id: 'rr-43',
+              imgSrc: 'https://files.jcink.net/uploads/barbermonger/Logos/SpareRoomVideoSeries.png',
+              altText: 'Link to Spare Room RP Help Series on YouTube',
+            },
+            {
+              id: 'rr-44',
+              imgSrc: 'https://files.jcink.net/uploads/barbermonger/Logos/InternetSafetyCarrd.png',
+              altText: 'Link to Internet Safety Carrd',
+            },
+          ];
+
+          const redirectRows = $('.redirect__row');
+
+          redirectRows.each(function () {
+            const redirectRow = $(this);
+            const rowData = redirectRowsData.find((data) => data.id === redirectRow.attr('id'));
+
+            if (rowData) {
+              redirectRow.html(`
+                <div class="redirect-image">
+                  <a href="?showforum=${rowData.id.split('-')[1]}" target="_blank" title="${rowData.altText}">
+                    <img src="${rowData.imgSrc}" alt="${rowData.altText}" />
+                  </a>
+                </div>
+              `);
+            }
+          });
+        }
+      });
     </script>
 
     <!-- DO NOT ADD TO OR EDIT ANYTHING BELOW THIS LINE -->

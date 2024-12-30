@@ -19,34 +19,3 @@
   </div>
 </div>
 <!--end redirect_row <!-- |forum_id| -->-->
-
-<!-- TODO: this needs cleaned up and moved to board wrappers later -->
-<script>
-  $(document).ready(function () {
-    const redirectRow = document.getElementById('rr-<!-- |forum_id| -->');
-
-    if (redirectRow && redirectRow.id === 'rr-42') {
-      redirectRow.innerHTML = `<div class="redirect-image">
-            <a href="?showforum=<!-- |forum_id| -->" target="_blank">
-              <img src="https://files.jcink.net/uploads/barbermonger/Logos/LiteraryRoleplayGuide.png" alt="A Guide to Literary Roleplay" />
-            </a>
-        </div>`;
-    }
-
-    if (redirectRow && redirectRow.id === 'rr-43') {
-      redirectRow.innerHTML = `<div class="redirect-image">
-            <a href="?showforum=<!-- |forum_id| -->" target="_blank">
-              <img src="https://files.jcink.net/uploads/barbermonger/Logos/SpareRoomVideoSeries.png" alt="A Guide to Literary Roleplay" />
-            </a>
-        </div>`;
-    }
-
-    if (redirectRow && redirectRow.id === 'rr-44') {
-      redirectRow.innerHTML = `<div class="redirect-image">
-            <a href="?showforum=<!-- |forum_id| -->" target="_blank">
-              <img src="https://files.jcink.net/uploads/barbermonger/Logos/InternetSafetyCarrd.png" alt="A Guide to Literary Roleplay" />
-            </a>
-        </div>`;
-    }
-  });
-</script>

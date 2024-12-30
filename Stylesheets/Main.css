@@ -94,7 +94,10 @@
   /* Font Sizes */
   --size14px: 1.4rem;
   --size16px: 1.6rem;
+  --size20px: 2rem;
   --size24px: 2.4rem;
+  --size28px: 2.8rem;
+  --size30px: 3rem;
   --size35px: 3.5rem;
 }
 
@@ -496,6 +499,58 @@ a:not([name]):empty {
 
 .pagination_pagetxt {
   display: none;
+}
+
+/****************************************
+    Affiliates Table
+ *****************************************/
+
+#affiliates-index {
+  margin: 10px 0;
+}
+
+#affiliates-index .maintitle {
+  letter-spacing: 3px;
+}
+
+.affiliates-table {
+  width: 95%;
+  max-width: 1080px;
+  margin: auto;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 10px;
+  border-radius: 10px;
+  border: 1px solid var(--theme__color-primary);
+  background: var(--theme__background-main);
+}
+
+.affiliates-table img {
+  width: 88px;
+  height: 31px;
+}
+
+.resource-links,
+.normal-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.resource-links > a > img {
+  width: max-content;
+  height: max-content;
+  max-width: 280px;
+  max-height: 66px;
 }
 
 /*==================================================================================================
@@ -1722,8 +1777,7 @@ h2.stats-title {
   margin: 0;
 }
 
-.online-now h2.stats-title,
-.online-today h2.stats-title {
+.online-now h2.stats-title {
   font-size: var(--textsize__title);
 }
 
@@ -1849,6 +1903,10 @@ h2.stats-title {
   font-family: var(--font-family__subtitle);
 }
 
+#mot {
+  margin-top: 10px;
+}
+
 /* Grid Set Up */
 .online-now {
   grid-area: online-now;
@@ -1871,6 +1929,24 @@ h2.stats-title {
 }
 
 /* TODO: combine media queries */
+@media only screen and (max-width: 768px) {
+  .online-now {
+    text-align: center;
+  }
+
+  .stats-links {
+    justify-content: center;
+  }
+
+  .online-today {
+    justify-self: center;
+  }
+
+  .online-today > span {
+    justify-content: center;
+  }
+}
+
 @media only screen and (min-width: 769px) {
   #boardstats stats-grid {
     grid-template-columns: 1fr 0.5fr;
@@ -1883,6 +1959,10 @@ h2.stats-title {
       'online-today stats-area'
       'online-today stats-area'
       'online-today birthdays';
+  }
+
+  .online-today h2.stats-title {
+    font-size: var(--textsize__title);
   }
 
   #mot {
@@ -1940,8 +2020,8 @@ h2.stats-title {
 }
 
 .forum__row > grid {
-  padding: 15px;
-  min-height: 220px;
+  padding: 10px;
+  min-height: 180px;
   display: grid;
   grid-template-areas:
     'new-post'
@@ -2043,15 +2123,15 @@ span.subforums a {
   cursor: pointer;
   display: inline-block;
   font-weight: 600;
-  font-size: var(--textsize-body__primary);
+  font-size: var(--textsize-body__secondary);
   padding: 0 10px;
-  line-height: 30px;
+  line-height: 20px;
   text-align: center;
   text-decoration: none;
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
-  min-width: 100px;
+  min-width: 70px;
 }
 
 span.subforums a:hover {
@@ -2079,7 +2159,8 @@ span.subforums a:active {
 @media only screen and (min-width: 550px) and (max-width: 768px) {
   .forum-container,
   .recent-topics-toggle,
-  #boardstats {
+  #boardstats,
+  .affiliates-table {
     width: 80%;
   }
 }
@@ -2094,7 +2175,8 @@ span.subforums a:active {
 @media only screen and (min-width: 769px) and (max-width: 1024px) {
   .forum-container,
   .recent-topics-toggle,
-  #boardstats {
+  #boardstats,
+  .affiliates-table {
     width: 88%;
   }
 }
@@ -2102,7 +2184,8 @@ span.subforums a:active {
 @media only screen and (min-width: 1025px) {
   .forum-container,
   .recent-topics-toggle,
-  #boardstats {
+  #boardstats,
+  .affiliates-table {
     width: 90%;
   }
 }
@@ -3787,6 +3870,13 @@ span.lastpost--desc {
     *-------------------------------------*/
   .post__row--post-content {
     padding: 20px 75px 10px;
+  }
+}
+
+@media only screen and (max-width: 1439px) {
+  :root {
+    --textsize__title: var(--size28px);
+    --textsize__subtitle: var(--size20px);
   }
 }
 
