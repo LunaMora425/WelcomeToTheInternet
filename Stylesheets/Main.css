@@ -439,17 +439,16 @@ a:not([name]):empty {
 .radiobutton,
 .checkbox {
   /* box model */
-  padding: 2px;
+  padding: 5px;
   border: 1px solid var(--theme__color-secondary);
   border-radius: 2px;
-  vertical-align: middle;
 
   /* background */
   background: var(--theme__background-contrast);
 
   /* type */
   font-size: var(--textsize-body__secondary);
-  color: var(--theme__color-secondary);
+  color: var(--theme__text-main);
 
   /* other */
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4) inset;
@@ -778,15 +777,92 @@ input[name='helpbox'] {
 
 /****************************************
      Viewing Online List
-   *****************************************/
+*****************************************/
 
-#Online table tr:first-child th.titlemedium {
+#Online .tableborder table {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+  gap: 5px;
+  padding: 5px;
+  border-radius: 10px;
+  border: 1px solid var(--theme__color-primary);
   background: var(--theme__background-main);
 }
 
-#Online table tr:first-child th.titlemedium:last-child,
-#Online table tr td.row1:last-child {
+#Online .tableborder table tbody {
+  display: contents;
+}
+
+#Online .tableborder tr {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 15px;
+  border: 2px dotted var(--theme__color-secondary-shadow);
+  padding: 5px 15px;
+}
+
+#Online .tableborder table tr:first-child {
   display: none;
+}
+
+#Online .tableborder table tr:last-child {
+  justify-content: center;
+  border: none;
+  background: none;
+}
+
+#Online .tableborder table tr td.row1 span.user-info a {
+  font-size: var(--textsize__subtitle);
+}
+
+#Online .tableborder table tr td.row1:nth-child(2) {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+#Online .tableborder table tr td.row1:last-child {
+  display: none;
+}
+
+@media only screen and (min-width: 769px) {
+  #Online .tableborder table tr {
+    flex-direction: row;
+  }
+
+  #Online .tableborder table tr td.row1:nth-child(1) {
+    max-width: 300px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  td.row1 span.user-info {
+    display: flex;
+    align-items: center;
+  }
+
+  td.row1 span.ip-info,
+  td.row1 span.ip-info a {
+    font-size: var(--textsize-body__secondary);
+  }
+
+  #Online .tableborder table tr td.row1:nth-child(2) {
+    max-width: 400px;
+    width: 100%;
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  #Online .tableborder table tr td.row1:nth-child(3) {
+    width: 100%;
+    max-width: 120px;
+  }
 }
 
 /****************************************
@@ -879,6 +955,7 @@ input[name='helpbox'] {
 
 .tableborder table {
   margin: auto;
+  width: 95%;
 }
 
 .row1,
@@ -1393,7 +1470,9 @@ input[type='button'].button-54:active,
   position: fixed;
   z-index: 1000;
   width: 100%;
-  max-width: 450px;
+  max-width: 350px;
+  left: 50%;
+  transform: translateX(-50%);
   display: none;
 }
 
@@ -1402,27 +1481,63 @@ input[type='button'].button-54:active,
   align-items: center;
   justify-content: space-around;
   color: var(--theme__text-contrast);
-  text-shadow: 1px 1px 2px #000, -1px -1px 2px #000, 1px 2px 2px #000, 1px -1px 2px #000;
   height: 50px;
+
+  & p {
+    margin: 0;
+    text-shadow: 1px 1px 2px #000, -1px -1px 2px #000, 1px 2px 5px #000, 1px 2px 2px #000;
+  }
 }
 
 #mail-alert button {
-  margin: 5px;
+  background-color: var(--theme__color-secondary);
+  border: 2px solid var(--theme__color-secondary-shadow);
+  border-radius: 30px;
+  box-shadow: var(--theme__color-secondary-shadow) 4px 4px 0 0;
+  color: var(--theme__text-contrast);
+  text-shadow: 1px 1px 2px #000, -1px -1px 2px #000, 1px 2px 2px #000, 1px -1px 2px #000;
+  cursor: pointer;
+  display: inline-block;
+  font-weight: 600;
+  font-size: var(--textsize-body__secondary);
+  padding: 0 10px;
+  line-height: 20px;
+  text-align: center;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  min-width: 70px;
 }
 
-#mail-alert {
-  top: 90px;
+#mail-alert button:active {
+  box-shadow: var(--theme__color-secondary-shadow) 2px 2px 0 0;
+  -webkit-transform: translate(2px, 2px);
+  transform: translate(2px, 2px);
 }
 
 .ribbon2 {
-  --r: 0.8em; /* control the cutout */
-
-  padding-inline: 1lh calc(var(--r) + 0.25em);
+  --s: 1.8em;
+  --d: 0.2em;
+  --c: 0.8em;
+  padding: var(--d) var(--c) 0 calc(var(--s) + 0.5em);
   line-height: 1.8;
-  clip-path: polygon(1lh 100%, calc(100% - var(--r)) 100%, 100% 50%, calc(100% - var(--r)) 0, 1lh 0, 1lh -999px, 0 -999px, 0 0);
-  border-image: conic-gradient(var(--theme__color-secondary-shadow) 0 0) fill 0 999px;
-  outline: 999px solid #0004;
-  width: fit-content;
+  background: conic-gradient(from 45deg at left var(--s) top var(--d), #0008 12.5%, #0000 0 37.5%, #0004 0);
+  clip-path: polygon(
+    calc(100% - var(--c)) var(--d),
+    calc(var(--s) + var(--d)) var(--d),
+    calc(var(--s) + var(--d)) 0,
+    0 0,
+    var(--c) calc(50% - var(--d) / 2),
+    0 calc(100% - var(--d)),
+    var(--s) calc(100% - var(--d)),
+    var(--s) 100%,
+    calc(100% - var(--c)) 100%,
+    100% calc(50% + var(--d) / 2)
+  );
+  background-color: var(--theme__color-primary);
+  border-bottom: 1px solid var(--theme__color-primary-shadow);
+  border-top: 1px solid var(--theme__color-primary-shadow);
 }
 
 /*========================================================*
@@ -2214,7 +2329,8 @@ span.subforums a:active {
   .forum-container,
   .recent-topics-toggle,
   #boardstats,
-  .affiliates-table {
+  .affiliates-table,
+  .tableborder table {
     width: 80%;
   }
 }
@@ -2230,7 +2346,8 @@ span.subforums a:active {
   .forum-container,
   .recent-topics-toggle,
   #boardstats,
-  .affiliates-table {
+  .affiliates-table,
+  .tableborder table {
     width: 88%;
   }
 }

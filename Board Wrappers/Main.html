@@ -493,20 +493,76 @@
       });
     </script>
 
+    <script>
+      $(document).ready(function () {
+        const onlineList = $('body').attr('id') === 'Online';
+
+        if (onlineList) {
+          $('td.row1:first-child').each(function () {
+            var $td = $(this);
+            var $contents = $td.contents();
+
+            // Find the text node containing the opening parenthesis
+            var parenthesisNode = $contents
+              .filter(function () {
+                return this.nodeType === 3 && this.nodeValue.includes('(');
+              })
+              .get(0);
+
+            if (parenthesisNode) {
+              var parenthesisIndex = parenthesisNode.nodeValue.indexOf('(');
+
+              // Split the text node at the parenthesis
+              var beforeParenthesis = parenthesisNode.nodeValue.slice(0, parenthesisIndex);
+              var afterParenthesis = parenthesisNode.nodeValue.slice(parenthesisIndex);
+
+              // Create new text nodes
+              var beforeNode = document.createTextNode(beforeParenthesis);
+              var afterNode = document.createTextNode(afterParenthesis);
+
+              // Insert the new text nodes
+              parenthesisNode.parentNode.insertBefore(beforeNode, parenthesisNode);
+              parenthesisNode.parentNode.insertBefore(afterNode, parenthesisNode);
+              parenthesisNode.parentNode.removeChild(parenthesisNode);
+
+              // Update the contents
+              $contents = $td.contents();
+
+              // Find the index of the new text node containing the parenthesis
+              var newParenthesisIndex = $contents.index(
+                $contents.filter(function () {
+                  return this.nodeType === 3 && this.nodeValue.includes('(');
+                }),
+              );
+
+              // Wrap the first part (everything before the parenthesis)
+              $contents.slice(0, newParenthesisIndex).wrapAll('<span class="user-info"></span>');
+
+              // Wrap the second part (parenthesis and IP link)
+              $contents.slice(newParenthesisIndex).wrapAll('<span class="ip-info"></span>');
+            } else {
+              var $imgAndLink = $td.contents().filter(function () {
+                return this.nodeType === 3 || this.nodeName === 'IMG' || (this.nodeName === 'A' && $(this).attr('href').includes('showuser'));
+              });
+
+              $imgAndLink.wrapAll('<span class="user-info"></span>');
+            }
+          });
+        }
+      });
+    </script>
+
     <!-- TODO: to move to webpage -->
     <style>
-      body.group-4,
-      body.group-6 {
-        & .forum__row:last-child {
+      body:not(.group-4):not(.group-6) {
+        #fr-26 {
           max-width: 98.5%;
         }
       }
 
-      body:not(.group-4):not(.group-6) {
-      }
-
       #fr-34,
-      #fr-31 {
+      #fr-31,
+      #fr-37 {
         max-width: 98.5%;
       }
     </style>
