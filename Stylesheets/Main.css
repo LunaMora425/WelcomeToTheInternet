@@ -210,7 +210,6 @@ body {
 /* this sets the background color across most of the site, 
   change it here and it will change in all these places. 
   Tread carefully. */
-.tableborder,
 #subforum-list,
 .main-profile,
 .memberlist {
@@ -878,6 +877,10 @@ input[name='helpbox'] {
   padding: 6px;
 }
 
+.tableborder table {
+  margin: auto;
+}
+
 .row1,
 .row3,
 .row4,
@@ -1377,6 +1380,50 @@ input[type='button'].button-54:active,
 }
 
 /* end custom nav */
+
+/*========================================================*
+
+   * --Custom Inbox and Alerts Modals-- 
+   * Since the messages and alerts are in the menu,
+   * this is an idea to make a modal pop up without needing
+   * to check the menu every time.
+ *========================================================*/
+
+#mail-alert {
+  position: fixed;
+  z-index: 1000;
+  width: 100%;
+  max-width: 450px;
+  display: none;
+}
+
+#mail-alert .alert-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  color: var(--theme__text-contrast);
+  text-shadow: 1px 1px 2px #000, -1px -1px 2px #000, 1px 2px 2px #000, 1px -1px 2px #000;
+  height: 50px;
+}
+
+#mail-alert button {
+  margin: 5px;
+}
+
+#mail-alert {
+  top: 90px;
+}
+
+.ribbon2 {
+  --r: 0.8em; /* control the cutout */
+
+  padding-inline: 1lh calc(var(--r) + 0.25em);
+  line-height: 1.8;
+  clip-path: polygon(1lh 100%, calc(100% - var(--r)) 100%, 100% 50%, calc(100% - var(--r)) 0, 1lh 0, 1lh -999px, 0 -999px, 0 0);
+  border-image: conic-gradient(var(--theme__color-secondary-shadow) 0 0) fill 0 999px;
+  outline: 999px solid #0004;
+  width: fit-content;
+}
 
 /*========================================================*
 
@@ -2007,10 +2054,6 @@ h2.stats-title {
   width: 100%;
 }
 
-.forum__row:last-child {
-  max-width: 98.5%;
-}
-
 .forum__row name {
   a:link,
   a:visited,
@@ -2020,7 +2063,7 @@ h2.stats-title {
 }
 
 .forum__row > grid {
-  padding: 10px;
+  padding: 15px;
   min-height: 180px;
   display: grid;
   grid-template-areas:
@@ -2028,8 +2071,7 @@ h2.stats-title {
     'name'
     'desc'
     'lastpost'
-    'lastposter'
-    'post-time';
+    'lastposter';
 
   & stats {
     font-size: var(--textsize-body__secondary);
@@ -2058,6 +2100,18 @@ h2.stats-title {
       font-size: var(--textsize__subtitle);
       overflow-wrap: anywhere;
     }
+  }
+
+  & lastposter a:link,
+  lastposter a:visited,
+  lastposter a:active {
+    display: inline-block;
+    max-width: 150px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: bottom;
+    font-size: var(--textsize-body__primary);
   }
 
   /* Grid Setup */
@@ -2185,7 +2239,8 @@ span.subforums a:active {
   .forum-container,
   .recent-topics-toggle,
   #boardstats,
-  .affiliates-table {
+  .affiliates-table,
+  .tableborder table {
     width: 90%;
   }
 }

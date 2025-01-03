@@ -50,7 +50,7 @@
     <!-- end JavaScript files -->
   </head>
 
-  <body id="<!-- |input_act| -->" class="code-<!-- |input_CODE| -->">
+  <body id="<!-- |input_act| -->" class="code-<!-- |input_CODE| --> group-<!-- |g_id| -->">
     <!-- start site wrapper -->
 
     <!-- start navigation bar -->
@@ -152,7 +152,7 @@
             <div class="access-links">
               <a href="?act=Msg&CODE=01" title="View Inbox">
                 <i class="fa-solid fa-inbox fa-lg"></i>
-                <!-- |new_msg| -->
+                <span id="new_msg"><!-- |new_msg| --></span>
                 messages
               </a>
               <a href="?act=UserCP&CODE=alerts" title="View All Alerts">
@@ -201,6 +201,16 @@
     <div id="wrapper">
       <!-- start header area -->
       <div id="header">
+        <!-- new message alert on site -->
+        <div id="mail-alert" class="ribbon2">
+          <div class="alert-content">
+            <i class="fa-solid fa-2xl fa-envelope-open-text fa-rotate-by" style="--fa-rotate-angle: -15deg"></i>
+            <p>You've got mail!</p>
+            <button id="go-to-inbox">Go to Inbox</button>
+            <button id="ignore-alert">Ignore</button>
+          </div>
+        </div>
+
         <a id="logo" href="/index.php" title="homepage"></a>
         <% BOARD HEADER %>
       </div>
@@ -439,6 +449,67 @@
         }
       });
     </script>
+
+    <script>
+      $(document).ready(function () {
+        const newMsg = parseInt($('#new_msg').text().trim());
+        const isDismissed = localStorage.getItem('mailAlertDismissed') === 'true';
+        const isMailbox = $('body').attr('id') === 'Msg';
+
+        if (newMsg === 0 && isDismissed) {
+          localStorage.removeItem('mailAlertDismissed');
+        }
+
+        if (newMsg > 0 && !isMailbox) {
+          // Show the mail alert
+          $('#mail-alert').show();
+
+          // Handle the 'Go to Inbox' button click
+          $('#go-to-inbox').click(function () {
+            window.location.href = '?act=Msg&CODE=01';
+          });
+
+          // Handle the 'Ignore' button click
+          $('#ignore-alert').click(function () {
+            $('#mail-alert').hide();
+            localStorage.setItem('mailAlertDismissed', 'true');
+          });
+
+          // Check if the alert was previously dismissed
+          if (isDismissed) {
+            $('#mail-alert').hide();
+          }
+        }
+      });
+    </script>
+
+    <script>
+      $(document).ready(function () {
+        $('.maintitle').each(function () {
+          if (!$(this).hasClass('ribbon')) {
+            $(this).addClass('ribbon');
+          }
+        });
+      });
+    </script>
+
+    <!-- TODO: to move to webpage -->
+    <style>
+      body.group-4,
+      body.group-6 {
+        & .forum__row:last-child {
+          max-width: 98.5%;
+        }
+      }
+
+      body:not(.group-4):not(.group-6) {
+      }
+
+      #fr-34,
+      #fr-31 {
+        max-width: 98.5%;
+      }
+    </style>
 
     <!-- DO NOT ADD TO OR EDIT ANYTHING BELOW THIS LINE -->
   </body>
