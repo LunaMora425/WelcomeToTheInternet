@@ -210,15 +210,12 @@ body {
 /* this sets the background color across most of the site, 
   change it here and it will change in all these places. 
   Tread carefully. */
-#subforum-list,
+/* #subforum-list,
 .main-profile,
 .memberlist {
-  /* box model */
   border: 1px solid var(--theme__color-primary);
-
-  /* background */
   background: var(--theme__background-contrast);
-}
+} */
 
 /*------------------------------------*
     LOGO
@@ -456,9 +453,15 @@ a:not([name]):empty {
 
 /*******************************
     Pagination e.g. [1],2,3 ...
-   *******************************/
+ *******************************/
 
-.pagination .pagination_current,
+/* not sure what this is pagination for, the PM screen? */
+/* div[align='left'] {
+  width: 90%;
+  max-width: 1080px;
+  margin: auto;
+} */
+
 .pagination a {
   padding: 2px 5px;
 }
@@ -466,21 +469,22 @@ a:not([name]):empty {
 .pagination .pagination_current,
 .pagination a:link,
 .pagination a:visited,
-.pagination a:active {
-  /* box model */
-  padding: 0 6px;
-  border: 1px solid var(--theme__color-primary);
+.pagination a:active,
+.pagination_pagetxt a:link {
   border-radius: 3px;
-
-  /* background */
-  background: var(--theme__color-primary);
-
-  /* type */
-  color: var(--theme__text-contrast);
+  background-color: var(--theme__color-secondary);
+  border: 2px solid var(--theme__color-secondary-shadow);
+  text-shadow: 1px 1px 2px #000, -1px -1px 2px #000, 1px 2px 2px #000, 1px -1px 2px #000;
+  display: inline-block;
+  font-weight: 600;
+  font-size: var(--textsize-body__primary);
+  padding: 0 10px;
+  line-height: 140%;
 }
 
 .pagination a:hover {
-  background: var(--theme__color-secondary);
+  background: var(--theme__color-primary);
+  border: 2px solid var(--theme__color-primary-shadow);
 }
 
 .pagination a:link,
@@ -495,16 +499,17 @@ a:not([name]):empty {
   box-shadow: 0pt 2px 3px rgba(0, 0, 0, 0.4);
 }
 
-.pagination_pagetxt {
-  display: none;
+.pagination .pagination_current {
+  background-color: var(--theme__background-contrast);
+  border: 2px dotted var(--theme__color-secondary-shadow);
 }
 
 /****************************************
     Affiliates Table
- *****************************************/
+*****************************************/
 
 #affiliates-index {
-  margin: 10px 0;
+  margin: 25px 0;
 }
 
 #affiliates-index .maintitle {
@@ -571,23 +576,32 @@ a:not([name]):empty {
 input[type='submit'],
 input[type='button'],
 input[type='reset'] {
-  /* box model */
-  margin: 3px;
-  padding: 2px 6px;
-  border: none;
-  border-radius: 3px;
-
-  /* background */
-  background: var(--theme__color-secondary);
-
-  /* type */
-  font-size: var(--textsize-body__secondary);
-  font-weight: bold;
-  text-decoration: none;
+  background-color: var(--theme__color-secondary);
+  border: 2px solid var(--theme__color-secondary-shadow);
+  border-radius: 30px;
+  box-shadow: var(--theme__color-secondary-shadow) 4px 4px 0 0;
   color: var(--theme__text-contrast);
+  text-shadow: 1px 1px 2px #000, -1px -1px 2px #000, 1px 2px 2px #000, 1px -1px 2px #000;
+  cursor: pointer;
+  display: inline-block;
+  font-weight: 600;
+  font-size: var(--textsize-body__primary);
+  padding: 0 10px;
+  line-height: 30px;
+  text-align: center;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  position: relative;
+}
 
-  /* other */
-  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+input[type='submit']:active,
+input[type='button']:active,
+input[type='reset']:active {
+  box-shadow: 0px 0px 0px 0px;
+  top: 5px;
+  left: 5px;
 }
 
 /* used on login and registration */
@@ -785,10 +799,10 @@ input[name='helpbox'] {
   align-items: stretch;
   justify-content: center;
   gap: 5px;
-  padding: 5px;
+  /* padding: 5px;
   border-radius: 10px;
   border: 1px solid var(--theme__color-primary);
-  background: var(--theme__background-main);
+  background: var(--theme__background-main); */
 }
 
 #Online .tableborder table tbody {
@@ -802,6 +816,7 @@ input[name='helpbox'] {
   align-items: center;
   border-radius: 15px;
   border: 2px dotted var(--theme__color-secondary-shadow);
+  background: var(--theme__background-main);
   padding: 5px 15px;
 }
 
@@ -965,11 +980,11 @@ input[name='helpbox'] {
   padding: 5px;
 }
 
-.darkrow1,
+/* .darkrow1,
 .darkrow2,
 .darkrow3 {
   background: var(--theme__background-main);
-}
+} */
 
 td.darkrow2 {
   display: none;
@@ -1118,7 +1133,7 @@ span.small {
   /* box model */
   width: 100%;
   padding: 5px 0;
-  border-bottom: 5px dotted var(--theme__color-primary);
+  border-bottom: 5px dotted var(--theme__color-secondary);
 
   /* background */
   background-color: var(--theme__background-contrast);
@@ -2159,11 +2174,11 @@ h2.stats-title {
 
 /*------------------------------------*
     #TEMPLATES - FORUM_ROWS
-  *-------------------------------------*/
+*-------------------------------------*/
 
 .forum__row {
   border-radius: 10px;
-  border: 1px solid var(--theme__color-primary);
+  border: 2px dotted var(--theme__color-secondary-shadow);
   background: var(--theme__background-main);
   margin-bottom: 10px;
   width: 100%;
@@ -2193,7 +2208,6 @@ h2.stats-title {
   }
 
   & desc {
-    text-align: center;
     margin: 10px 0;
   }
 

@@ -270,7 +270,7 @@
                 <div
                   style="position: relative; height: 245px; overflow: auto; overflow-y: auto; -webkit-overflow-scrolling: touch; border: 0px solid">
                   <iframe
-                    src="https://www4.cbox.ws/box/?boxid=3903964&boxtag=rlwzhc&sec=main"
+                    src="https://www4.cbox.ws/box/?boxid=3903964&boxtag=t4d17a&sec=main"
                     marginheight="0"
                     marginwidth="0"
                     frameborder="0"
@@ -281,9 +281,9 @@
                     name="cboxmain4-3903964"
                     id="cboxmain4-3903964"></iframe>
                 </div>
-                <div style="position: relative; height: 75px; overflow: hidden; border: 0px solid; border-top: 0px">
+                <div style="position: relative; height: 85px; overflow: hidden; border: 0px solid; border-top: 0px">
                   <iframe
-                    src="https://www4.cbox.ws/box/?boxid=3903964&boxtag=rlwzhc&sec=form"
+                    src="https://www4.cbox.ws/box/?boxid=3903964&boxtag=t4d17a&sec=form"
                     allow="autoplay"
                     marginheight="0"
                     marginwidth="0"
@@ -451,6 +451,7 @@
     </script>
 
     <script>
+      // test script for the mail alert
       $(document).ready(function () {
         const newMsg = parseInt($('#new_msg').text().trim());
         const isDismissed = localStorage.getItem('mailAlertDismissed') === 'true';
@@ -484,6 +485,7 @@
     </script>
 
     <script>
+      // add ribbon class to maintitle elements that we don't have access to add it
       $(document).ready(function () {
         $('.maintitle').each(function () {
           if (!$(this).hasClass('ribbon')) {
@@ -494,6 +496,8 @@
     </script>
 
     <script>
+      // split the text of the username area of the Online User List to wrap each component in a span for easier styling
+      // this is such a long script to do this... John pls give us spans I beg
       $(document).ready(function () {
         const onlineList = $('body').attr('id') === 'Online';
 
