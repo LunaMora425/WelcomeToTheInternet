@@ -3052,65 +3052,190 @@ span.report-macro {
 
 /*------------------------------------*
     #TEMPLATES - TOPIC_LIST_HEADERS
-  *-------------------------------------*/
+*-------------------------------------*/
 
-#topic-list {
-  /* box model */
+#inforum-rules,
+#topic-buttons,
+#top-pagination {
+  width: 95%;
+  max-width: 1080px;
+  margin: auto;
+  box-sizing: border-box;
+}
+
+#inforum-rules {
+  border-radius: 10px;
+  border: 5px dotted var(--theme__color-secondary);
+  background: var(--theme__background-main);
+  padding: 0px 15px 15px;
+}
+
+#inforum-rules > br,
+#inforum-rules > i {
+  display: none;
+}
+
+#inforum-rules .subHeading {
+  font-family: var(--font-family__subtitle);
+  text-align: center;
+  font-size: var(--textsize__title);
+}
+
+/* Pagination for Topic List */
+span#top-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin: 10px auto 20px;
+}
+
+/* New Topic/Add Reply/New Poll Buttons for Topic List */
+#topic-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin: 10px auto 30px;
+  gap: 10px;
+}
+
+/* TODO: move to media queries */
+@media only screen and (min-width: 1025px) {
+  #inforum-rules,
+  #topic-buttons,
+  #top-pagination {
+    width: 90%;
+  }
+}
+
+.announcements,
+.topic-forum-container,
+.topic__row {
+  width: 95%;
+  max-width: 1080px;
+  margin: auto;
+  box-sizing: border-box;
+}
+
+/* #topic-list {
   border: 1px solid var(--theme__color-primary);
 
-  /* background */
   background: var(--theme__background-contrast);
-}
-
-.topic-row.maintitle {
-  /* box model */
-  margin: 5px;
-  /* type */
-  font-size: var(--textsize-body__primary);
-}
+} */
 
 .topic__row {
   /* box model */
-  margin: 5px;
-  padding: 5px 0;
-  border-top: 2px solid var(--theme__background-main);
-  /* layout */
-  display: grid;
-  align-items: center;
-  row-gap: 5px;
-  grid-template-areas:
-    'info      info      info      info      info'
-    'macro     posticon  replies   views     mod-checkbox'
-    'lastpost  lastpost  lastpost  lastpost  lastpost';
+  border-radius: 15px;
+  border: 2px dotted var(--theme__color-secondary-shadow);
+  background: var(--theme__background-main);
+  padding: 5px 15px;
+  margin: 0px auto 5px;
 }
 
-/* this makes it so there is only a border 
-  between topic rows and nothing else */
-.topic__row:first-child,
-.maintitle + .topic__row {
-  border-top: none;
-}
-
-.topic__row--macro,
-.topic__row--posticon,
-.topic__row--replies,
-.topic__row--views,
-.topic__row--mod-checkbox {
-  text-align: center;
-}
-
-.topic__row--macro,
-.topic__row--posticon {
-  color: var(--theme__color-secondary);
-}
-
-.topic__row--info > a {
-  font-weight: bold;
-}
-
-span.info--starter,
-span.lastpost--desc {
+.topic__row name {
   overflow-wrap: anywhere;
+
+  a:link,
+  a:visited,
+  a:active {
+    font-size: var(--textsize__title);
+  }
+}
+
+.topic__row > grid {
+  padding: 15px;
+  min-height: 180px;
+  display: grid;
+  grid-template-areas:
+    'topic-details'
+    'name'
+    'desc'
+    'firstposter'
+    'start-post'
+    'lastposter'
+    'last-post';
+
+  & stats {
+    font-size: var(--textsize-body__secondary);
+  }
+
+  & desc {
+    margin: 10px 0;
+  }
+
+  & topic-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  & lastposter,
+  last-post {
+    text-align: right;
+    text-transform: capitalize;
+    align-items: flex-end;
+
+    a:link,
+    a:visited,
+    a:active {
+      font-size: var(--textsize__subtitle);
+      overflow-wrap: anywhere;
+    }
+  }
+
+  & lastposter a:link,
+  lastposter a:visited,
+  lastposter a:active {
+    display: inline-block;
+    max-width: 150px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: bottom;
+    font-size: var(--textsize-body__primary);
+  }
+
+  /* Grid Setup */
+  & name {
+    grid-area: name;
+  }
+
+  & topic-details {
+    grid-area: topic-details;
+  }
+
+  & desc {
+    grid-area: desc;
+  }
+
+  & firstposter {
+    grid-area: firstposter;
+  }
+
+  & start-post {
+    grid-area: start-post;
+  }
+
+  & lastposter {
+    grid-area: lastposter;
+  }
+
+  & last-post {
+    grid-area: last-post;
+  }
+}
+
+/* TODO: move to media queries */
+@media only screen and (min-width: 1025px) {
+  .announcements,
+  .topic-forum-container,
+  .topic__row {
+    width: 92%;
+  }
+}
+
+.topic-row.maintitle {
+  font-size: var(--textsize__subtitle);
+  margin-top: 15px;
 }
 
 .forum-active {
@@ -3124,7 +3249,8 @@ span.lastpost--desc {
 }
 
 .no-new-post-macro,
-.new-post-macro {
+.new-post-macro,
+.locked-macro {
   color: var(--theme__text-contrast);
   text-shadow: 1px 1px 2px #000, -1px -1px 2px #000, 1px 2px 2px #000, 1px -1px 2px #000;
   display: inline-block;
@@ -3135,7 +3261,8 @@ span.lastpost--desc {
   border-radius: 30px;
 }
 
-.no-new-post-macro {
+.no-new-post-macro,
+.locked-macro {
   background-color: var(--theme__background-contrast);
   border: 2px dotted var(--theme__color-secondary-shadow);
 }
@@ -3144,35 +3271,6 @@ span.lastpost--desc {
   background-color: var(--theme__color-secondary);
   border: 2px solid var(--theme__color-secondary-shadow);
   box-shadow: var(--theme__color-secondary-shadow) 2px 2px 0 0;
-}
-
-/* Grid Set Up */
-.topic__row--macro {
-  grid-area: macro;
-}
-
-.topic__row--posticon {
-  grid-area: posticon;
-}
-
-.topic__row--info {
-  grid-area: info;
-}
-
-.topic__row--replies {
-  grid-area: replies;
-}
-
-.topic__row--views {
-  grid-area: views;
-}
-
-.topic__row--lastpost {
-  grid-area: lastpost;
-}
-
-.topic__row--mod-checkbox {
-  grid-area: mod-checkbox;
 }
 
 /*============================================================================================================
@@ -4015,10 +4113,13 @@ span.lastpost--desc {
   /*------------------------------------*
     #TEMPLATES - TOPIC_ROW - Desktop Styles
     *-------------------------------------*/
-  .topic__row {
-    grid-template-columns: 2% 2% 51% 7% 7% 27% 2%;
-    grid-column-gap: 4px;
-    grid-template-areas: 'macro posticon info replies views lastpost mod-checkbox';
+  .topic__row > grid {
+    grid-template-areas:
+      'topic-details topic-details'
+      'name name'
+      'desc desc'
+      'firstposter lastposter'
+      'start-post last-post';
   }
 
   /* default jcink style */

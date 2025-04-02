@@ -556,6 +556,53 @@
       });
     </script>
 
+    <script>
+      $(document).ready(function () {
+        if ($('#topic-list').length && $('#topic-list > .maintitle.ribbon').length) {
+          const ribbon = $('#topic-list > .maintitle.ribbon').first();
+          const forumRulesBox = $('#inforum-rules');
+          const topPagination = $('span.pagination').first();
+
+          // Move the BEFORE YOU POST box to be underneath the Main Title
+          if (forumRulesBox.length) {
+            forumRulesBox.insertAfter(ribbon);
+          }
+
+          // Find the table after the IBF.MODLINK comment
+          $('*')
+            .contents()
+            .each(function () {
+              if (this.nodeType === 8 && this.nodeValue.trim() === 'IBF.MODLINK') {
+                const modlinkTable = $(this).next('table');
+                if (modlinkTable.length) {
+                  const buttonsTd = modlinkTable.find('td[align=right]');
+                  if (buttonsTd.length) {
+                    const topicButtons = $('<div id="topic-buttons"></div>');
+                    topicButtons.append(buttonsTd.contents().clone());
+
+                    // move buttons below either the forum rules or the main title
+                    if (forumRulesBox.length) {
+                      topicButtons.insertAfter(forumRulesBox);
+                    } else {
+                      topicButtons.insertAfter(ribbon);
+                    }
+
+                    // Move the pagination to be below the buttons
+                    if (topPagination.length) {
+                      topPagination.attr('id', 'top-pagination');
+                      topPagination.insertAfter(topicButtons);
+                    }
+                  }
+
+                  // Remove the original table
+                  modlinkTable.remove();
+                }
+              }
+            });
+        }
+      });
+    </script>
+
     <!-- TODO: to move to webpage -->
     <style>
       body:not(.group-4):not(.group-6) {
