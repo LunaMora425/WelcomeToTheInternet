@@ -690,7 +690,7 @@ input[name='helpbox'] {
     input[name='POLL_8'],
     input[name='POLL_9'],
     input[name='POLL_10'] {
-    width: 100%;
+    /* width: 100%; */
     max-width: 80%;
     box-sizing: border-box;
   }
@@ -767,26 +767,22 @@ input[name='helpbox'] {
   column-gap: 25px;
 }
 
-#newcookiesrow button.button-54 {
-  margin-bottom: 20px;
-}
-
 /* this can be hidden because these links are included in the HTML template for the board stats */
 #delcookiesrow {
   display: none;
 }
 
 #mark-as-read-subto {
-  /* box model */
-  max-width: 350px;
-  padding: 3px;
-  border: 1px solid var(--theme__color-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  column-gap: 25px;
+}
 
-  /* background */
-  background: var(--theme__background-contrast);
-
-  /* type */
-  font-size: var(--textsize-body__secondary);
+#newcookiesrow button.button-54,
+#mark-as-read-subto button.button-54 {
+  margin-bottom: 20px;
 }
 
 /****************************************
@@ -2976,7 +2972,6 @@ span.report-macro {
 /* Target the add reply etc buttons to 
   ** tile them with spacing on mobile
   ** on both top and bottom of post row */
-#SF table > tbody > tr > td[align='right'],
 #ST table > tbody > tr > td[align='right'] {
   /* box model */
   width: 100%;
@@ -3109,7 +3104,11 @@ span#top-pagination {
 
 .announcements,
 .topic-forum-container,
-.topic__row {
+.topic__row,
+.forum-active,
+#SF table > tbody,
+/* TODO: might need more specificity */
+div[align='right'] {
   width: 95%;
   max-width: 1080px;
   margin: auto;
@@ -3127,7 +3126,6 @@ span#top-pagination {
   border-radius: 15px;
   border: 2px dotted var(--theme__color-secondary-shadow);
   background: var(--theme__background-main);
-  padding: 5px 15px;
   margin: 0px auto 5px;
 }
 
@@ -3143,35 +3141,41 @@ span#top-pagination {
 
 .topic__row > grid {
   padding: 15px;
-  min-height: 180px;
   display: grid;
   grid-template-areas:
-    'topic-details'
+    'macro'
     'name'
+    'stats'
     'desc'
     'firstposter'
     'start-post'
     'lastposter'
     'last-post';
 
-  & stats {
+  & stats,
+  span.small {
     font-size: var(--textsize-body__secondary);
   }
 
-  & desc {
-    margin: 10px 0;
+  & stats span.views {
+    color: var(--theme__color-secondary);
   }
 
-  & topic-details {
+  & macro {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    justify-content: flex-end;
+    height: 25px;
+    align-items: flex-end;
+  }
+
+  & desc {
+    margin: 5px 0 20px;
+    font-style: italic;
   }
 
   & lastposter,
   last-post {
     text-align: right;
-    text-transform: capitalize;
     align-items: flex-end;
 
     a:link,
@@ -3199,8 +3203,12 @@ span#top-pagination {
     grid-area: name;
   }
 
-  & topic-details {
-    grid-area: topic-details;
+  & stats {
+    grid-area: stats;
+  }
+
+  & macro {
+    grid-area: macro;
   }
 
   & desc {
@@ -3228,7 +3236,10 @@ span#top-pagination {
 @media only screen and (min-width: 1025px) {
   .announcements,
   .topic-forum-container,
-  .topic__row {
+  .topic__row,
+  .forum-active,
+  #SF table > tbody,
+  div[align='right'] {
     width: 92%;
   }
 }
@@ -3239,13 +3250,14 @@ span#top-pagination {
 }
 
 .forum-active {
-  border-top: 1px solid var(--theme__color-primary);
+  /* border-top: 1px solid var(--theme__color-primary); */
+  text-align: center;
 }
 
 /* Topic Macros */
 
 .wrapmini {
-  margin: auto;
+  display: none;
 }
 
 .no-new-post-macro,
@@ -3271,6 +3283,40 @@ span#top-pagination {
   background-color: var(--theme__color-secondary);
   border: 2px solid var(--theme__color-secondary-shadow);
   box-shadow: var(--theme__color-secondary-shadow) 2px 2px 0 0;
+}
+
+/* hide the forum jump bc who uses this
+   and topic search as well because it doesn't actually work */
+form[name='jumpmenu'],
+#SF form[name='search'] {
+  display: none;
+}
+
+/* target the bottom table to tile correctly on mobile */
+#SF table > tbody {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  row-gap: 10px;
+
+  & tr {
+    display: contents;
+  }
+
+  & td {
+    width: unset;
+  }
+
+  & td[align='right'] {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-left: auto;
+  }
 }
 
 /*============================================================================================================
@@ -4115,8 +4161,8 @@ span#top-pagination {
     *-------------------------------------*/
   .topic__row > grid {
     grid-template-areas:
-      'topic-details topic-details'
-      'name name'
+      'name macro'
+      'stats .'
       'desc desc'
       'firstposter lastposter'
       'start-post last-post';
