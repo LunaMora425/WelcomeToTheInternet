@@ -18,8 +18,8 @@
   // replace the existing mark as read/sub to forum links with buttons
   $(document).ready(function () {
     if ($('#mark-as-read-subto').length) {
-      const forumID = <!-- |forum_id| -->;
-        $('#mark-as-read-subto').html(`
+      const forumID = `<!-- |forum_id| -->`;
+      $('#mark-as-read-subto').html(`
       <button class="button-54" role="button"><a href="?act=Login&CODE=04&f=${forumID}" title="Mark This Forum As Read"> <i class="fa-solid fa-check-to-slot"></i> Mark Forum Read </a></button>
   <button class="button-54" role="button"><a href="?act=Track&f=${forumID}&type=forum" title="Subscribe to This Forum"> <i class="fa-solid fa-bell"></i> Subscribe to Forum </a></button>
   `);
