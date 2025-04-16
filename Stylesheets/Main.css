@@ -116,7 +116,7 @@
 
   /* Dark Mode Images */
   --theme__image__background-main: url('https://files.jcink.net/uploads/barbermonger/Textures/white_diamond.png');
-  --theme__image__logo: url('https://files.jcink.net/uploads/barbermonger/Logos/CircusLogoDark.png');
+  --theme__image__logo: url('https://files.jcink.net/uploads/barbermonger/Logos/circuslogodark.webp');
 
   /* Dark Mode Colors */
   --theme__background-main: var(--raisin-black);
@@ -3368,6 +3368,152 @@ form[name='jumpmenu'],
   }
 }
 
+/*------------------------------------*
+  #SEARCH - Active Topics Page
+  /index.php?act=Search&CODE=getactive
+*-------------------------------------*/
+/* I got so pissed off trying to fix the Active Topics table that I decided to rip it out and create a new one! */
+
+.active-topic-row,
+form[name='dateline'] .pagelinks,
+form[name='dateline'] > div[align='right'],
+#active-topics .titlemedium {
+  width: 95%;
+  max-width: 1080px;
+  margin: auto;
+  box-sizing: border-box;
+}
+
+.active-topic-row {
+  border-radius: 15px;
+  border: 2px dotted var(--theme__color-secondary-shadow);
+  background: var(--theme__background-main);
+  margin: 0px auto 5px;
+}
+
+.active-topic-row name {
+  overflow-wrap: anywhere;
+
+  a:link,
+  a:visited,
+  a:active {
+    font-size: var(--textsize__title);
+  }
+}
+
+.active-topic-row grid {
+  padding: 15px;
+  display: grid;
+  grid-template-areas:
+    'macro'
+    'name'
+    'stats'
+    'desc'
+    'firstposter'
+    'forum-posted'
+    'lastposter'
+    'last-post';
+
+  & stats {
+    font-size: var(--textsize-body__secondary);
+  }
+
+  & stats span {
+    color: var(--theme__color-secondary);
+  }
+
+  & macro {
+    display: flex;
+    justify-content: flex-end;
+    height: 25px;
+    align-items: flex-end;
+  }
+
+  & desc {
+    margin: 5px 0 20px;
+    font-style: italic;
+  }
+
+  & lastposter,
+  last-post {
+    text-align: right;
+    align-items: flex-end;
+  }
+
+  & last-post {
+    align-self: flex-end;
+  }
+
+  /* Grid Setup */
+  & macro {
+    grid-area: macro;
+  }
+
+  & name {
+    grid-area: name;
+  }
+
+  & stats {
+    grid-area: stats;
+  }
+
+  & desc {
+    grid-area: desc;
+  }
+
+  & firstposter {
+    grid-area: firstposter;
+  }
+
+  & forum-posted {
+    grid-area: forum-posted;
+  }
+
+  & lastposter {
+    grid-area: lastposter;
+  }
+
+  & last-post {
+    grid-area: last-post;
+  }
+}
+
+/* Show Results */
+#search-topics .titlemedium,
+#active-topics .titlemedium {
+  /* background */
+  background: var(--theme__background-main);
+
+  /* type */
+  text-align: center;
+}
+
+/* TODO: move to media queries */
+@media only screen and (min-width: 1025px) {
+  .active-topic-row,
+  form[name='dateline'] .pagelinks,
+  form[name='dateline'] > div[align='right'],
+  #active-topics .titlemedium {
+    width: 90%;
+  }
+}
+
+@media only screen and (min-width: 769px) {
+  .active-topic-row > grid {
+    grid-template-areas:
+      'name macro'
+      'stats . '
+      'desc desc'
+      'firstposter lastposter'
+      'forum-posted last-post';
+  }
+
+  /* TODO: might need to put this back in the media query */
+  #Search.code-getactive form[name='dateline'] > div[align='right'] {
+    margin-right: 60px !important;
+  }
+}
+
 /*============================================================================================================
    *  █▄█ █▀▀ █▀▄ ▀█▀ █▀█  ▄▀▄ █ █ █▀▀ █▀▄ ▀█▀ █▀▀ █▀▀
    *  █ █ █▀▀ █ █  █  █▀█  ██ █ █ █▀▀ █▀▄  █  █▀▀ ▀▀█
@@ -3746,110 +3892,11 @@ form[name='jumpmenu'],
   }
 
   /*------------------------------------*
-      #SEARCH - Active Topics Page
-      /index.php?act=Search&CODE=getactive
-    *-------------------------------------*/
+  #SEARCH - Active Topics Page
+  /index.php?act=Search&CODE=getactive
+*-------------------------------------*/
   #Search.code-getactive form[name='dateline'] > div[align='right'] {
     width: unset !important;
-  }
-
-  #active-topics table.tablebasic {
-    width: 100%;
-  }
-
-  /* there is a nested table so we have to scope it to the top-level tablebasic class */
-  #active-topics table.tablebasic > tbody > tr:first-child {
-    display: none;
-  }
-
-  #active-topics table.tablebasic > tbody > tr {
-    /* layout */
-    display: grid;
-    align-items: center;
-    grid-template-columns: 0.5fr min-content 1fr 1fr 1fr;
-  }
-
-  /* if there are no results to display */
-  #active-topics table.tablebasic > tbody > tr > td.row1 {
-    grid-column: span 5;
-  }
-
-  /* put a border between all topics except the last one, that doesn't need a bottom border */
-  #active-topics table.tablebasic > tbody > tr:not(:last-child) {
-    border-bottom: 2px solid var(--theme__background-main);
-  }
-
-  /* Topic Title & topic description */
-  #active-topics table.tablebasic > tbody > tr > td:nth-child(3) {
-    grid-column: span 3;
-  }
-
-  /* Forum Name & Link */
-  #active-topics table.tablebasic > tbody > tr > td:nth-child(4) {
-    /* box model */
-    width: 100%;
-
-    /* layout */
-    grid-row: 2;
-    grid-column: 2 / 4;
-    display: flex;
-    flex-direction: column;
-  }
-
-  #active-topics table.tablebasic > tbody > tr > td:nth-child(4)::before {
-    content: 'In Forum:';
-  }
-
-  /* Started By Posted & Link */
-  #active-topics table.tablebasic > tbody > tr > td:nth-child(5) {
-    /* layout */
-    grid-row: 2;
-    grid-column: 4 / 6;
-    display: flex;
-    flex-direction: column;
-
-    /* other */
-    overflow-wrap: anywhere;
-  }
-
-  #active-topics table.tablebasic > tbody > tr > td:nth-child(5)::before {
-    content: 'Started By:';
-  }
-
-  /* Replies */
-  #active-topics table.tablebasic > tbody > tr > td:nth-child(6) {
-    grid-row: 3;
-    grid-column: 1 / 1;
-  }
-
-  #active-topics table.tablebasic > tbody > tr > td:nth-child(6)::after {
-    content: ' replies';
-  }
-
-  /* Views */
-  #active-topics table.tablebasic > tbody > tr > td:nth-child(7) {
-    grid-row: 2;
-    grid-column: 1 / 1;
-  }
-
-  #active-topics table.tablebasic > tbody > tr > td:nth-child(7)::after {
-    content: ' views';
-  }
-
-  /* Last Post by date & links */
-  #active-topics table.tablebasic > tbody > tr > td:nth-child(8) {
-    grid-row: 3;
-    grid-column: span 4;
-  }
-
-  /* Show Results */
-  #search-topics .titlemedium,
-  #active-topics .titlemedium {
-    /* background */
-    background: var(--theme__background-main);
-
-    /* type */
-    text-align: center;
   }
 
   /*------------------------------------*
@@ -4202,12 +4249,12 @@ form[name='jumpmenu'],
   }
 
   /*------------------------------------*
-    #TEMPLATES - REDIRECT_ROWS - Desktop Styles
-    *-------------------------------------*/
+  #TEMPLATES - REDIRECT_ROWS - Desktop Styles
+  *-------------------------------------*/
 
   /*------------------------------------*
-    #TEMPLATES - TOPIC_ROW - Desktop Styles
-    *-------------------------------------*/
+  #TEMPLATES - TOPIC_ROW - Desktop Styles
+  *-------------------------------------*/
   .topic__row > grid {
     grid-template-areas:
       'name macro'
