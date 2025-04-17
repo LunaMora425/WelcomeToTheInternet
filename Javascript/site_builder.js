@@ -71,12 +71,6 @@ const buildModTeamList = (mod) => {
 
   modCard.innerHTML = modInfo;
 
-  const beginComment = document.createComment(`begin mod card ${userID}`);
-  const endComment = document.createComment(`end mod card ${userID}`);
-
-  modCard.prepend(beginComment);
-  modCard.append(endComment);
-
   return modCard;
 };
 
@@ -218,12 +212,7 @@ const buildActiveTopicRow = (topic) => {
   const threadTags = document.createElement('div');
   threadTags.id = `t-${topicID} thread-tags`;
 
-  const beginComment = document.createComment(` Begin Topic Entry ${topicID} `);
-  const endComment = document.createComment(` End Topic Entry ${topicID} `);
-
-  newRow.prepend(beginComment);
   newRow.prepend(threadTags);
-  newRow.append(endComment);
 
   return newRow;
 };

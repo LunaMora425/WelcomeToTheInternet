@@ -681,8 +681,15 @@
           activeTopicsContainer.className = 'active-topics-container';
 
           activeTopics.forEach((topic) => {
+            const { topicID } = topic;
+
             const activeTopicRow = buildActiveTopicRow(topic);
+            const beginComment = document.createComment(` Begin Topic Entry ${topicID} `);
+            const endComment = document.createComment(` End Topic Entry ${topicID} `);
+
+            activeTopicsContainer.appendChild(beginComment);
             activeTopicsContainer.appendChild(activeTopicRow);
+            activeTopicsContainer.appendChild(endComment);
           });
 
           table.parentNode.replaceChild(activeTopicsContainer, table);
@@ -708,7 +715,13 @@
               // skip the first userID
               if (userID !== '1') {
                 const modCard = buildModTeamList(mod);
+
+                const beginComment = document.createComment(` begin mod card for ${userID} `);
+                const endComment = document.createComment(` end mod card for ${userID} `);
+
+                modTeamContainer.appendChild(beginComment);
                 modTeamContainer.appendChild(modCard);
+                modTeamContainer.appendChild(endComment);
               }
             }
           });
