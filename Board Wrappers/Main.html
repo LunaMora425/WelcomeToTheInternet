@@ -815,6 +815,81 @@
       });
     </script>
 
+    <script>
+      const parseModTeamList = () => {
+        const table = document.querySelector('#moderating-team table');
+
+        // get all rows except the two two header rows
+        const rows = Array.from(table.querySelectorAll(':scope > tbody > tr')).slice(2);
+
+        const modTeam = [];
+
+        rows.forEach((row) => {
+          const cells = Array.from(row.querySelectorAll('td'));
+
+          // skip the sub heading cells
+          if (cells.length > 1) {
+            // grab PFP
+            const avatarIMGLink = cells[1].querySelector('img').src;
+
+            // grab username and ID
+            const userLink = cells[2].querySelector('a');
+            const userID = userLink.getAttribute('href').match(/showuser=(\d+)/)[1];
+            const userName = userLink.innerText.trim();
+
+            // grab mod area
+            const modsForumName = cells[4].innerText.trim();
+
+            // create object and add to array
+            modTeam.push({
+              avatarIMGLink,
+              userID,
+              userName,
+              modsForumName,
+            });
+          }
+        });
+
+        return modTeam;
+      };
+
+      $(document).ready(function () {
+        if ($('body').attr('id') === 'Stats' && $('.code-leaders').length) {
+          const modTeam = parseModTeamList();
+
+          const table = document.querySelector('#moderating-team table');
+
+          const modTeamContainer = document.createElement('div');
+          modTeamContainer.classList.add('mod-team-container');
+
+          modTeam.forEach((mod) => {
+            const { avatarIMGLink, userID, userName, modsForumName } = mod;
+
+            if (modsForumName === 'All Forums') {
+              // skip the first userID
+              if (userID !== '1') {
+                const modCard = document.createElement('div');
+                modCard.classList.add('mod-card');
+
+                const modInfo = `<a href="?showuser=${userID}" title="click to view profile"> <h2 class="title">Mod</h2> <div class="user-name">${userName.toLowerCase()}</div> <img src="${avatarIMGLink}" alt="Avatar" class="avatar" /> <div class="user-info">Click to View Profile</div> </a>`;
+
+                modCard.innerHTML = modInfo;
+
+                const beginComment = document.createComment(`begin mod card ${userID}`);
+                const endComment = document.createComment(`end mod card ${userID}`);
+
+                modTeamContainer.appendChild(beginComment);
+                modTeamContainer.appendChild(modCard);
+                modTeamContainer.appendChild(endComment);
+              }
+            }
+          });
+
+          table.parentNode.replaceChild(modTeamContainer, table);
+        }
+      });
+    </script>
+
     <!-- TODO: to move to webpage -->
     <style>
       body:not(.group-4):not(.group-6) {

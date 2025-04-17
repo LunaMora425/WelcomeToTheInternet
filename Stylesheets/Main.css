@@ -3514,6 +3514,76 @@ form[name='dateline'] > div[align='right'],
   }
 }
 
+/*------------------------------------*
+  Mod Team Link
+  /index.php?act=Stats&CODE=leaders
+*-------------------------------------*/
+
+/* replaces the existing Mod Team link with a custom build */
+
+.mod-team-container {
+  width: 95%;
+  max-width: 1080px;
+  margin: auto;
+  box-sizing: border-box;
+
+  /* layout */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+}
+
+.mod-card {
+  border-radius: 15px;
+  border: 2px dotted var(--theme__color-secondary-shadow);
+  background: var(--theme__background-main);
+  width: 100%;
+  max-width: 225px;
+  text-align: center;
+  padding: 15px;
+
+  & a:link,
+  a:visited,
+  a:active {
+    color: var(--theme__text-main);
+  }
+}
+
+h2.title {
+  font-family: var(--font-family__subtitle);
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.user-name {
+  margin-bottom: 0.83em;
+  text-transform: capitalize;
+}
+
+img.avatar {
+  width: 100%;
+  height: 175px;
+  object-fit: cover;
+  max-width: 175px;
+  border-radius: 15px;
+}
+
+#moderating-team .user-info {
+  color: var(--theme__color-secondary);
+  font-weight: bold;
+  margin-top: 0.83em;
+  text-transform: uppercase;
+}
+
+/* TODO: move to media queries */
+@media only screen and (min-width: 1025px) {
+  .mod-team-container {
+    width: 90%;
+  }
+}
+
 /*============================================================================================================
    *  █▄█ █▀▀ █▀▄ ▀█▀ █▀█  ▄▀▄ █ █ █▀▀ █▀▄ ▀█▀ █▀▀ █▀▀
    *  █ █ █▀▀ █ █  █  █▀█  ██ █ █ █▀▀ █▀▄  █  █▀▀ ▀▀█
@@ -3532,21 +3602,6 @@ form[name='dateline'] > div[align='right'],
     #MEDIA750 - MOBILE - END at 750px
   *-------------------------------------*/
 @media only screen and (max-width: 750px) {
-  /*------------------------------------*
-      Mod Team Link
-      /index.php?act=Stats&CODE=leaders
-    *-------------------------------------*/
-
-  /* have to scope it to the top level table because there are nested tables; 
-     * removes the table headings, the 'moderates in' column, the location column, and the
-     * post count column */
-  #moderating-team table[cellspacing='1'] > tbody > tr:nth-child(1),
-  #moderating-team table[cellspacing='1'] td:nth-child(3),
-  #moderating-team table[cellspacing='1'] td:nth-child(4),
-  #moderating-team table[cellspacing='1'] td:nth-child(5) {
-    display: none;
-  }
-
   /*------------------------------------*
       #POST - Mobile Styles
       aka: New Topic, Add Reply, etc
