@@ -216,3 +216,82 @@ const buildActiveTopicRow = (topic) => {
 
   return newRow;
 };
+
+/**
+ * Parses the main title and related information from a forum topic page.
+ *
+ * @returns {Object} An object containing the following properties:
+ *   @property {boolean} hasUnread - True if the 'go to first unread post' link exists
+ *   @property {string} forumID - The ID of the forum containing this topic
+ *   @property {string} topicID - The ID of the current topic
+ *   @property {string} threadTitle - The title of the thread
+ *   @property {string} threadDesc - The description of the thread
+ *   @property {boolean} canAttachNewPoll - True if a new poll can be attached to this topic
+ */
+const parseTopicMainTitle = () => {
+  const topicHeader = {};
+
+  // Check if unread post link exists
+  const hasUnread = document.querySelector('.goto-firstunread') !== null;
+
+  // Get forum ID and topic ID from the Track This Topic link
+  const trackLink = document.querySelector('a[href*="act=Track"]').getAttribute('href');
+  const forumID = trackLink.match(/[?&]f=(\d+)/)[1];
+  const topicID = trackLink.match(/[?&]t=(\d+)/)[1];
+
+  // Extract thread title and description
+  const threadTitle = document.querySelector('.topic-title').textContent.trim();
+  const threadDesc = document.querySelector('.topic-desc').textContent.trim();
+
+  // Check if poll attach exists
+  const canAttachNewPoll = document.querySelector('a[href*="act=Post&CODE=14"]') !== null;
+
+  topicHeader.hasUnread = hasUnread;
+  topicHeader.forumID = forumID;
+  topicHeader.topicID = topicID;
+  topicHeader.threadTitle = threadTitle;
+  topicHeader.threadDesc = threadDesc;
+  topicHeader.canAttachNewPoll = canAttachNewPoll;
+
+  return topicHeader;
+};
+
+/**
+ * Builds and returns a new topic header element for a forum thread.
+ *
+ * @param {Object} topicHeader - The topic header data object
+ * @param {boolean} topicHeader.hasUnread - Indicates if the 'go to first unread post' link exists
+ * @param {string|number} topicHeader.forumID - The ID of the forum containing this topic
+ * @param {string|number} topicHeader.topicID - The ID of the topic
+ * @param {string} topicHeader.threadTitle - The title of the thread
+ * @param {string} topicHeader.threadDesc - The description of the thread
+ * @param {boolean} topicHeader.canAttachNewPoll - Indicates if a new poll can be attached to this topic
+ *
+ * @returns {HTMLElement} A div element with the constructed topic header
+ */
+const buildNewTopicHeader = (topicHeader) => {
+  const { hasUnread, forumID, topicID, threadTitle, threadDesc, canAttachNewPoll } = topicHeader;
+
+  const postRowHeader = document.createElement('div');
+  postRowHeader.className = 'post-row-header';
+
+  let newMainTitle = `<div class="maintitle ribbon">Viewing Topic</div><div class="maintitle-container"><div class="topic-title">${threadTitle}</div><div class="topic-desc">${threadDesc}</div><div id="thread-tags"></div></div><div class="topic-options">`;
+
+  if (canAttachNewPoll) {
+    newMainTitle += `<button class="button-54" role="button"><a href="?act=Post&CODE=14&f=${forumID}&t=${topicID}" title="Attach New Poll">Attach New Poll</a></button>`;
+  }
+
+  newMainTitle += `<button class="button-54" role="button"><a href="?act=Track&f=${forumID}&t=${topicID}" title="Track This Topic">Track This Topic</a></button><button class="button-54" role="button"><a href="?act=Print&client=printer&f=${forumID}&t=${topicID}" title="Print This Topic">Print This Topic</a></button></div>`;
+
+  postRowHeader.innerHTML = newMainTitle;
+
+  if (hasUnread) {
+    const goToFirstUnread = document.createElement('div');
+    goToFirstUnread.className = 'goto-firstunread';
+    const button = `<button class="button-54" role="button"><a href="?act=ST&f=${forumID}&t=${topicID}&view=getnewpost" title="Go To First Unread Post">Go to first unread post</a></button>`;
+    goToFirstUnread.innerHTML = button;
+    postRowHeader.prepend(goToFirstUnread);
+  }
+
+  return postRowHeader;
+};

@@ -617,33 +617,15 @@
     </script>
 
     <script>
+      // reformat the topic main title on the post row page
+      // because for some reason it's not included in the HTML template
+      // using functions from the site_builder.js file
       $(document).ready(function () {
         if ($('body').attr('id') === 'ST') {
-          // Check if unread post link exists
-          const hasUnread = $('.goto-firstunread').first().length > 0;
-
-          // Get forum ID and topic ID from the Track This Topic link
-          const trackLink = $('a:contains("Track This Topic")').attr('href');
-          let forumID = '';
-          let topicID = '';
-
-          if (trackLink) {
-            const fMatch = trackLink.match(/[?&]f=(\d+)/);
-            const tMatch = trackLink.match(/[?&]t=(\d+)/);
-
-            if (fMatch && fMatch[1]) forumID = fMatch[1];
-            if (tMatch && tMatch[1]) topicID = tMatch[1];
-          }
+          const topicHeader = parseTopicMainTitle();
 
           // Remove the table directly below the top anchor
           $('#innerwrapper table:first').remove();
-
-          // Extract thread title and description
-          const threadTitle = $('.topic-title').text();
-          const threadDesc = $('.topic-desc').text();
-
-          // Check if poll attach exists
-          const attachNewPoll = $('a:contains("Attach New Poll")').length > 0;
 
           // Remove postlinksbar
           $('.postlinksbar').remove();
@@ -652,19 +634,8 @@
           $('.topic-title, .topic-desc').closest('.maintitle').remove();
 
           // Insert post-row-header as first child of tableborder
-          const newMainTitle = `<div class="post-row-header"><div class="maintitle ribbon">Viewing Topic</div><div class="maintitle-container"><div class="topic-title">${threadTitle}</div><div class="topic-desc">${threadDesc}</div><div id="thread-tags"></div></div><div class="topic-options"><button class="button-54" role="button"><a href="?act=Track&f=${forumID}&t=${topicID}" title="Track This Topic">Track This Topic</a></button><button class="button-54" role="button"><a href="?act=Print&client=printer&f=${forumID}&t=${topicID}" title="Print This Topic">Print This Topic</a></button></div></div>`;
-
+          const newMainTitle = buildNewTopicHeader(topicHeader);
           $('#innerwrapper .tableborder:first').prepend(newMainTitle);
-
-          if (hasUnread) {
-            const goToFirstUnread = `<div class="goto-firstunread"><button class="button-54" role="button"><a href="?act=ST&f=${forumID}&t=${topicID}&view=getnewpost" title="Go To First Unread Post">Go to first unread post</a></button></div>`;
-            $('.post-row-header').prepend(goToFirstUnread);
-          }
-
-          if (attachNewPoll) {
-            const attachNewPollButton = `<button class="button-54" role="button"><a href="?act=Post&CODE=14&f=${forumID}&t=${topicID}" title="Attach New Poll">Attach New Poll</a></button>`;
-            $('.topic-options').prepend(attachNewPollButton);
-          }
         }
       });
     </script>
@@ -705,7 +676,7 @@
 
           const table = document.querySelector('#moderating-team table');
 
-          let modTeamContainer = document.createElement('div');
+          const modTeamContainer = document.createElement('div');
           modTeamContainer.classList.add('mod-team-container');
 
           modTeam.forEach((mod) => {
