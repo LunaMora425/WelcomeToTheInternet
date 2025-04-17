@@ -344,6 +344,10 @@
     <script src="https://files.jcink.net/uploads2/freecodes/shared/image_resizer.js"></script>
     <!-- end pre-installed scripts -->
 
+    <!-- custom site building scripts -->
+    <script src="https://files.jcink.net/uploads/barbermonger/Scripts/site_builder.js"></script>
+    <!-- end custom site building scripts -->
+
     <script>
       // Remove defunct header elements so Lighthouse stops being mad about them
       $(document).ready(function () {
@@ -666,85 +670,7 @@
     </script>
 
     <script>
-      // Create a new Active Topics page because the default one has a nested table that is impossible to work with
-      function parseActiveTopics() {
-        // Get the active topics table
-        const table = document.querySelector('#active-topics .tablebasic');
-
-        // Get all rows except the header row
-        const rows = Array.from(table.querySelectorAll(':scope > tbody > tr')).slice(1);
-
-        const activeTopics = [];
-
-        // Process each topic row
-        rows.forEach((row) => {
-          const cells = Array.from(row.querySelectorAll('td'));
-
-          // grab read macro
-          const read = cells[0].innerHTML.trim();
-
-          // grab topic name and ID
-          const topicLink = cells[4].querySelector('a');
-          const topicID = topicLink.getAttribute('href').match(/showtopic=(\d+)/)[1];
-          const topicName = topicLink.innerText.trim();
-
-          // grab description
-          const desc = cells[2].querySelector('span.desc')?.textContent || '';
-
-          // grab forum name and ID
-          const forumLink = cells[5].querySelector('a');
-          const forumID = forumLink.getAttribute('href').match(/showforum=(\d+)/)[1];
-          const forumName = forumLink.innerText.trim();
-
-          // grab starter name and ID
-          const starterLink = cells[6].querySelector('a');
-          let starterID, starterName;
-          if (starterLink) {
-            starterID = starterLink.getAttribute('href').match(/showuser=(\d+)/)[1];
-            starterName = starterLink.innerText.trim();
-          } else {
-            starterID = 'none';
-            starterName = cells[6].textContent.trim();
-          }
-
-          // Parse replies and views
-          const replies = cells[7]?.textContent.trim() || '0';
-          const views = cells[8]?.textContent.trim() || '0';
-
-          // grab last action date and user
-          const lastAction = cells[9].innerHTML.trim();
-          const lastPostDate = lastAction.match(/(.*?)<br>/)[1].trim();
-          const lastPosterLink = cells[9].querySelectorAll('a')[1];
-          let lastPosterID, lastPosterName;
-          if (lastPosterLink) {
-            lastPosterID = lastPosterLink.getAttribute('href').match(/showuser=(\d+)/)[1];
-            lastPosterName = lastPosterLink.innerText.trim();
-          } else {
-            lastPosterID = 'none';
-            lastPosterName = cells[9].querySelector('b').textContent.trim();
-          }
-
-          // Create and add the topic object to the array
-          activeTopics.push({
-            read,
-            topicID,
-            topicName,
-            desc,
-            forumID,
-            forumName,
-            starterID,
-            starterName,
-            replies,
-            views,
-            lastPostDate,
-            lastPosterID,
-            lastPosterName,
-          });
-        });
-
-        return activeTopics;
-      }
-
+      // Build a new HTML template for Active Topics, using functions from the site_builder.js file
       $(document).ready(function () {
         if ($('body').attr('id') === 'Search' && $('.code-getactive').length) {
           const activeTopics = parseActiveTopics();
@@ -755,59 +681,8 @@
           activeTopicsContainer.className = 'active-topics-container';
 
           activeTopics.forEach((topic) => {
-            const {
-              read,
-              topicID,
-              topicName,
-              desc,
-              forumID,
-              forumName,
-              starterID,
-              starterName,
-              replies,
-              views,
-              lastPostDate,
-              lastPosterID,
-              lastPosterName,
-            } = topic;
-
-            let newActiveTopicsRow = `<grid><macro>${read}</macro><name><a href="?showtopic=${topicID}" title="${topicName}">${topicName}</a></name><stats><span class="replies">${replies}</span> replies & <span class="views">${views}</span> views </stats><desc>${desc}</desc>`;
-
-            // handle if starter is a guest
-            if (starterID === 'none') {
-              newActiveTopicsRow += `<firstposter>started by: <span>${starterName}</span></firstposter>`;
-            } else {
-              newActiveTopicsRow += `<firstposter>started by: <a href="?showuser=${starterID}">${starterName}</a></firstposter>`;
-            }
-
-            // Add forum info
-            newActiveTopicsRow += `<forum-posted>in forum: <a href="?showforum=${forumID}">${forumName}</a></forum-posted>`;
-
-            // handle if last poster is a guest
-            if (lastPosterID === 'none') {
-              newActiveTopicsRow += `<lastposter><a href="?showtopic=${topicID}&view=getlastpost" title="Go to Latest Reply">latest reply</a>: <span>${lastPosterName}</span></lastposter>`;
-            } else {
-              newActiveTopicsRow += `<lastposter> <a href="?showtopic=${topicID}&view=getlastpost" title="Go to Latest Reply">latest reply</a>: <a href="?showuser=${lastPosterID}">${lastPosterName}</a> </lastposter>`;
-            }
-
-            // Finish the HTML
-            newActiveTopicsRow += `<last-post>${lastPostDate}</last-post> </grid>`;
-
-            const newRow = document.createElement('div');
-            newRow.id = `t-${topicID}`;
-            newRow.className = 'active-topic-row';
-            newRow.innerHTML = newActiveTopicsRow;
-
-            const threadTags = document.createElement('div');
-            threadTags.id = `t-${topicID} thread-tags`;
-
-            const beginComment = document.createComment(` Begin Topic Entry ${topicID} `);
-            const endComment = document.createComment(` End Topic Entry ${topicID} `);
-
-            activeTopicsContainer.appendChild(beginComment);
-            activeTopicsContainer.appendChild(threadTags);
-            activeTopicsContainer.appendChild(newRow);
-            activeTopicsContainer.appendChild(endComment);
+            const activeTopicRow = buildActiveTopicRow(topic);
+            activeTopicsContainer.appendChild(activeTopicRow);
           });
 
           table.parentNode.replaceChild(activeTopicsContainer, table);
@@ -816,71 +691,24 @@
     </script>
 
     <script>
-      const parseModTeamList = () => {
-        const table = document.querySelector('#moderating-team table');
-
-        // get all rows except the two two header rows
-        const rows = Array.from(table.querySelectorAll(':scope > tbody > tr')).slice(2);
-
-        const modTeam = [];
-
-        rows.forEach((row) => {
-          const cells = Array.from(row.querySelectorAll('td'));
-
-          // skip the sub heading cells
-          if (cells.length > 1) {
-            // grab PFP
-            const avatarIMGLink = cells[1].querySelector('img').src;
-
-            // grab username and ID
-            const userLink = cells[2].querySelector('a');
-            const userID = userLink.getAttribute('href').match(/showuser=(\d+)/)[1];
-            const userName = userLink.innerText.trim();
-
-            // grab mod area
-            const modsForumName = cells[4].innerText.trim();
-
-            // create object and add to array
-            modTeam.push({
-              avatarIMGLink,
-              userID,
-              userName,
-              modsForumName,
-            });
-          }
-        });
-
-        return modTeam;
-      };
-
+      // Build a new HTML template for Mod Team, using functions from the site_builder.js file
       $(document).ready(function () {
         if ($('body').attr('id') === 'Stats' && $('.code-leaders').length) {
           const modTeam = parseModTeamList();
 
           const table = document.querySelector('#moderating-team table');
 
-          const modTeamContainer = document.createElement('div');
+          let modTeamContainer = document.createElement('div');
           modTeamContainer.classList.add('mod-team-container');
 
           modTeam.forEach((mod) => {
-            const { avatarIMGLink, userID, userName, modsForumName } = mod;
+            const { userID, modsForumName } = mod;
 
             if (modsForumName === 'All Forums') {
               // skip the first userID
               if (userID !== '1') {
-                const modCard = document.createElement('div');
-                modCard.classList.add('mod-card');
-
-                const modInfo = `<a href="?showuser=${userID}" title="click to view profile"> <h2 class="title">Mod</h2> <div class="user-name">${userName.toLowerCase()}</div> <img src="${avatarIMGLink}" alt="Avatar" class="avatar" /> <div class="user-info">Click to View Profile</div> </a>`;
-
-                modCard.innerHTML = modInfo;
-
-                const beginComment = document.createComment(`begin mod card ${userID}`);
-                const endComment = document.createComment(`end mod card ${userID}`);
-
-                modTeamContainer.appendChild(beginComment);
+                const modCard = buildModTeamList(mod);
                 modTeamContainer.appendChild(modCard);
-                modTeamContainer.appendChild(endComment);
               }
             }
           });
