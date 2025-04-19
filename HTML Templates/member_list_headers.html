@@ -1,0 +1,38 @@
+<!-- start Member List Table -->
+<form action="index.php" method="post">
+  <input type="hidden" name="act" value="Members" />
+  <div class="pagination"><!-- |pages| --></div>
+  <br />
+  <div id="member-list" class="memberlist">
+    <div class="maintitle">Member List</div>
+
+    <!-- start member list search inputs -->
+    <div class="memberlist__search-inputs">
+      <div class="memberlist__search-inputs--forminput">
+        <select class="forminput" name="name_box">
+          <option value="begins">Name begins with</option>
+          <option value="contains" selected="selected">Name contains</option>
+        </select>
+        <!-- |search_input| -->
+      </div>
+
+      <div class="memberlist__search-inputs--dropdown">
+        Showing
+        <!-- |group_dropdown| -->
+        by
+        <!-- |sortby_dropdown| -->
+        in
+        <!-- |order_dropdown| -->
+        with
+        <!-- |max_dropdown| -->
+        results per page
+        <input type="submit" value="Go" class="forminput" />
+      </div>
+    </div>
+    <!-- end member list search inputs -->
+    <!-- start member list rows -->
+    <% MEMBERLIST_ROWS %>
+    <!-- end member list rows -->
+  </div>
+</form>
+<!-- end Member List Table-->

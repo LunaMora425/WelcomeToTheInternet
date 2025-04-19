@@ -163,20 +163,20 @@ const parseActiveTopics = () => {
  *
  * @param {Object} topic - The topic data object.
  * @param {string} topic.read - The read status HTML for the topic.
- * @param {string|number} topic.topicID - The unique identifier for the topic.
+ * @param {string} topic.topicID - The unique identifier for the topic.
  * @param {string} topic.topicName - The title of the topic.
  * @param {string} topic.desc - The description or excerpt of the topic.
- * @param {string|number} topic.forumID - The unique identifier for the forum containing this topic.
+ * @param {string} topic.forumID - The unique identifier for the forum containing this topic.
  * @param {string} topic.forumName - The name of the forum containing this topic.
  * @param {string} topic.starterID - The unique identifier of the user who started the topic, or 'none' if a guest.
  * @param {string} topic.starterName - The username of the person who started the topic.
- * @param {number|string} topic.replies - The number of replies to the topic.
- * @param {number|string} topic.views - The number of views the topic has received.
+ * @param {string} topic.replies - The number of replies to the topic.
+ * @param {string} topic.views - The number of views the topic has received.
  * @param {string} topic.lastPostDate - The formatted date of the last post.
  * @param {string} topic.lastPosterID - The unique identifier of the user who made the last post, or 'none' if a guest.
  * @param {string} topic.lastPosterName - The username of the person who made the last post.
  *
- * @returns {HTMLDivElement} A div element containing the formatted topic row with thread tags and HTML comment markers.
+ * @returns {HTMLDivElement} A div element containing the formatted topic row with thread tags.
  */
 const buildActiveTopicRow = (topic) => {
   const { read, topicID, topicName, desc, forumID, forumName, starterID, starterName, replies, views, lastPostDate, lastPosterID, lastPosterName } =
@@ -261,8 +261,8 @@ const parseTopicMainTitle = () => {
  *
  * @param {Object} topicHeader - The topic header data object
  * @param {boolean} topicHeader.hasUnread - Indicates if the 'go to first unread post' link exists
- * @param {string|number} topicHeader.forumID - The ID of the forum containing this topic
- * @param {string|number} topicHeader.topicID - The ID of the topic
+ * @param {string} topicHeader.forumID - The ID of the forum containing this topic
+ * @param {string} topicHeader.topicID - The ID of the topic
  * @param {string} topicHeader.threadTitle - The title of the thread
  * @param {string} topicHeader.threadDesc - The description of the thread
  * @param {boolean} topicHeader.canAttachNewPoll - Indicates if a new poll can be attached to this topic

@@ -35,26 +35,25 @@
         <a href="?act=Search&CODE=getactive" title="View Active Topics"> <i class="fa-solid fa-bullhorn"></i> Active Topics </a>
       </button>
       <button class="button-74" role="button">
-        <a href="?act=Members" title="View Member List"> <i class="fa-solid fa-address-book"></i> Member List </a>
+        <a href="?act=Members&max_results=1000" title="View Member List"> <i class="fa-solid fa-address-book"></i> Member List </a>
       </button>
       <button class="button-74" role="button">
         <a href="?act=Search" title="Link to Jcink Search"> <i class="fa-solid fa-magnifying-glass"></i> Search </a>
       </button>
     </div>
 
-    <div class="birthdays">
-      <script>
+    <div class="birthdays"></div>
+    <script>
+      $(document).ready(function () {
         if (`<!-- |birthdays_list| -->` !== '') {
-          document.write(`
-                    <div class="birthdays-wrapper">
-                    <h2 class="stats-title"><i class="fa-solid fa-cake-candles"></i> Happy Birthday!</h2>
-                        <!-- |birthdays| --></b> members celebrate their birthday today: <br /> 
-                        <!-- |birthdays_list| -->
-                    </div>
-                `);
+          const birthdayWrapper = document.createElement('div');
+          birthdayWrapper.className = 'birthdays-wrapper';
+          birthdayWrapper.innerHTML = `<h2 class="stats-title"><i class="fa-solid fa-cake-candles"></i> Happy Birthday!</h2><!-- |birthdays| --></b> members celebrate their birthday today: <br /> <!-- |birthdays_list| -->`;
+
+          $('.birthdays').append(birthdayWrapper);
         }
-      </script>
-    </div>
+      });
+    </script>
 
     <div class="stats-area">
       <h2 class="stats-title">Stats For Nerds</h2>
