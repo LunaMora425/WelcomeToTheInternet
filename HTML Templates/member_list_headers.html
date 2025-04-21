@@ -1,38 +1,26 @@
-<!-- start Member List Table -->
-<form action="index.php" method="post">
-  <input type="hidden" name="act" value="Members" />
-  <div class="pagination"><!-- |pages| --></div>
-  <br />
-  <div id="member-list" class="memberlist">
-    <div class="maintitle">Member List</div>
+<div id="memberlist-pagination" class="pagination" style="display: none"><!-- |pages| --></div>
+<div id="memberlist-rows"><% MEMBERLIST_ROWS %></div>
 
-    <!-- start member list search inputs -->
-    <div class="memberlist__search-inputs">
-      <div class="memberlist__search-inputs--forminput">
-        <select class="forminput" name="name_box">
-          <option value="begins">Name begins with</option>
-          <option value="contains" selected="selected">Name contains</option>
-        </select>
-        <!-- |search_input| -->
-      </div>
+<script>
+  $('#memberlist-pagination').remove();
+  $('#memberlist-rows').remove();
+</script>
 
-      <div class="memberlist__search-inputs--dropdown">
-        Showing
-        <!-- |group_dropdown| -->
-        by
-        <!-- |sortby_dropdown| -->
-        in
-        <!-- |order_dropdown| -->
-        with
-        <!-- |max_dropdown| -->
-        results per page
-        <input type="submit" value="Go" class="forminput" />
-      </div>
-    </div>
-    <!-- end member list search inputs -->
-    <!-- start member list rows -->
-    <% MEMBERLIST_ROWS %>
-    <!-- end member list rows -->
-  </div>
-</form>
-<!-- end Member List Table-->
+<style>
+  #redirect-memberlist {
+    width: 95%;
+    max-width: 1080px;
+    margin: auto;
+    box-sizing: border-box;
+    border-radius: 10px;
+    border: 5px dotted var(--theme__color-secondary);
+    background: var(--theme__background-main);
+    padding: 15px;
+    text-align: center;
+  }
+</style>
+
+<div id="redirect-memberlist">
+  <p>This page has been deprecated. :)</p>
+  <p>To view our Member List, <a href="?act=Pages&pid=8">Click Here</a>!</p>
+</div>
