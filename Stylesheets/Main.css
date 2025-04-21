@@ -2587,9 +2587,21 @@ span.subforums a:active {
   display: none;
 }
 
+#redirect-memberlist {
+  width: 95%;
+  max-width: 1080px;
+  margin: auto;
+  box-sizing: border-box;
+  border-radius: 10px;
+  border: 5px dotted var(--theme__color-secondary);
+  background: var(--theme__background-main);
+  padding: 15px;
+  text-align: center;
+}
+
 /*------------------------------------*
     #TEMPLATES - MEMBER_LIST_ROW
-  *-------------------------------------*/
+*-------------------------------------*/
 
 .memberlist__row {
   /* box model */
