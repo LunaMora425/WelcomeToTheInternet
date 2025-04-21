@@ -2583,25 +2583,8 @@ span.subforums a:active {
     #TEMPLATES - MEMBER_LIST_HEADERS
   *-------------------------------------*/
 
-.memberlist__search-inputs {
-  /* box model */
-  padding: 5px;
-  border-bottom: 1px solid var(--theme__color-secondary);
-
-  /* background */
-  background: var(--theme__background-main);
-
-  /* layout */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 5px;
-
-  /* type */
-  line-height: 160%;
-  font-weight: bold;
-  text-align: center;
+#Members #welcome-area {
+  display: none;
 }
 
 /*------------------------------------*
