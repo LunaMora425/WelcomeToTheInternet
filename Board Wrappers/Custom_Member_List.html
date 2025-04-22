@@ -14,6 +14,81 @@
       margin-top: 15px;
     }
   }
+
+  #memberlist-container {
+    width: 95%;
+    max-width: 1080px;
+    box-sizing: border-box;
+    margin: auto;
+  }
+
+  #users-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .user-card {
+    border-radius: 15px;
+    border: 2px dotted var(--theme__color-secondary-shadow);
+    background: var(--theme__background-main);
+    text-align: center;
+    padding: 15px;
+  }
+
+  #users-list img.avatar {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 15px;
+  }
+
+  .pagination {
+    margin: 20px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .pagination-buttons {
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .pagination button {
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: 1px solid var(--theme__color-secondary);
+    background: var(--theme__background-main);
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  .pagination button:hover:not(:disabled) {
+    background: var(--theme__background-alt);
+  }
+
+  .pagination button.active {
+    background: var(--theme__color-secondary);
+    color: white;
+  }
+
+  .pagination button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .no-results {
+    width: 100%;
+    padding: 20px;
+    text-align: center;
+    font-style: italic;
+  }
 </style>
 
 <!-- start Member List Table -->
@@ -35,6 +110,10 @@
 
   const usersList = [];
   const loadingSpinner = document.getElementById('loading-spinner');
+
+  let currentPage = 1;
+  const itemsPerPage = 20;
+  let filteredUsers = [];
 
   /**
    * Fetches users from a specified page and recursively fetches subsequent pages
@@ -116,25 +195,168 @@
   // Usage
   getAllUsers()
     .then((users) => {
-      console.log(`Total users found: ${users.length}`);
       users.forEach((user) => {
         usersList.push(user);
       });
       console.log('Users List:', usersList);
 
+      // Initialize filtered users with all users
+      filteredUsers = [...usersList];
+
+      // Update pagination and build the member list
+      updatePagination();
+      buildMemberList(getCurrentPageUsers());
+
       // Hide the loading spinner once data is loaded
       if (loadingSpinner) {
         loadingSpinner.remove();
       }
-
-      // Here you could add code to display the users
     })
     .catch((error) => {
       console.error('Failed to get users:', error);
+    });
 
-      // Hide spinner on error too
-      if (loadingSpinner) {
-        loadingSpinner.remove();
+  const buildMemberListCard = (user) => {
+    const { id, name, avatarURL, posts, pronouns, searching, contact, timezone, joinedDate, lastActivityDate, lastPostDate } = user;
+
+    const userCard = document.createElement('div');
+    userCard.className = 'user-card';
+
+    userCard.innerHTML = `<a href="?showuser=${id}" title="click to view profile"> <div class="user-name">${name}</div> <img src="${avatarURL}" alt="Avatar" class="avatar" /> <div class="user-info">Click to View Profile</div> </a>`;
+
+    return userCard;
+  };
+
+  /**
+   * Returns the users for the current page
+   * @returns {Array} - Array of users for the current page
+   */
+  const getCurrentPageUsers = () => {
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    return filteredUsers.slice(startIndex, endIndex);
+  };
+
+  /**
+   * Updates the pagination controls based on the current state
+   */
+  const updatePagination = () => {
+    const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
+
+    // Create pagination container if it doesn't exist
+    let paginationContainer = document.getElementById('pagination-controls');
+    if (!paginationContainer) {
+      paginationContainer = document.createElement('div');
+      paginationContainer.id = 'pagination-controls';
+      paginationContainer.className = 'pagination';
+      document.getElementById('memberlist-container').appendChild(paginationContainer);
+    }
+
+    // Clear existing pagination
+    paginationContainer.innerHTML = '';
+
+    // Add page info
+    const pageInfo = document.createElement('div');
+    pageInfo.className = 'page-info';
+    pageInfo.textContent = `Page ${currentPage} of ${totalPages} (${filteredUsers.length} members)`;
+    paginationContainer.appendChild(pageInfo);
+
+    // Add pagination buttons
+    const buttonsContainer = document.createElement('div');
+    buttonsContainer.className = 'pagination-buttons';
+
+    // Previous button
+    const prevButton = document.createElement('button');
+    prevButton.innerHTML = '<i class="fa-solid fa-chevron-left"></i> Previous';
+    prevButton.disabled = currentPage === 1;
+    prevButton.addEventListener('click', () => {
+      if (currentPage > 1) {
+        currentPage--;
+        updatePage();
       }
     });
+    buttonsContainer.appendChild(prevButton);
+
+    // Page number buttons (show max 5 pages)
+    const maxVisiblePages = 5;
+    let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
+    let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+
+    // Adjust if we're near the end
+    if (endPage - startPage + 1 < maxVisiblePages && startPage > 1) {
+      startPage = Math.max(1, endPage - maxVisiblePages + 1);
+    }
+
+    for (let i = startPage; i <= endPage; i++) {
+      const pageButton = document.createElement('button');
+      pageButton.textContent = i;
+      pageButton.className = i === currentPage ? 'active' : '';
+      pageButton.addEventListener('click', () => {
+        currentPage = i;
+        updatePage();
+      });
+      buttonsContainer.appendChild(pageButton);
+    }
+
+    // Next button
+    const nextButton = document.createElement('button');
+    nextButton.innerHTML = 'Next <i class="fa-solid fa-chevron-right"></i>';
+    nextButton.disabled = currentPage === totalPages;
+    nextButton.addEventListener('click', () => {
+      if (currentPage < totalPages) {
+        currentPage++;
+        updatePage();
+      }
+    });
+    buttonsContainer.appendChild(nextButton);
+
+    paginationContainer.appendChild(buttonsContainer);
+  };
+
+  /**
+   * Updates the displayed page
+   */
+  const updatePage = () => {
+    // Clear existing content
+    const existingList = document.getElementById('users-list');
+    if (existingList) {
+      existingList.remove();
+    }
+
+    // Build member list with current page data
+    buildMemberList(getCurrentPageUsers());
+
+    // Update pagination controls
+    updatePagination();
+
+    // Scroll to top of member list
+    document.getElementById('member-list').scrollIntoView({ behavior: 'smooth' });
+  };
+
+  // Modify buildMemberList to handle pagination
+  const buildMemberList = (usersToDisplay) => {
+    console.log(`Building member list for page ${currentPage}...`);
+    const usersContainer = document.createElement('div');
+    usersContainer.id = 'users-list';
+
+    if (usersToDisplay.length === 0) {
+      const noResults = document.createElement('div');
+      noResults.className = 'no-results';
+      noResults.textContent = 'No members found matching your criteria.';
+      usersContainer.appendChild(noResults);
+    } else {
+      usersToDisplay.forEach((user) => {
+        const userCard = buildMemberListCard(user);
+        const beginComment = document.createComment(` Begin User ${user.id} `);
+        const endComment = document.createComment(` End User ${user.id} `);
+
+        usersContainer.appendChild(beginComment);
+        usersContainer.appendChild(userCard);
+        usersContainer.appendChild(endComment);
+      });
+    }
+
+    document.getElementById('memberlist-container').appendChild(usersContainer);
+    console.log('Member list built successfully!');
+  };
 </script>

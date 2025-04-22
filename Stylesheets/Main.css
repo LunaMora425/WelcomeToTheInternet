@@ -3544,6 +3544,10 @@ form[name='dateline'] > div[align='right'],
   a:active {
     color: var(--theme__text-main);
   }
+
+  & a:hover {
+    color: var(--theme__color-primary);
+  }
 }
 
 h2.title {
@@ -3557,7 +3561,7 @@ h2.title {
   text-transform: capitalize;
 }
 
-img.avatar {
+#moderating-team img.avatar {
   width: 100%;
   height: 175px;
   object-fit: cover;
@@ -3570,6 +3574,10 @@ img.avatar {
   font-weight: bold;
   margin-top: 0.83em;
   text-transform: uppercase;
+}
+
+#moderating-team .user-info:hover {
+  color: var(--theme__color-primary);
 }
 
 /* TODO: move to media queries */
