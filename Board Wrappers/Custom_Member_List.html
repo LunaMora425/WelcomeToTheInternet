@@ -1,5 +1,140 @@
+<style>
+  #loading-spinner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    row-gap: 20px;
+    font-size: var(--textsize__title);
+    height: 100px;
+
+    & span {
+      font-family: var(--font-family__accent);
+      margin-top: 15px;
+    }
+  }
+</style>
+
 <!-- start Member List Table -->
 <div id="member-list" class="memberlist">
   <div class="maintitle ribbon">Member List</div>
+  <div id="memberlist-container">
+    <!-- Loading Spinner -->
+    <div id="loading-spinner">
+      <i class="fa-solid fa-spinner fa-spin fa-2xl"></i>
+      <span>Loading Member List...</span>
+    </div>
+  </div>
 </div>
 <!-- end Member List Table-->
+
+<script>
+  const baseUrl = 'https://barbermonger.me/index.php?act=Members&max_results=1000';
+  const maxResultsPerPage = 1000; // Based on your URL parameter
+
+  const usersList = [];
+  const loadingSpinner = document.getElementById('loading-spinner');
+
+  /**
+   * Fetches users from a specified page and recursively fetches subsequent pages
+   * @param {string} url - Base URL for the member list
+   * @param {number} startIndex - Starting index for pagination
+   * @param {Array} accumulatedUsers - Users collected so far
+   * @returns {Promise<Array>} - Promise resolving to array of all users
+   */
+  const fetchUserPage = (url, startIndex = 0, accumulatedUsers = []) => {
+    // Construct URL with the correct starting index
+    const pageUrl = `${url}${url.includes('?') ? '&' : '?'}st=${startIndex}`;
+    console.log(`Fetching users starting at index ${startIndex}: ${pageUrl}`);
+
+    return fetch(pageUrl)
+      .then((response) => response.text())
+      .then((html) => {
+        // Create a temporary element to parse the HTML
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = html;
+
+        // Find all user data elements
+        const userElements = tempDiv.querySelectorAll('.user-data');
+
+        // Process users from current page
+        const currentPageUsers = Array.from(userElements).map((el) => {
+          // Get the avatarURL or use the default macro if empty
+          const avatarURL = el.dataset.avatarurl && el.dataset.avatarurl.trim() !== '' ? el.dataset.avatarurl : `<{AVATAR_URL}>`;
+
+          return {
+            id: el.dataset.id,
+            name: el.dataset.name,
+            group: el.dataset.group,
+            avatarURL: avatarURL,
+            posts: el.dataset.posts,
+            pronouns: el.dataset.pronouns,
+            searching: el.dataset.searching,
+            contact: el.dataset.contact,
+            timezone: el.dataset.timezone,
+            joinedDate: el.dataset.joined,
+            lastActivityDate: el.dataset.lastactivity,
+            lastPostDate: el.dataset.lastpost,
+          };
+        });
+
+        // Add current page users to our total collection
+        const allUsers = [...accumulatedUsers, ...currentPageUsers];
+
+        // Determine if there's more data to fetch
+        if (currentPageUsers.length === maxResultsPerPage) {
+          // Fetch next page starting with the next index
+          const nextStartIndex = startIndex + maxResultsPerPage;
+          return fetchUserPage(url, nextStartIndex, allUsers);
+        } else {
+          // No more data (we got less than maxResultsPerPage), return all collected users
+          console.log(`Completed fetching all pages. Total users found: ${allUsers.length}`);
+          return allUsers;
+        }
+      })
+      .catch((error) => {
+        console.error(`Error fetching member list starting at index ${startIndex}:`, error);
+        // Even if one page fails, we'll still return what we've collected so far
+        return accumulatedUsers;
+      });
+  };
+
+  /**
+   * Gets all users across all pages of the member list
+   * @param {string} url - Base URL for the member list
+   * @returns {Promise<Array>} - Promise resolving to all users
+   */
+  const getAllUsers = (url = baseUrl) => {
+    return new Promise((resolve, reject) => {
+      fetchUserPage(url)
+        .then((allUsers) => resolve(allUsers))
+        .catch((error) => reject(error));
+    });
+  };
+
+  // Usage
+  getAllUsers()
+    .then((users) => {
+      console.log(`Total users found: ${users.length}`);
+      users.forEach((user) => {
+        usersList.push(user);
+      });
+      console.log('Users List:', usersList);
+
+      // Hide the loading spinner once data is loaded
+      if (loadingSpinner) {
+        loadingSpinner.remove();
+      }
+
+      // Here you could add code to display the users
+    })
+    .catch((error) => {
+      console.error('Failed to get users:', error);
+
+      // Hide spinner on error too
+      if (loadingSpinner) {
+        loadingSpinner.remove();
+      }
+    });
+</script>
